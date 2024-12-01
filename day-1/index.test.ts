@@ -3,6 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 
 import {
     calculateDistance,
+    calculateSimilarityScore,
     createDictionary,
     readPuzzleInput,
 } from "./index.ts";
@@ -25,7 +26,7 @@ describe("Day 1", () => {
         });
     });
 
-    describe("solve()", () => {
+    describe("calculateDistance()", () => {
         it("returns 11 for the example input", async () => {
             const path = `${Deno.cwd()}/day-1/example-input.txt`;
             const input = await readPuzzleInput(path);
@@ -84,6 +85,16 @@ describe("Day 1", () => {
 
             expect(dictionary1).toEqual({ 1: 0, 2: 0, 3: 0, 4: 0 });
             expect(dictionary2).toEqual({ 3: 0, 4: 0, 5: 0, 9: 0 });
+        });
+    });
+
+    describe("calculateSimilarityScore()", () => {
+        it("returns 31 for the example input", async () => {
+            const path = `${Deno.cwd()}/day-1/example-input.txt`;
+            const input = await readPuzzleInput(path);
+            const solution = calculateSimilarityScore(input);
+
+            expect(solution).toBe(31);
         });
     });
 });
