@@ -1,3 +1,10 @@
+export async function solveDay1Part1(): Promise<number> {
+    const path = `${Deno.cwd()}/day-1/input.txt`;
+    const solution = await solve(await readPuzzleInput(path));
+
+    return solution;
+}
+
 export function solve(input: [number[], number[]]): number {
     const locationIds1 = [...input[0]].sort();
     const locationIds2 = [...input[1]].sort();
