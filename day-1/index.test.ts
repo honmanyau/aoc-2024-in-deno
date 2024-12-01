@@ -1,7 +1,7 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { readPuzzleInput, solve } from "./index.ts";
+import { createDictionary, readPuzzleInput, solve } from "./index.ts";
 
 describe("Day 1", () => {
     describe("readPuzzleInput()", () => {
@@ -68,6 +68,18 @@ describe("Day 1", () => {
             const solution = solve(input);
 
             expect(solution).toBe(3);
+        });
+    });
+
+    describe("createDictionary()", () => {
+        it("returns a dictionary with keys for all integers in the input array and their values set to 0", async () => {
+            const path = `${Deno.cwd()}/day-1/example-input.txt`;
+            const input = await readPuzzleInput(path);
+            const dictionary1 = createDictionary(input[0]);
+            const dictionary2 = createDictionary(input[1]);
+
+            expect(dictionary1).toEqual({ 1: 0, 2: 0, 3: 0, 4: 0 });
+            expect(dictionary2).toEqual({ 3: 0, 4: 0, 5: 0, 9: 0 });
         });
     });
 });
