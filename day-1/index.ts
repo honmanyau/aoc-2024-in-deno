@@ -5,6 +5,16 @@ export async function solveDay1Part1(): Promise<number> {
     return solution;
 }
 
+export function createDictionary(input: number[]): { [key: number]: number } {
+    const dictionary: { [key: number]: number } = {};
+
+    for (const entry of input) {
+        dictionary[entry] = 0;
+    }
+
+    return dictionary;
+}
+
 export function solve(input: [number[], number[]]): number {
     const locationIds1 = [...input[0]].sort();
     const locationIds2 = [...input[1]].sort();
