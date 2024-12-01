@@ -1,6 +1,6 @@
 export async function solveDay1Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-1/input.txt`;
-    const solution = await solve(await readPuzzleInput(path));
+    const solution = await calculateDistance(await readPuzzleInput(path));
 
     return solution;
 }
@@ -15,7 +15,20 @@ export function createDictionary(input: number[]): { [key: number]: number } {
     return dictionary;
 }
 
-export function solve(input: [number[], number[]]): number {
+export function calculateDistance(input: [number[], number[]]): number {
+    const locationIds1 = [...input[0]].sort();
+    const locationIds2 = [...input[1]].sort();
+
+    let sum = 0;
+
+    for (let i = 0; i < locationIds1.length; i++) {
+        sum += Math.abs(locationIds1[i] - locationIds2[i]);
+    }
+
+    return sum;
+}
+
+export function calculateSimilarityScore(input: [number[], number[]]): number {
     const locationIds1 = [...input[0]].sort();
     const locationIds2 = [...input[1]].sort();
 

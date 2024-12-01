@@ -1,7 +1,11 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { createDictionary, readPuzzleInput, solve } from "./index.ts";
+import {
+    calculateDistance,
+    createDictionary,
+    readPuzzleInput,
+} from "./index.ts";
 
 describe("Day 1", () => {
     describe("readPuzzleInput()", () => {
@@ -25,7 +29,7 @@ describe("Day 1", () => {
         it("returns 11 for the example input", async () => {
             const path = `${Deno.cwd()}/day-1/example-input.txt`;
             const input = await readPuzzleInput(path);
-            const solution = solve(input);
+            const solution = calculateDistance(input);
 
             expect(solution).toBe(11);
         });
@@ -35,7 +39,7 @@ describe("Day 1", () => {
                 [0, 1, 2],
                 [0, 1, 2],
             ];
-            const solution = solve(input);
+            const solution = calculateDistance(input);
 
             expect(solution).toBe(0);
         });
@@ -45,7 +49,7 @@ describe("Day 1", () => {
                 [0, 1, 2],
                 [2, 1, 0],
             ];
-            const solution = solve(input);
+            const solution = calculateDistance(input);
 
             expect(solution).toBe(0);
         });
@@ -55,7 +59,7 @@ describe("Day 1", () => {
                 [0, 1, 2],
                 [1, 2, 3],
             ];
-            const solution = solve(input);
+            const solution = calculateDistance(input);
 
             expect(solution).toBe(3);
         });
@@ -65,7 +69,7 @@ describe("Day 1", () => {
                 [2, 0, 1],
                 [3, 1, 2],
             ];
-            const solution = solve(input);
+            const solution = calculateDistance(input);
 
             expect(solution).toBe(3);
         });
