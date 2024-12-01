@@ -17,5 +17,5 @@ export async function readPuzzleInput(
         locationIds2.push(Number(locationIds[1]));
     }
 
-    return [locationIds1, locationIds2];
+    return [locationIds1.sort(), locationIds2.sort()];
 }
