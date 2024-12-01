@@ -1,15 +1,26 @@
 export async function solveDay1Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-1/input.txt`;
-    const solution = await calculateDistance(await readPuzzleInput(path));
+    const input = await readPuzzleInput(path);
 
-    return solution;
+    return calculateDistance(input);
+}
+
+export async function solveDay1Part2(): Promise<number> {
+    const path = `${Deno.cwd()}/day-1/input.txt`;
+    const input = await readPuzzleInput(path);
+
+    return calculateSimilarityScore(input);
 }
 
 export function createDictionary(input: number[]): { [key: number]: number } {
     const dictionary: { [key: number]: number } = {};
 
     for (const entry of input) {
-        dictionary[entry] = 0;
+        if (dictionary[entry] === undefined) {
+            dictionary[entry] = 0;
+        }
+
+        dictionary[entry] += 1;
     }
 
     return dictionary;
@@ -30,11 +41,6 @@ export function calculateDistance(input: [number[], number[]]): number {
 
 export function calculateSimilarityScore(input: [number[], number[]]): number {
     const dictionary = createDictionary(input[1]);
-    for (const entry of input[0]) {
-        if (dictionary[entry] === undefined) continue;
-
-        dictionary[entry] += 1;
-    }
 
     let score = 0;
 

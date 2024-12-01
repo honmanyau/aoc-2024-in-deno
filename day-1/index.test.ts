@@ -83,8 +83,8 @@ describe("Day 1", () => {
             const dictionary1 = createDictionary(input[0]);
             const dictionary2 = createDictionary(input[1]);
 
-            expect(dictionary1).toEqual({ 1: 0, 2: 0, 3: 0, 4: 0 });
-            expect(dictionary2).toEqual({ 3: 0, 4: 0, 5: 0, 9: 0 });
+            expect(dictionary1).toEqual({ 1: 1, 2: 1, 3: 3, 4: 1 });
+            expect(dictionary2).toEqual({ 3: 3, 4: 1, 5: 1, 9: 1 });
         });
     });
 
