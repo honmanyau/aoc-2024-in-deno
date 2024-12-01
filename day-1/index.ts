@@ -29,16 +29,20 @@ export function calculateDistance(input: [number[], number[]]): number {
 }
 
 export function calculateSimilarityScore(input: [number[], number[]]): number {
-    const locationIds1 = [...input[0]].sort();
-    const locationIds2 = [...input[1]].sort();
+    const dictionary = createDictionary(input[1]);
+    for (const entry of input[0]) {
+        if (dictionary[entry] === undefined) continue;
 
-    let sum = 0;
-
-    for (let i = 0; i < locationIds1.length; i++) {
-        sum += Math.abs(locationIds1[i] - locationIds2[i]);
+        dictionary[entry] += 1;
     }
 
-    return sum;
+    let score = 0;
+
+    for (const entry of input[0]) {
+        score += entry * Number(dictionary[entry] ?? 0);
+    }
+
+    return score;
 }
 
 export async function readPuzzleInput(
