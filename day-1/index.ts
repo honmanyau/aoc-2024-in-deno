@@ -1,5 +1,14 @@
-export function solve() {
-    return;
+export function solve(input: [number[], number[]]): number {
+    const locationIds1 = [...input[0]].sort();
+    const locationIds2 = [...input[1]].sort();
+
+    let sum = 0;
+
+    for (let i = 0; i < locationIds1.length; i++) {
+        sum += Math.abs(locationIds1[i] - locationIds2[i]);
+    }
+
+    return sum;
 }
 
 export async function readPuzzleInput(
@@ -17,5 +26,5 @@ export async function readPuzzleInput(
         locationIds2.push(Number(locationIds[1]));
     }
 
-    return [locationIds1.sort(), locationIds2.sort()];
+    return [locationIds1, locationIds2];
 }
