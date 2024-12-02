@@ -11,8 +11,17 @@ export async function solveDay2Part1(): Promise<number> {
     return safeReportCount;
 }
 
-export async function solveDay2Part2(): Promise<void> {
-    return;
+export async function solveDay2Part2(): Promise<number> {
+    const path = `${Deno.cwd()}/day-2/input.txt`;
+    const input = await readPuzzleInput(path);
+
+    let safeReportCount = 0;
+
+    for (const report of input) {
+        if (isSafeReportWithDampening(report)) safeReportCount++;
+    }
+
+    return safeReportCount;
 }
 
 export async function readPuzzleInput(path: string): Promise<number[][]> {
@@ -47,6 +56,17 @@ export function isSafeReport(report: number[]): boolean {
 export function isSafeReportWithDampening(report: number[]): boolean {
     if (report.length < 2) {
         throw new Error("Report must contain more than one element!");
+    }
+
+    if (isSafeReport(report)) return true;
+
+    for (let i = 0; i < report.length; i++) {
+        const subreport = [
+            ...report.slice(0, i),
+            ...report.slice(i + 1, report.length),
+        ];
+
+        if (isSafeReport(subreport)) return true;
     }
 
     return false;
