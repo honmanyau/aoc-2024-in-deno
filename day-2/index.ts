@@ -1,5 +1,14 @@
-export async function solveDay2Part1(): Promise<void> {
-    return;
+export async function solveDay2Part1(): Promise<number> {
+    const path = `${Deno.cwd()}/day-1/input.txt`;
+    const input = await readPuzzleInput(path);
+
+    let safeReportCount = 0;
+
+    for (const report of input) {
+        safeReportCount += Number(isSafeReport(report));
+    }
+
+    return safeReportCount;
 }
 
 export async function solveDay2Part2(): Promise<void> {
