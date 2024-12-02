@@ -12,3 +12,7 @@ export async function readPuzzleInput(path: string): Promise<number[][]> {
 
     return lines.map((line) => line.split(/\s+/).map(Number));
 }
+
+export function isSafeReport(report: number[]): boolean {
+    return false;
+}
