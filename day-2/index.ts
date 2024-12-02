@@ -1,11 +1,11 @@
 export async function solveDay2Part1(): Promise<number> {
-    const path = `${Deno.cwd()}/day-1/input.txt`;
+    const path = `${Deno.cwd()}/day-2/input.txt`;
     const input = await readPuzzleInput(path);
 
     let safeReportCount = 0;
 
     for (const report of input) {
-        safeReportCount += Number(isSafeReport(report));
+        if (isSafeReport(report)) safeReportCount++;
     }
 
     return safeReportCount;
@@ -31,7 +31,7 @@ export function isSafeReport(report: number[]): boolean {
 
     const ascending = report[0] < report[1];
 
-    for (let i = 0; i < report.length - 2; i++) {
+    for (let i = 0; i < report.length - 1; i++) {
         // Report is unsafe as soon a there is a direction change.
         if (report[i] < report[i + 1] !== ascending) return false;
 
