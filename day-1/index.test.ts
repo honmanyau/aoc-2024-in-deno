@@ -11,7 +11,7 @@ import {
 describe("Day 1", () => {
     describe("readPuzzleInput()", () => {
         it("returns and array of two arrays of sorted (ascending) integers of equal length", async () => {
-            const path = `${Deno.cwd()}/day-1/example-input.txt`;
+            const path = `${Deno.cwd()}/day-1/sample-input.txt`;
             const input = await readPuzzleInput(path);
 
             expect(input.length).toBe(2);
@@ -28,7 +28,7 @@ describe("Day 1", () => {
 
     describe("calculateDistance()", () => {
         it("returns 11 for the example input", async () => {
-            const path = `${Deno.cwd()}/day-1/example-input.txt`;
+            const path = `${Deno.cwd()}/day-1/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const solution = calculateDistance(input);
 
@@ -78,7 +78,7 @@ describe("Day 1", () => {
 
     describe("createDictionary()", () => {
         it("returns a dictionary with keys for all integers in the input array and their values set to 0", async () => {
-            const path = `${Deno.cwd()}/day-1/example-input.txt`;
+            const path = `${Deno.cwd()}/day-1/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const dictionary1 = createDictionary(input[0]);
             const dictionary2 = createDictionary(input[1]);
@@ -90,7 +90,7 @@ describe("Day 1", () => {
 
     describe("calculateSimilarityScore()", () => {
         it("returns 31 for the example input", async () => {
-            const path = `${Deno.cwd()}/day-1/example-input.txt`;
+            const path = `${Deno.cwd()}/day-1/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const solution = calculateSimilarityScore(input);
 
