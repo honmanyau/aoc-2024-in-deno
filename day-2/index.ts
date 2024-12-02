@@ -43,3 +43,11 @@ export function isSafeReport(report: number[]): boolean {
 
     return true;
 }
+
+export function isSafeReportWithDampening(report: number[]): boolean {
+    if (report.length < 2) {
+        throw new Error("Report must contain more than one element!");
+    }
+
+    return false;
+}
