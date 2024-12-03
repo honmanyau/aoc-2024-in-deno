@@ -12,6 +12,16 @@ export async function readPuzzleInput(path: string): Promise<string> {
     return content.trim();
 }
 
-export function findMuls(input: string): string[] {
-    return [];
+export function findMuls(input: string): [number, number][] {
+    const instructions = input.match(/mul\([0-9]{1,3},[0-9]{1,3}\)/g);
+
+    if (!instructions) return [];
+
+    return instructions.map((instruction) => {
+        const matched = instruction.match(/mul\(([0-9]{1,3}),([0-9]{1,3})\)/);
+
+        if (!matched) throw new Error(`Invalid instruction: ${instruction}`);
+
+        return [Number(matched[1]), Number(matched[2])];
+    });
 }

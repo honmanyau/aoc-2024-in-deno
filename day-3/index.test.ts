@@ -29,22 +29,22 @@ describe("Day 3", () => {
             ]);
         });
 
-        it("returns [[42, 24]] for the input mul(42, 24)", () => {
-            const input = `mul(42, 24)`;
+        it("returns [[42, 24]] for the input mul(42,24)", () => {
+            const input = `mul(42,24)`;
             const result = findMuls(input);
 
             expect(result).toEqual([[42, 24]]);
         });
 
-        it("returns [[424, 242]] for the input mul(424, 242)", () => {
-            const input = `mul(424, 242)`;
+        it("returns [[424, 242]] for the input mul(424,242)", () => {
+            const input = `mul(424,242)`;
             const result = findMuls(input);
 
             expect(result).toEqual([[424, 242]]);
         });
 
-        it("returns [] for the input mul(424, 2424)", () => {
-            const input = `mul(424, 2424)`;
+        it("returns [] for the input mul(424,2424)", () => {
+            const input = `mul(424,2424)`;
             const result = findMuls(input);
 
             expect(result).toEqual([]);
