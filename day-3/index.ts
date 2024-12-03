@@ -27,5 +27,8 @@ export function findMuls(input: string): [number, number][] {
 }
 
 export function calculateSumOfProducts(input: [number, number][]): number {
-    return Number.MAX_SAFE_INTEGER;
+    return input.reduce(
+        (sum, instruction) => sum + instruction[0] * instruction[1],
+        0
+    );
 }
