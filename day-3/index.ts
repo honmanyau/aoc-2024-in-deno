@@ -11,3 +11,7 @@ export async function readPuzzleInput(path: string): Promise<string> {
 
     return content.trim();
 }
+
+export function findMuls(input: string): string[] {
+    return [];
+}
