@@ -1,7 +1,12 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { calculateSumOfProducts, findMuls, readPuzzleInput } from "./index.ts";
+import {
+    calculateSumOfProducts,
+    findMuls,
+    findMulsPart2,
+    readPuzzleInput,
+} from "./index.ts";
 
 describe("Day 3", () => {
     describe("readPuzzleInput()", () => {
@@ -53,7 +58,7 @@ describe("Day 3", () => {
 
     describe("findMulsPart2()", () => {
         it("returns [[2, 4], [8, 5]] for the sample input", async () => {
-            const path = `${Deno.cwd()}/day-3/sample-input.txt`;
+            const path = `${Deno.cwd()}/day-3/sample-input-2.txt`;
             const input = await readPuzzleInput(path);
             const result = findMulsPart2(input);
 
@@ -137,7 +142,3 @@ describe("Day 3", () => {
         });
     });
 });
-
-function findMulsPart2(input: string) {
-    throw new Error("Function not implemented.");
-}
