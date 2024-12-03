@@ -1,5 +1,9 @@
-export async function solveDay3Part1(): Promise<void> {
-    return;
+export async function solveDay3Part1(): Promise<number> {
+    const path = `${Deno.cwd()}/day-3/input.txt`;
+    const input = await readPuzzleInput(path);
+    const instructions = findMuls(input);
+
+    return calculateSumOfProducts(instructions);
 }
 
 export async function solveDay3Part2(): Promise<void> {
