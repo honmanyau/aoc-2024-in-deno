@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { findMuls, readPuzzleInput } from "./index.ts";
+import { calculateSumOfProducts, findMuls, readPuzzleInput } from "./index.ts";
 
 describe("Day 3", () => {
     describe("readPuzzleInput()", () => {
@@ -48,6 +48,17 @@ describe("Day 3", () => {
             const result = findMuls(input);
 
             expect(result).toEqual([]);
+        });
+    });
+
+    describe("calculateSumOfProducts()", () => {
+        it("returns 161 for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-3/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const instructions = findMuls(input);
+            const result = calculateSumOfProducts(instructions);
+
+            expect(result).toEqual(161);
         });
     });
 });

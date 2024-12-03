@@ -25,3 +25,7 @@ export function findMuls(input: string): [number, number][] {
         return [Number(matched[1]), Number(matched[2])];
     });
 }
+
+export function calculateSumOfProducts(input: [number, number][]): number {
+    return Number.MAX_SAFE_INTEGER;
+}
