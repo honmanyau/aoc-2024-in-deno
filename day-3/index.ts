@@ -6,9 +6,8 @@ export async function solveDay3Part2(): Promise<void> {
     return;
 }
 
-export async function readPuzzleInput(path: string): Promise<void> {
+export async function readPuzzleInput(path: string): Promise<string> {
     const content = await Deno.readTextFile(path);
-    const lines = content.trim().split("\n");
 
-    return;
+    return content.trim();
 }
