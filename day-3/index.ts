@@ -30,6 +30,10 @@ export function findMuls(input: string): [number, number][] {
     });
 }
 
+export function findMulsPart2(input: string): [number, number][] {
+    return [];
+}
+
 export function calculateSumOfProducts(input: [number, number][]): number {
     return input.reduce(
         (sum, instruction) => sum + instruction[0] * instruction[1],

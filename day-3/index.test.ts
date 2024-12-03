@@ -51,6 +51,81 @@ describe("Day 3", () => {
         });
     });
 
+    describe("findMulsPart2()", () => {
+        it("returns [[2, 4], [8, 5]] for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-3/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([
+                [2, 4],
+                [8, 5],
+            ]);
+        });
+
+        it("returns [[42, 24]] for the input mul(42,24)", () => {
+            const input = `do()mul(42,24)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([[42, 24]]);
+        });
+
+        it("returns [] for the input don't()mul(42,24)", () => {
+            const input = `don't()mul(42,24)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([]);
+        });
+
+        it("returns [[42, 24], [424, 242]] for the input mul(42,24)mul(424,242)", () => {
+            const input = `mul(42,24)mul(424,242)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([
+                [42, 24],
+                [424, 242],
+            ]);
+        });
+
+        it("returns [[42, 24], [424, 242]] for the input mul(42,24)do()mul(424,242)", () => {
+            const input = `mul(42,24)do()mul(424,242)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([
+                [42, 24],
+                [424, 242],
+            ]);
+        });
+
+        it("returns [[42, 24]] for the input mul(42,24)don't()mul(424,242)", () => {
+            const input = `mul(42,24)don't()mul(424,242)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([[42, 24]]);
+        });
+
+        it("returns [] for the input don't()mul(42,24)mul(424,242)", () => {
+            const input = `don't()mul(42,24)mul(424,242)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([]);
+        });
+
+        it("returns [[424, 242]] for the input mul(424,242)", () => {
+            const input = `mul(424,242)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([[424, 242]]);
+        });
+
+        it("returns [] for the input mul(424,2424)", () => {
+            const input = `mul(424,2424)`;
+            const result = findMulsPart2(input);
+
+            expect(result).toEqual([]);
+        });
+    });
+
     describe("calculateSumOfProducts()", () => {
         it("returns 161 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-3/sample-input.txt`;
@@ -62,3 +137,7 @@ describe("Day 3", () => {
         });
     });
 });
+
+function findMulsPart2(input: string) {
+    throw new Error("Function not implemented.");
+}
