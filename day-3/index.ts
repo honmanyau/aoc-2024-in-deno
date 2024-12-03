@@ -6,8 +6,12 @@ export async function solveDay3Part1(): Promise<number> {
     return calculateSumOfProducts(multiplicands);
 }
 
-export async function solveDay3Part2(): Promise<void> {
-    return;
+export async function solveDay3Part2(): Promise<number> {
+    const path = `${Deno.cwd()}/day-3/input.txt`;
+    const input = await readPuzzleInput(path);
+    const multiplicands = findMulsPart2(input);
+
+    return calculateSumOfProducts(multiplicands);
 }
 
 export async function readPuzzleInput(path: string): Promise<string> {
