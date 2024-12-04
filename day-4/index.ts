@@ -7,7 +7,11 @@ export async function solveDay4Part1(): Promise<number> {
 }
 
 export async function solveDay4Part2(): Promise<number> {
-    return -1;
+    const path = `${Deno.cwd()}/day-4/input.txt`;
+    const input = await readPuzzleInput(path);
+    const xmases = findXShapedMASes(input);
+
+    return xmases;
 }
 
 export async function readPuzzleInput(path: string): Promise<string[]> {
