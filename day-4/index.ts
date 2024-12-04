@@ -1,5 +1,9 @@
 export async function solveDay4Part1(): Promise<number> {
-    return -1;
+    const path = `${Deno.cwd()}/day-4/input.txt`;
+    const input = await readPuzzleInput(path);
+    const xmases = findXmases(input);
+
+    return xmases;
 }
 
 export async function solveDay4Part2(): Promise<number> {
