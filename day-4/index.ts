@@ -99,3 +99,7 @@ export function findXmases(input: string[]): number {
 
     return count;
 }
+
+export function findXShapedMASes(input: string[]): number {
+    return -1;
+}

@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { findXmases, readPuzzleInput } from "./index.ts";
+import { findXmases, findXShapedMASes, readPuzzleInput } from "./index.ts";
 
 describe("Day 4", () => {
     describe("readPuzzleInput()", () => {
@@ -67,6 +67,34 @@ describe("Day 4", () => {
             const count = findXmases(input);
 
             expect(count).toBe(18);
+        });
+    });
+
+    describe("findXShapedMASes()", () => {
+        it('returns 1 for the input ["MXS", "XAX", "MXS"]', () => {
+            const count = findXShapedMASes(["MXS", "XAX", "MXS"]);
+
+            expect(count).toBe(1);
+        });
+
+        it('returns 1 for the input ["SXM", "XAX", "SXM"]', () => {
+            const count = findXShapedMASes(["SXM", "XAX", "SXM"]);
+
+            expect(count).toBe(1);
+        });
+
+        it('returns 2 for the input ["SXMXS", "XAXAS", "SXMXS"]', () => {
+            const count = findXShapedMASes(["SXMXS", "XAXAS", "SXMXS"]);
+
+            expect(count).toBe(2);
+        });
+
+        it("returns 9 for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-4/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const count = findXShapedMASes(input);
+
+            expect(count).toBe(9);
         });
     });
 });
