@@ -11,3 +11,7 @@ export async function readPuzzleInput(path: string): Promise<string[]> {
 
     return content.trim().split("\n");
 }
+
+export function findXmases(input: string[]): number {
+    throw new Error("Not implemented");
+}
