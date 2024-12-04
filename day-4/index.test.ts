@@ -5,11 +5,22 @@ import { readPuzzleInput } from "./index.ts";
 
 describe("Day 4", () => {
     describe("readPuzzleInput()", () => {
-        it("returns and array of arrays of integers of equal length", async () => {
+        it("returns the expected array of strings for the sample input", async () => {
             const path = `${Deno.cwd()}/day-4/sample-input.txt`;
             const input = await readPuzzleInput(path);
 
-            expect(false);
+            expect(input).toEqual([
+                "MMMSXXMASM",
+                "MSAMXMSMSA",
+                "AMXSXMAAMM",
+                "MSAMASMSMX",
+                "XMASAMXAMM",
+                "XXAMMXXAMA",
+                "SMSMSASXSS",
+                "SAXAMASAAA",
+                "MAMMMXMMMM",
+                "MXMXAXMASX",
+            ]);
         });
     });
 });
