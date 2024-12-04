@@ -101,5 +101,36 @@ export function findXmases(input: string[]): number {
 }
 
 export function findXShapedMASes(input: string[]): number {
-    return -1;
+    let count = 0;
+
+    for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input[0].length; x++) {
+            if (input[y][x] !== "A") continue;
+
+            let topLeftBottomRightIsMas = false;
+            let topRightBottomLeftIsMas = false;
+
+            if (
+                (input[y - 1]?.[x - 1] === "M" &&
+                    input[y + 1]?.[x + 1] === "S") ||
+                (input[y - 1]?.[x - 1] === "S" && input[y + 1]?.[x + 1] === "M")
+            ) {
+                topLeftBottomRightIsMas = true;
+            }
+
+            if (
+                (input[y - 1]?.[x + 1] === "M" &&
+                    input[y + 1]?.[x - 1] === "S") ||
+                (input[y - 1]?.[x + 1] === "S" && input[y + 1]?.[x - 1] === "M")
+            ) {
+                topRightBottomLeftIsMas = true;
+            }
+
+            if (topLeftBottomRightIsMas && topRightBottomLeftIsMas) {
+                count++;
+            }
+        }
+    }
+
+    return count;
 }
