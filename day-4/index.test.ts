@@ -34,31 +34,31 @@ describe("Day 4", () => {
         it('returns 2 for the input ["SAMXMAS"]', () => {
             const count = findXmases(["SAMXMAS"]);
 
-            expect(count).toBe(1);
+            expect(count).toBe(2);
         });
 
         it('returns 2 for the input ["SAMXXMAS"]', () => {
             const count = findXmases(["SAMXXMAS"]);
 
-            expect(count).toBe(1);
+            expect(count).toBe(2);
         });
 
         it('returns 2 for the input ["XMAS", "AMMA", "XAAX", "SAAS"]', () => {
             const count = findXmases(["XMAS", "AMMA", "XAAX", "SAAS"]);
 
-            expect(count).toBe(1);
+            expect(count).toBe(2);
         });
 
         it('returns 2 for the input ["SMAS", "AAAA", "XMMX", "XAAX"]', () => {
             const count = findXmases(["SMAS", "AAAA", "XMMX", "XAAX"]);
 
-            expect(count).toBe(1);
+            expect(count).toBe(2);
         });
 
         it('returns 2 for the input ["XMAS", "SSSA", "XXXM", "SSSX"]', () => {
             const count = findXmases(["XMAS", "SSSA", "XXXM", "SSSX"]);
 
-            expect(count).toBe(1);
+            expect(count).toBe(2);
         });
 
         it("returns 18 for the sample input", async () => {
