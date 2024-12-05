@@ -13,6 +13,7 @@ export async function solveDay5Part2(): Promise<number> {
 }
 
 type Rules = { [page1: number]: { [page2: number]: true } };
+type Violations = { [before: number]: { [after: number]: true } };
 
 export async function readPuzzleInput(
     path: string
@@ -46,19 +47,31 @@ export async function readPuzzleInput(
     return [rules, updates];
 }
 
-export function isValidUpdate(rules: Rules, update: number[]): boolean {
+export function findRuleViolations(rules: Rules, update: number[]): Violations {
+    const violations: Violations = {};
+
     for (let i = 0; i < update.length; i++) {
         for (let x = i + 1; x < update.length; x++) {
             if (
                 !rules[update[i]]?.[update[x]] &&
                 rules[update[x]]?.[update[i]]
             ) {
-                return false;
+                if (!violations[update[x]]) {
+                    violations[update[x]] = {};
+                }
+
+                violations[update[x]][update[i]] = true;
             }
         }
     }
 
-    return true;
+    return violations;
+}
+
+export function isValidUpdate(rules: Rules, update: number[]): boolean {
+    const violations = findRuleViolations(rules, update);
+
+    return Object.keys(violations).length === 0;
 }
 
 export function solvePart1(rules: Rules, updates: number[][]): number {
