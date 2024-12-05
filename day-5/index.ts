@@ -131,3 +131,20 @@ export function solvePart1(rules: Rules, updates: number[][]): number {
 
     return sum;
 }
+
+export function solvePart2(rules: Rules, updates: number[][]): number {
+    let sum = 0;
+
+    for (const update of updates) {
+        const violations = findRuleViolations(rules, update);
+        const updateIsInvalid = Object.keys(violations).length > 0;
+
+        if (updateIsInvalid) {
+            const fixedUpdate = fixInvalidUpdate(rules, violations, update);
+
+            sum += fixedUpdate[Math.floor(fixedUpdate.length / 2)];
+        }
+    }
+
+    return sum;
+}
