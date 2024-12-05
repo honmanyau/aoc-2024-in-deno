@@ -1,6 +1,6 @@
 export async function solveDay5Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-5/input.txt`;
-    const input = await readPuzzleInput(path);
+    const [rules, updates] = await readPuzzleInput(path);
 
     return -1;
 }
@@ -14,10 +14,10 @@ export async function solveDay5Part2(): Promise<number> {
 
 export async function readPuzzleInput(
     path: string
-): Promise<[[number, number][], number[][]]> {
+): Promise<[{ [page1: number]: { [page2: number]: true } }, number[][]]> {
     const content = await Deno.readTextFile(path);
     const lines = content.trim().split("\n");
-    const rules: [number, number][] = [];
+    const rules: { [page1: number]: { [page2: number]: true } } = {};
     const updates: number[][] = [];
 
     let parsingRules = true;
@@ -33,7 +33,9 @@ export async function readPuzzleInput(
                 continue;
             }
 
-            rules.push([Number(match[1]), Number(match[2])]);
+            if (!rules[Number(match[1])]) rules[Number(match[1])] = {};
+
+            rules[Number(match[1])][Number(match[2])] = true;
         } else {
             updates.push(line.split(",").map(Number));
         }
