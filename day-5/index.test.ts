@@ -55,4 +55,54 @@ describe("Day 5", () => {
             ]);
         });
     });
+
+    describe("isValidUpdate()", () => {
+        it("returns true for the first update in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await isValidUpdate(rules, updates[0]);
+
+            expect(result).toBe(true);
+        });
+
+        it("returns true for the second update of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await isValidUpdate(rules, updates[1]);
+
+            expect(result).toBe(true);
+        });
+
+        it("returns true for the third update of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await isValidUpdate(rules, updates[2]);
+
+            expect(result).toBe(true);
+        });
+
+        it("returns false for the fourth update of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await isValidUpdate(rules, updates[3]);
+
+            expect(result).toBe(false);
+        });
+
+        it("returns false for the fourth update of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await isValidUpdate(rules, updates[4]);
+
+            expect(result).toBe(false);
+        });
+
+        it("returns false for the fourth update of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await isValidUpdate(rules, updates[5]);
+
+            expect(result).toBe(false);
+        });
+    });
 });

@@ -12,12 +12,14 @@ export async function solveDay5Part2(): Promise<number> {
     return -1;
 }
 
+type Rules = { [page1: number]: { [page2: number]: true } };
+
 export async function readPuzzleInput(
     path: string
-): Promise<[{ [page1: number]: { [page2: number]: true } }, number[][]]> {
+): Promise<[Rules, number[][]]> {
     const content = await Deno.readTextFile(path);
     const lines = content.trim().split("\n");
-    const rules: { [page1: number]: { [page2: number]: true } } = {};
+    const rules: Rules = {};
     const updates: number[][] = [];
 
     let parsingRules = true;
@@ -42,4 +44,8 @@ export async function readPuzzleInput(
     }
 
     return [rules, updates];
+}
+
+export function isValidUpdate(rules: Rules, updates: number[]): boolean {
+    throw new Error("Not implemented");
 }
