@@ -74,6 +74,13 @@ export function isValidUpdate(rules: Rules, update: number[]): boolean {
     return Object.keys(violations).length === 0;
 }
 
+export function fixInvalidUpdate(
+    violations: Violations,
+    update: number[]
+): number[] {
+    throw new Error("Not implemented.");
+}
+
 export function solvePart1(rules: Rules, updates: number[][]): number {
     let sum = 0;
 

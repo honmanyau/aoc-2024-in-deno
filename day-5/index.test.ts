@@ -3,6 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 import { expect } from "@std/expect/expect";
 import {
     findRuleViolations,
+    fixInvalidUpdate,
     isValidUpdate,
     readPuzzleInput,
     solvePart1,
@@ -163,6 +164,44 @@ describe("Day 5", () => {
                 1: { 2: true, 3: true },
                 2: { 3: true },
             });
+        });
+    });
+
+    describe("fixInvalidUpdate()", () => {
+        it("for the rule 1|2 and update [2, 1, 3, 4]", () => {
+            const rules = { 1: { 2: true } } as const;
+            const update = [2, 1, 3, 4];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([1, 2, 3, 4]);
+        });
+
+        it("for the rules 1|2, 1|3 and update [2, 3, 1, 4]", () => {
+            const rules = { 1: { 2: true, 3: true } } as const;
+            const update = [2, 3, 1, 4];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([1, 2, 3, 4]);
+        });
+
+        it("for the rules 1|2, 1|3 and update [2, 3, 1, 4]", () => {
+            const rules = { 1: { 2: true, 3: true } } as const;
+            const update = [2, 3, 1, 4];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([1, 2, 3, 4]);
+        });
+
+        it("for the rules 1|2, 1|3, 2|3 and update [3, 2, 1, 4]", () => {
+            const rules = { 1: { 2: true, 3: true }, 2: { 3: true } } as const;
+            const update = [3, 2, 1, 4];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([1, 2, 3, 4]);
         });
     });
 });
