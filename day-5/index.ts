@@ -62,5 +62,13 @@ export function isValidUpdate(rules: Rules, update: number[]): boolean {
 }
 
 export function solvePart1(rules: Rules, updates: number[][]): number {
-    return -1;
+    let sum = 0;
+
+    for (const update of updates) {
+        if (isValidUpdate(rules, update)) {
+            sum += update[Math.floor(update.length / 2)];
+        }
+    }
+
+    return sum;
 }
