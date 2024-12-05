@@ -75,26 +75,27 @@ export function isValidUpdate(rules: Rules, update: number[]): boolean {
 }
 
 export function fixInvalidUpdate(
+    rules: Rules,
     violations: Violations,
     update: number[]
 ): number[] {
-    let fixed: number[] = [];
+    let fixedUpdate: number[] = [];
 
     for (const entry of update) {
         if (violations[entry] !== undefined) continue;
 
-        fixed.push(entry);
+        fixedUpdate.push(entry);
     }
 
     for (const [numToInsert, numsThatFollow] of Object.entries(violations)) {
-        for (let i = 0; i < fixed.length; i++) {
-            const entry = fixed[i];
+        for (let i = 0; i < fixedUpdate.length; i++) {
+            const entry = fixedUpdate[i];
 
             if (numsThatFollow[entry] === true) {
-                fixed = [
-                    ...fixed.slice(0, i),
+                fixedUpdate = [
+                    ...fixedUpdate.slice(0, i),
                     Number(numToInsert),
-                    ...fixed.slice(i),
+                    ...fixedUpdate.slice(i),
                 ];
 
                 break;
@@ -102,7 +103,14 @@ export function fixInvalidUpdate(
         }
     }
 
-    return fixed;
+    const remainingViolations = findRuleViolations(rules, fixedUpdate);
+    const fixedUpdateIsInvalid = Object.keys(remainingViolations).length > 0;
+
+    if (fixedUpdateIsInvalid) {
+        return fixInvalidUpdate(rules, remainingViolations, fixedUpdate);
+    }
+
+    return fixedUpdate;
 }
 
 export function solvePart1(rules: Rules, updates: number[][]): number {
