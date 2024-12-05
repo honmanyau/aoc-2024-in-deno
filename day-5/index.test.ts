@@ -9,7 +9,7 @@ describe("Day 5", () => {
             const path = `${Deno.cwd()}/day-5/sample-input.txt`;
             const [rules, updates] = await readPuzzleInput(path);
 
-            expect(rules).toBe([
+            expect(rules).toEqual([
                 [47, 53],
                 [97, 13],
                 [97, 61],
@@ -33,7 +33,7 @@ describe("Day 5", () => {
                 [53, 13],
             ]);
 
-            expect(updates).toBe([
+            expect(updates).toEqual([
                 [75, 47, 61, 53, 29],
                 [97, 61, 53, 29, 13],
                 [75, 29, 13],
