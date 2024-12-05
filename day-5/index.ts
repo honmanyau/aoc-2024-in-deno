@@ -46,6 +46,17 @@ export async function readPuzzleInput(
     return [rules, updates];
 }
 
-export function isValidUpdate(rules: Rules, updates: number[]): boolean {
-    throw new Error("Not implemented");
+export function isValidUpdate(rules: Rules, update: number[]): boolean {
+    for (let i = 0; i < update.length; i++) {
+        for (let x = i + 1; x < update.length; x++) {
+            if (
+                !rules[update[i]]?.[update[x]] &&
+                rules[update[x]]?.[update[i]]
+            ) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

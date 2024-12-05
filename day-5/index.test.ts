@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput } from "./index.ts";
+import { isValidUpdate, readPuzzleInput } from "./index.ts";
 
 describe("Day 5", () => {
     describe("readPuzzleInput()", () => {
