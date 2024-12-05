@@ -203,5 +203,45 @@ describe("Day 5", () => {
 
             expect(fixedUpdate).toEqual([1, 2, 3, 4]);
         });
+
+        it("transforms the example update [75, 97, 47, 61, 53] to [97, 75, 47 ,61, 53]", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, _updates] = await readPuzzleInput(path);
+            const update = [75, 97, 47, 61, 53];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([97, 75, 47, 61, 53]);
+        });
+
+        it("transforms the example update [75, 97, 47, 61, 53] to [97, 75, 47 ,61, 53]", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, _updates] = await readPuzzleInput(path);
+            const update = [75, 97, 47, 61, 53];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([97, 75, 47, 61, 53]);
+        });
+
+        it("transforms the example update [61, 13, 29] to [61, 29, 13]", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, _updates] = await readPuzzleInput(path);
+            const update = [61, 13, 29];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([61, 29, 13]);
+        });
+
+        it("transforms the example update [97, 13, 75, 29, 47] to [97, 75, 47, 29, 13]", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, _updates] = await readPuzzleInput(path);
+            const update = [97, 13, 75, 29, 47];
+            const violations = findRuleViolations(rules, update);
+            const fixedUpdate = fixInvalidUpdate(violations, update);
+
+            expect(fixedUpdate).toEqual([97, 75, 47, 29, 13]);
+        });
     });
 });
