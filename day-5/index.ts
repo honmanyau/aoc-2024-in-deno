@@ -78,7 +78,31 @@ export function fixInvalidUpdate(
     violations: Violations,
     update: number[]
 ): number[] {
-    throw new Error("Not implemented.");
+    let fixed: number[] = [];
+
+    for (const entry of update) {
+        if (violations[entry] !== undefined) continue;
+
+        fixed.push(entry);
+    }
+
+    for (const [numToInsert, numsThatFollow] of Object.entries(violations)) {
+        for (let i = 0; i < fixed.length; i++) {
+            const entry = fixed[i];
+
+            if (numsThatFollow[entry] === true) {
+                fixed = [
+                    ...fixed.slice(0, i),
+                    Number(numToInsert),
+                    ...fixed.slice(i),
+                ];
+
+                break;
+            }
+        }
+    }
+
+    return fixed;
 }
 
 export function solvePart1(rules: Rules, updates: number[][]): number {
