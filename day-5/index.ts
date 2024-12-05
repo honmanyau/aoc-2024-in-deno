@@ -79,6 +79,20 @@ export function fixInvalidUpdate(
     violations: Violations,
     update: number[]
 ): number[] {
+    // Sort violations entries from right to left by their order in a
+    // valid update.
+    const sortedViolations = Object.entries(violations).sort((a, b) => {
+        if (rules[Number(a[0])]?.[Number(b[0])] !== undefined) {
+            return -1;
+        }
+
+        if (rules[Number(b[0])]?.[Number(a[0])] !== undefined) {
+            return 1;
+        }
+
+        return 0;
+    });
+
     let fixedUpdate: number[] = [];
 
     for (const entry of update) {
@@ -87,7 +101,7 @@ export function fixInvalidUpdate(
         fixedUpdate.push(entry);
     }
 
-    for (const [numToInsert, numsThatFollow] of Object.entries(violations)) {
+    for (const [numToInsert, numsThatFollow] of sortedViolations) {
         for (let i = 0; i < fixedUpdate.length; i++) {
             const entry = fixedUpdate[i];
 
@@ -101,13 +115,6 @@ export function fixInvalidUpdate(
                 break;
             }
         }
-    }
-
-    const remainingViolations = findRuleViolations(rules, fixedUpdate);
-    const fixedUpdateIsInvalid = Object.keys(remainingViolations).length > 0;
-
-    if (fixedUpdateIsInvalid) {
-        return fixInvalidUpdate(rules, remainingViolations, fixedUpdate);
     }
 
     return fixedUpdate;
