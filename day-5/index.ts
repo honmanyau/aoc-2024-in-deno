@@ -7,9 +7,9 @@ export async function solveDay5Part1(): Promise<number> {
 
 export async function solveDay5Part2(): Promise<number> {
     const path = `${Deno.cwd()}/day-5/input.txt`;
-    const input = await readPuzzleInput(path);
+    const [rules, updates] = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart2(rules, updates);
 }
 
 type Rules = { [page1: number]: { [page2: number]: true } };
