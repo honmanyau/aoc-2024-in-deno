@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { isValidUpdate, readPuzzleInput } from "./index.ts";
+import { isValidUpdate, readPuzzleInput, solvePart1 } from "./index.ts";
 
 describe("Day 5", () => {
     describe("readPuzzleInput()", () => {
@@ -103,6 +103,16 @@ describe("Day 5", () => {
             const result = await isValidUpdate(rules, updates[5]);
 
             expect(result).toBe(false);
+        });
+    });
+
+    describe("solvePart1()", () => {
+        it("returns 143 for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-5/sample-input.txt`;
+            const [rules, updates] = await readPuzzleInput(path);
+            const result = await solvePart1(rules, updates);
+
+            expect(result).toBe(143);
         });
     });
 });

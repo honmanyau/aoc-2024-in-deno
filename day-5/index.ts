@@ -60,3 +60,7 @@ export function isValidUpdate(rules: Rules, update: number[]): boolean {
 
     return true;
 }
+
+export function solvePart1(rules: Rules, updates: number[][]): number {
+    return -1;
+}
