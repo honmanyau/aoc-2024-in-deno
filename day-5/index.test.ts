@@ -1,7 +1,12 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { isValidUpdate, readPuzzleInput, solvePart1 } from "./index.ts";
+import {
+    findRuleViolations,
+    isValidUpdate,
+    readPuzzleInput,
+    solvePart1,
+} from "./index.ts";
 
 describe("Day 5", () => {
     describe("readPuzzleInput()", () => {
@@ -113,6 +118,51 @@ describe("Day 5", () => {
             const result = await solvePart1(rules, updates);
 
             expect(result).toBe(143);
+        });
+    });
+
+    describe("findRuleViolations()", () => {
+        it("for the rule 1|2 and update [1, 2, 3, 4]", () => {
+            const rules = { 1: { 2: true } } as const;
+            const update = [1, 2, 3, 4];
+            const violations = findRuleViolations(rules, update);
+
+            expect(violations).toEqual({});
+        });
+
+        it("for the rule 1|2 and update [2, 1, 3, 4]", () => {
+            const rules = { 1: { 2: true } } as const;
+            const update = [2, 1, 3, 4];
+            const violations = findRuleViolations(rules, update);
+
+            expect(violations).toEqual({ 1: { 2: true } });
+        });
+
+        it("for the rules 1|2, 1|3 and update [2, 3, 1, 4]", () => {
+            const rules = { 1: { 2: true, 3: true } } as const;
+            const update = [2, 3, 1, 4];
+            const violations = findRuleViolations(rules, update);
+
+            expect(violations).toEqual({ 1: { 2: true, 3: true } });
+        });
+
+        it("for the rules 1|2, 1|3 and update [2, 3, 1, 4]", () => {
+            const rules = { 1: { 2: true, 3: true } } as const;
+            const update = [2, 3, 1, 4];
+            const violations = findRuleViolations(rules, update);
+
+            expect(violations).toEqual({ 1: { 2: true, 3: true } });
+        });
+
+        it("for the rules 1|2, 1|3, 2|3 and update [3, 2, 1, 4]", () => {
+            const rules = { 1: { 2: true, 3: true }, 2: { 3: true } } as const;
+            const update = [3, 2, 1, 4];
+            const violations = findRuleViolations(rules, update);
+
+            expect(violations).toEqual({
+                1: { 2: true, 3: true },
+                2: { 3: true },
+            });
         });
     });
 });
