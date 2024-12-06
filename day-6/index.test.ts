@@ -1,21 +1,26 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import {
-    findRuleViolations,
-    fixInvalidUpdate,
-    isValidUpdate,
-    readPuzzleInput,
-    solvePart1,
-    solvePart2,
-} from "./index.ts";
+import { readPuzzleInput } from "./index.ts";
 
-describe("Day 5", () => {
+describe("Day 6", () => {
     describe("readPuzzleInput()", () => {
-        it("returns an array of paris of numbers for printing rules, and an array of arrays of numbers as updates", async () => {
+        it("returns the map as an array of arrays of string, with each cell representing a grid on the original map", async () => {
             const path = `${Deno.cwd()}/day-6/sample-input.txt`;
-            const [rules, updates] = await readPuzzleInput(path);
+            const input = await readPuzzleInput(path);
 
-            expect(false);
+            expect(input).toEqual([
+                [".", ".", ".", ".", "#", ".", ".", ".", ".", "."],
+                [".", ".", ".", ".", ".", ".", ".", ".", ".", "#"],
+                [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+                [".", ".", "#", ".", ".", ".", ".", ".", ".", "."],
+                [".", ".", ".", ".", ".", ".", ".", "#", ".", "."],
+                [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+                [".", "#", ".", ".", "^", ".", ".", ".", ".", "."],
+                [".", ".", ".", ".", ".", ".", ".", ".", "#", "."],
+                ["#", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+                [".", ".", ".", ".", ".", ".", "#", ".", ".", "."],
+            ]);
+        });
     });
 });
