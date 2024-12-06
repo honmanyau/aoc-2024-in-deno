@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput } from "./index.ts";
+import { findStartingPos, readPuzzleInput } from "./index.ts";
 
 describe("Day 6", () => {
     describe("readPuzzleInput()", () => {
@@ -21,6 +21,67 @@ describe("Day 6", () => {
                 ["#", ".", ".", ".", ".", ".", ".", ".", ".", "."],
                 [".", ".", ".", ".", ".", ".", "#", ".", ".", "."],
             ]);
+        });
+    });
+
+    describe("findStartingPos()", () => {
+        it("return [0, 0]", () => {
+            const input = [
+                ["^", "."],
+                [".", "."],
+            ];
+            const result = findStartingPos(input);
+
+            expect(result).toEqual([0, 0]);
+        });
+
+        it("return [0, 1]", () => {
+            const input = [
+                [".", "^"],
+                [".", "."],
+            ];
+            const result = findStartingPos(input);
+
+            expect(result).toEqual([0, 1]);
+        });
+
+        it("return [1, 0]", () => {
+            const input = [
+                [".", "."],
+                ["^", "."],
+            ];
+            const result = findStartingPos(input);
+
+            expect(result).toEqual([1, 0]);
+        });
+
+        it("return [1, 1]", () => {
+            const input = [
+                [".", "."],
+                [".", "^"],
+            ];
+            const result = findStartingPos(input);
+
+            expect(result).toEqual([1, 1]);
+        });
+
+        it("return [1, 1]", () => {
+            const input = [
+                [".", ".", "."],
+                [".", "^", "."],
+                [".", ".", "."],
+            ];
+            const result = findStartingPos(input);
+
+            expect(result).toEqual([1, 1]);
+        });
+
+        it("returns [6, 4] for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-6/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findStartingPos(input);
+
+            expect(result).toEqual([6, 4]);
         });
     });
 });
