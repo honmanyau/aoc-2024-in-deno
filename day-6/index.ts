@@ -16,5 +16,5 @@ export async function readPuzzleInput(path: string): Promise<string[][]> {
     const content = await Deno.readTextFile(path);
     const lines = content.trim().split("\n");
 
-    return [];
+    return lines.map((line) => line.split(""));
 }
