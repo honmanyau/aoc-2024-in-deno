@@ -49,7 +49,7 @@ export function findStartingPos(input: Input): [number, number] {
 export function solvePart1(input: Input): number {
     const startingPosition = findStartingPos(input);
 
-    const visitedPositions: Record<string, boolean> = {
+    const visitedPositions: { [position: string]: true } = {
         [`${startingPosition.join(",")}`]: true,
     };
 
@@ -68,6 +68,14 @@ export function solvePart1(input: Input): number {
     }
 
     return Object.keys(visitedPositions).length;
+}
+
+export function findLoop(
+    input: Input,
+    position: Position,
+    direction: Vector
+): boolean {
+    throw new Error("Not implemented!");
 }
 
 export function step(
@@ -119,4 +127,8 @@ function getNextDirection(direction: Vector): Vector {
     } else {
         throw new Error("Invalid direction!");
     }
+}
+
+function keyify(positionOrVector: Position | Vector) {
+    return positionOrVector.join(",");
 }

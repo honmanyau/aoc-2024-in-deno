@@ -2,8 +2,10 @@ import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
 import {
+    findLoop,
     findStartingPos,
     readPuzzleInput,
+    RIGHT,
     solvePart1,
     step,
     UP,
@@ -304,6 +306,71 @@ describe("Day 6", () => {
             ]);
 
             expect(result).toBe(undefined);
+        });
+    });
+
+    describe("findLoop()", () => {
+        it(`returns true for the input [
+            [".", "#", ".", "."],
+            [".", ".", ".", "#"],
+            ["#", "|", ".", "."],
+            [".", ".", "#", "."],
+        ]`, () => {
+            const input = [
+                [".", "#", ".", "."],
+                [".", ".", ".", "#"],
+                ["#", "|", ".", "."],
+                [".", ".", "#", "."],
+            ];
+
+            const result = findLoop(input, [2, 1], UP);
+
+            expect(result).toBe(true);
+        });
+
+        it(`returns true for the input [
+            [".", ".", "#", ".", "."],
+            ["-", ".", ".", ".", "#"],
+            [".", "#", ".", ".", "."],
+            [".", ".", ".", "#", "."],
+        ]`, () => {
+            const input = [
+                [".", ".", "#", ".", "."],
+                ["-", ".", ".", ".", "#"],
+                [".", "#", ".", ".", "."],
+                [".", ".", ".", "#", "."],
+            ];
+
+            const result = findLoop(input, [1, 0], RIGHT);
+
+            expect(result).toBe(true);
+        });
+
+        it(`returns false for the input [
+            [".", "#", ".", "."],
+            [".", ".", ".", "#"],
+            ["#", ".", "|", "."],
+            [".", ".", "#", "."],
+        ]`, () => {
+            const input = [
+                [".", "#", ".", "."],
+                [".", ".", ".", "#"],
+                ["#", ".", "|", "."],
+                [".", ".", "#", "."],
+            ];
+
+            const result = findLoop(input, [2, 2], UP);
+
+            expect(result).toBe(false);
+        });
+
+        it(`returns false for the sample input`, async () => {
+            const path = `${Deno.cwd()}/day-6/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const startingPosition = findStartingPos(input);
+            const result = findLoop(input, startingPosition, UP);
+
+            expect(result).toBe(false);
         });
     });
 });
