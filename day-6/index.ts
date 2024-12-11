@@ -75,7 +75,42 @@ export function findLoop(
     position: Position,
     direction: Vector
 ): boolean {
-    throw new Error("Not implemented!");
+    const clonedInput = input.map((row) => [...row]);
+    const visitedPositions: {
+        [position: string]: { [direction: string]: true };
+    } = {
+        [`${direction.join(",")}`]: { [`${UP.join(",")}`]: true },
+    };
+
+    let stepResult: [Position, Vector] | undefined = undefined;
+
+    clonedInput[position[0]][position[1]] = "□"; // For debugging.
+
+    while (
+        ((stepResult = step(clonedInput, position, direction)),
+        stepResult !== undefined)
+    ) {
+        [position, direction] = stepResult;
+
+        const loopDetected =
+            !!visitedPositions[keyify(position)]?.[keyify(direction)];
+
+        if (loopDetected) {
+            clonedInput[position[0]][position[1]] = "▲"; // For debugging.
+
+            return true;
+        }
+
+        clonedInput[position[0]][position[1]] = "■"; // For debugging.
+
+        if (!visitedPositions[keyify(position)]) {
+            visitedPositions[keyify(position)] = {};
+        }
+
+        visitedPositions[keyify(position)][keyify(direction)] = true;
+    }
+
+    return false;
 }
 
 export function step(
