@@ -1,7 +1,13 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { findStartingPos, readPuzzleInput, solvePart1, step } from "./index.ts";
+import {
+    findStartingPos,
+    readPuzzleInput,
+    solvePart1,
+    step,
+    UP,
+} from "./index.ts";
 
 describe("Day 6", () => {
     describe("readPuzzleInput()", () => {
@@ -199,7 +205,7 @@ describe("Day 6", () => {
                 ["^", ".", "."],
             ];
 
-            const [position, direction] = step(input) || [];
+            const [position, direction] = step(input, [2, 0], UP) || [];
 
             expect(input).toEqual([
                 [".", ".", "."],
@@ -222,7 +228,7 @@ describe("Day 6", () => {
                 ["|", ".", "."],
             ];
 
-            const [position, direction] = step(input) || [];
+            const [position, direction] = step(input, [1, 0], UP) || [];
 
             expect(input).toEqual([
                 ["^", ".", "."],
@@ -245,7 +251,7 @@ describe("Day 6", () => {
                 ["|", ".", "."],
             ];
 
-            const [position, direction] = step(input) || [];
+            const [position, direction] = step(input, [1, 0], UP) || [];
 
             expect(input).toEqual([
                 ["#", ".", "."],
@@ -268,7 +274,7 @@ describe("Day 6", () => {
                 ["|", ".", "."],
             ];
 
-            const result = step(input);
+            const result = step(input, [0, 0], UP);
 
             expect(input).toEqual([
                 ["|", ".", "."],

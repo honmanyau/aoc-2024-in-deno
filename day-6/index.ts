@@ -6,6 +6,11 @@ export type Down = [1, 0];
 export type Left = [0, -1];
 export type Right = [0, 1];
 
+export const UP: Up = [-1, 0];
+export const DOWN: Down = [1, 0];
+export const LEFT: Left = [0, -1];
+export const RIGHT: Right = [0, 1];
+
 export async function solveDay6Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-6/input.txt`;
     const input = await readPuzzleInput(path);
@@ -82,6 +87,10 @@ export function solvePart1(input: Input): number {
     return steps;
 }
 
-export function step(input: Input): [Position, Vector] | undefined {
+export function step(
+    input: Input,
+    position: Position,
+    direction: Vector
+): [Position, Vector] | undefined {
     return;
 }
