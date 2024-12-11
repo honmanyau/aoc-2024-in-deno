@@ -7,6 +7,7 @@ import {
     readPuzzleInput,
     RIGHT,
     solvePart1,
+    solvePart2,
     step,
     UP,
 } from "./index.ts";
@@ -213,6 +214,16 @@ describe("Day 6", () => {
             const result = solvePart1(input);
 
             expect(result).toBe(4711);
+        });
+    });
+
+    describe("solvePart2()", () => {
+        it(`return 6 for the sample input`, async () => {
+            const path = `${Deno.cwd()}/day-6/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toBe(6);
         });
     });
 

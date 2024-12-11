@@ -70,12 +70,85 @@ export function solvePart1(input: Input): number {
     return Object.keys(visitedPositions).length;
 }
 
+export function solvePart2(input: Input): number {
+    const startingPosition = findStartingPos(input);
+
+    const visitedPositions: { [position: string]: true } = {
+        [`${startingPosition.join(",")}`]: true,
+    };
+
+    const printingPressPositions: { [position: string]: true } = {};
+
+    let position: Position = [...startingPosition];
+    let direction: Vector = [...UP];
+    let stepResult: [Position, Vector] | undefined = undefined;
+    let loopCount = 0;
+
+    input[startingPosition[0]][startingPosition[1]] = "|";
+
+    const startPrintingPressPosition = getPrintingPressPosition(
+        input,
+        position,
+        direction
+    );
+
+    if (
+        startPrintingPressPosition &&
+        findLoop(
+            input,
+            startingPosition,
+            getNextDirection(direction),
+            startPrintingPressPosition
+        )
+    ) {
+        printingPressPositions[`${startPrintingPressPosition.join(",")}`] =
+            true;
+
+        loopCount++;
+    }
+
+    while (
+        ((stepResult = step(input, position, direction)),
+        stepResult !== undefined)
+    ) {
+        [position, direction] = stepResult;
+
+        const printingPressPosition = getPrintingPressPosition(
+            input,
+            position,
+            direction
+        );
+
+        if (
+            printingPressPosition &&
+            findLoop(
+                input,
+                position,
+                getNextDirection(direction),
+                printingPressPosition
+            )
+        ) {
+            printingPressPositions[`${printingPressPosition.join(",")}`] = true;
+        }
+
+        visitedPositions[`${stepResult[0].join(",")}`] = true;
+    }
+
+    return Object.keys(printingPressPositions).length;
+}
+
 export function findLoop(
     input: Input,
     position: Position,
-    direction: Vector
+    direction: Vector,
+    obstacle?: Position
 ): boolean {
     const clonedInput = input.map((row) => [...row]);
+
+    if (obstacle) {
+        clonedInput[obstacle[0]][obstacle[1]] = "#";
+    }
+
     const visitedPositions: {
         [position: string]: { [direction: string]: true };
     } = {
@@ -148,6 +221,21 @@ export function step(
     }
 
     return [[nextY, nextX], direction];
+}
+
+export function getPrintingPressPosition(
+    input: Input,
+    position: Position,
+    direction: Vector
+): Position | undefined {
+    const possiblePrintingPressY = position[0] + direction[0];
+    const possiblePrintingPressX = position[1] + direction[1];
+    const possiblePrintingPressTile =
+        input[possiblePrintingPressY]?.[possiblePrintingPressX];
+
+    if (![undefined, "#"].includes(possiblePrintingPressTile)) {
+        return [possiblePrintingPressY, possiblePrintingPressX];
+    }
 }
 
 function getNextDirection(direction: Vector): Vector {
