@@ -190,6 +190,19 @@ describe("Day 6", () => {
             const result = solvePart1(input);
 
             expect(result).toBe(41);
+
+            expect(input.map((row) => row.join(""))).toEqual([
+                "....#.....",
+                "....+---+#",
+                "....|...|.",
+                "..#.|...|.",
+                "..+-+-+#|.",
+                "..|.|.|.|.",
+                ".#+-+-+-+.",
+                ".+----++#.",
+                "#+----+|..",
+                "......#|..",
+            ]);
         });
 
         it(`returns 4711 for the sample input`, async () => {

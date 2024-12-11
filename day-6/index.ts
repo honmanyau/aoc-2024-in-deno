@@ -57,6 +57,8 @@ export function solvePart1(input: Input): number {
     let direction: Vector = [...UP];
     let stepResult: [Position, Vector] | undefined = undefined;
 
+    input[startingPosition[0]][startingPosition[1]] = "|";
+
     while (
         ((stepResult = step(input, position, direction)),
         stepResult !== undefined)
