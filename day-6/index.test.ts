@@ -197,19 +197,19 @@ describe("Day 6", () => {
         it(`mutates the input correctly and returns [1, 0], [-1, 0] for the input [
             [".", ".", "."],
             [".", ".", "."],
-            ["^", ".", "."],
+            ["|", ".", "."],
         ]`, () => {
             const input = [
                 [".", ".", "."],
                 [".", ".", "."],
-                ["^", ".", "."],
+                ["|", ".", "."],
             ];
 
             const [position, direction] = step(input, [2, 0], UP) || [];
 
             expect(input).toEqual([
                 [".", ".", "."],
-                ["^", ".", "."],
+                ["|", ".", "."],
                 ["|", ".", "."],
             ]);
 
@@ -219,19 +219,19 @@ describe("Day 6", () => {
 
         it(`mutates the input correctly and returns [0, 0], [-1, 0] for the input [
             [".", ".", "."],
-            ["^", ".", "."],
+            ["|", ".", "."],
             ["|", ".", "."],
         ]`, () => {
             const input = [
                 [".", ".", "."],
-                ["^", ".", "."],
+                ["|", ".", "."],
                 ["|", ".", "."],
             ];
 
             const [position, direction] = step(input, [1, 0], UP) || [];
 
             expect(input).toEqual([
-                ["^", ".", "."],
+                ["|", ".", "."],
                 ["|", ".", "."],
                 ["|", ".", "."],
             ]);
@@ -242,12 +242,12 @@ describe("Day 6", () => {
 
         it(`mutates the input correctly and returns [1, 0], [0, 1] (direction change) for the input [
             ["#", ".", "."],
-            ["^", ".", "."],
+            ["|", ".", "."],
             ["|", ".", "."],
         ]`, () => {
             const input = [
                 ["#", ".", "."],
-                ["^", ".", "."],
+                ["|", ".", "."],
                 ["|", ".", "."],
             ];
 
@@ -255,7 +255,7 @@ describe("Day 6", () => {
 
             expect(input).toEqual([
                 ["#", ".", "."],
-                ["^", ".", "."],
+                ["+", ".", "."],
                 ["|", ".", "."],
             ]);
 
@@ -264,12 +264,12 @@ describe("Day 6", () => {
         });
 
         it(`mutates the input correctly and returns undefined (stepping over an edge) for the input [
-            ["^", ".", "."],
+            ["|", ".", "."],
             ["|", ".", "."],
             ["|", ".", "."],
         ]`, () => {
             const input = [
-                ["^", ".", "."],
+                ["|", ".", "."],
                 ["|", ".", "."],
                 ["|", ".", "."],
             ];

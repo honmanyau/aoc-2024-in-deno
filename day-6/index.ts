@@ -92,5 +92,48 @@ export function step(
     position: Position,
     direction: Vector
 ): [Position, Vector] | undefined {
-    return;
+    const [y, x] = position;
+    const nextY = y + direction[0];
+    const nextX = x + direction[1];
+    const nextTile = input[nextY]?.[nextX];
+
+    // Stepping over an edge of the input.
+    if (nextTile === undefined) return;
+
+    if (nextTile === "#") {
+        const nextDirection = getNextDirection(direction);
+
+        input[y][x] = "+";
+
+        return [[y, x], nextDirection];
+    }
+
+    if (
+        (nextTile === "-" && direction[1] === 0) ||
+        (nextTile === "|" && direction[0] === 0)
+    ) {
+        input[nextY][nextX] = "+";
+    } else if (direction[1] === 0) {
+        input[nextY][nextX] = "|";
+    } else if (direction[0] === 0) {
+        input[nextY][nextX] = "-";
+    } else {
+        throw new Error("Something went horribly wrong!");
+    }
+
+    return [[nextY, nextX], direction];
+}
+
+function getNextDirection(direction: Vector): Vector {
+    if (direction[0] === -1 && direction[1] === 0) {
+        return RIGHT;
+    } else if (direction[0] === 0 && direction[1] === 1) {
+        return DOWN;
+    } else if (direction[0] === 1 && direction[1] === 0) {
+        return LEFT;
+    } else if (direction[0] === 0 && direction[1] === -1) {
+        return UP;
+    } else {
+        throw new Error("Invalid direction!");
+    }
 }
