@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { findStartingPos, readPuzzleInput, solvePart1 } from "./index.ts";
+import { findStartingPos, readPuzzleInput, solvePart1, step } from "./index.ts";
 
 describe("Day 6", () => {
     describe("readPuzzleInput()", () => {
@@ -184,6 +184,99 @@ describe("Day 6", () => {
             const result = solvePart1(input);
 
             expect(result).toBe(41);
+        });
+    });
+
+    describe("step()", () => {
+        it(`mutates the input correctly and returns [1, 0], [-1, 0] for the input [
+            [".", ".", "."],
+            [".", ".", "."],
+            ["^", ".", "."],
+        ]`, () => {
+            const input = [
+                [".", ".", "."],
+                [".", ".", "."],
+                ["^", ".", "."],
+            ];
+
+            const [position, direction] = step(input) || [];
+
+            expect(input).toEqual([
+                [".", ".", "."],
+                ["^", ".", "."],
+                ["|", ".", "."],
+            ]);
+
+            expect(position).toEqual([1, 0]);
+            expect(direction).toEqual([-1, 0]);
+        });
+
+        it(`mutates the input correctly and returns [0, 0], [-1, 0] for the input [
+            [".", ".", "."],
+            ["^", ".", "."],
+            ["|", ".", "."],
+        ]`, () => {
+            const input = [
+                [".", ".", "."],
+                ["^", ".", "."],
+                ["|", ".", "."],
+            ];
+
+            const [position, direction] = step(input) || [];
+
+            expect(input).toEqual([
+                ["^", ".", "."],
+                ["|", ".", "."],
+                ["|", ".", "."],
+            ]);
+
+            expect(position).toEqual([0, 0]);
+            expect(direction).toEqual([-1, 0]);
+        });
+
+        it(`mutates the input correctly and returns [1, 0], [0, 1] (direction change) for the input [
+            ["#", ".", "."],
+            ["^", ".", "."],
+            ["|", ".", "."],
+        ]`, () => {
+            const input = [
+                ["#", ".", "."],
+                ["^", ".", "."],
+                ["|", ".", "."],
+            ];
+
+            const [position, direction] = step(input) || [];
+
+            expect(input).toEqual([
+                ["#", ".", "."],
+                ["^", ".", "."],
+                ["|", ".", "."],
+            ]);
+
+            expect(position).toEqual([1, 0]);
+            expect(direction).toEqual([0, 1]);
+        });
+
+        it(`mutates the input correctly and returns undefined (stepping over an edge) for the input [
+            ["^", ".", "."],
+            ["|", ".", "."],
+            ["|", ".", "."],
+        ]`, () => {
+            const input = [
+                ["^", ".", "."],
+                ["|", ".", "."],
+                ["|", ".", "."],
+            ];
+
+            const result = step(input);
+
+            expect(input).toEqual([
+                ["|", ".", "."],
+                ["|", ".", "."],
+                ["|", ".", "."],
+            ]);
+
+            expect(result).toBe(undefined);
         });
     });
 });

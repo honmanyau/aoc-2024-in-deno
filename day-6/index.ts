@@ -1,3 +1,11 @@
+type Input = string[][];
+export type Position = [number, number];
+export type Vector = Up | Down | Left | Right;
+export type Up = [-1, 0];
+export type Down = [1, 0];
+export type Left = [0, -1];
+export type Right = [0, 1];
+
 export async function solveDay6Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-6/input.txt`;
     const input = await readPuzzleInput(path);
@@ -12,14 +20,14 @@ export async function solveDay6Part2(): Promise<number> {
     return -1;
 }
 
-export async function readPuzzleInput(path: string): Promise<string[][]> {
+export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
     const lines = content.trim().split("\n");
 
     return lines.map((line) => line.split(""));
 }
 
-export function findStartingPos(input: string[][]): [number, number] {
+export function findStartingPos(input: Input): [number, number] {
     for (let y = 0; y < input.length; y++) {
         for (let x = 0; x < input[0].length; x++) {
             const entry = input[y][x];
@@ -33,7 +41,7 @@ export function findStartingPos(input: string[][]): [number, number] {
     throw new Error("No starting position found!");
 }
 
-export function solvePart1(input: string[][]): number {
+export function solvePart1(input: Input): number {
     const pos = findStartingPos(input);
 
     input[pos[0]][pos[1]] = "X";
@@ -72,4 +80,8 @@ export function solvePart1(input: string[][]): number {
     }
 
     return steps;
+}
+
+export function step(input: Input): [Position, Vector] | undefined {
+    return;
 }
