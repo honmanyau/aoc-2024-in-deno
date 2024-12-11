@@ -22,7 +22,7 @@ export async function solveDay6Part2(): Promise<number> {
     const path = `${Deno.cwd()}/day-6/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart2(input);
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
@@ -77,82 +77,59 @@ export function solvePart2(input: Input): number {
         [`${startingPosition.join(",")}`]: true,
     };
 
-    const printingPressPositions: { [position: string]: true } = {};
-
     let position: Position = [...startingPosition];
     let direction: Vector = [...UP];
     let stepResult: [Position, Vector] | undefined = undefined;
-    let loopCount = 0;
 
     input[startingPosition[0]][startingPosition[1]] = "|";
-
-    const startPrintingPressPosition = getPrintingPressPosition(
-        input,
-        position,
-        direction
-    );
-
-    if (
-        startPrintingPressPosition &&
-        findLoop(
-            input,
-            startingPosition,
-            getNextDirection(direction),
-            startPrintingPressPosition
-        )
-    ) {
-        printingPressPositions[`${startPrintingPressPosition.join(",")}`] =
-            true;
-
-        loopCount++;
-    }
 
     while (
         ((stepResult = step(input, position, direction)),
         stepResult !== undefined)
     ) {
         [position, direction] = stepResult;
-
-        const printingPressPosition = getPrintingPressPosition(
-            input,
-            position,
-            direction
-        );
-
-        if (
-            printingPressPosition &&
-            findLoop(
-                input,
-                position,
-                getNextDirection(direction),
-                printingPressPosition
-            )
-        ) {
-            printingPressPositions[`${printingPressPosition.join(",")}`] = true;
-        }
-
         visitedPositions[`${stepResult[0].join(",")}`] = true;
     }
 
-    return Object.keys(printingPressPositions).length;
+    let loopCount = 0;
+
+    for (const key in visitedPositions) {
+        const [y, x] = key.split(",").map(Number) as Position;
+
+        if (y !== startingPosition[0] || x !== startingPosition[1]) {
+            const copy = input.map((row) => [...row]);
+
+            copy[y][x] = "#";
+
+            const loopDetected = findLoop(copy, [...startingPosition], [...UP]);
+
+            if (loopDetected) {
+                loopCount++;
+            }
+        }
+    }
+
+    return loopCount;
 }
 
 export function findLoop(
     input: Input,
-    position: Position,
+    startingPosition: Position,
     direction: Vector,
     obstacle?: Position
 ): boolean {
     const clonedInput = input.map((row) => [...row]);
 
+    let position: Position = [...startingPosition];
+
     if (obstacle) {
-        clonedInput[obstacle[0]][obstacle[1]] = "#";
+        clonedInput[obstacle[0]][obstacle[1]] = "o";
     }
 
     const visitedPositions: {
         [position: string]: { [direction: string]: true };
     } = {
-        [`${direction.join(",")}`]: { [`${UP.join(",")}`]: true },
+        [`${position.join(",")}`]: { [`${direction.join(",")}`]: true },
     };
 
     let stepResult: [Position, Vector] | undefined = undefined;
@@ -169,7 +146,14 @@ export function findLoop(
             !!visitedPositions[keyify(position)]?.[keyify(direction)];
 
         if (loopDetected) {
-            clonedInput[position[0]][position[1]] = "▲"; // For debugging.
+            if (
+                position[0] === startingPosition[0] &&
+                position[1] === startingPosition[1]
+            ) {
+                clonedInput[position[0]][position[1]] = "▲"; // For debugging.
+            } else {
+                clonedInput[position[0]][position[1]] = "▲"; // For debugging.
+            }
 
             return true;
         }
@@ -199,7 +183,7 @@ export function step(
     // Stepping over an edge of the input.
     if (nextTile === undefined) return;
 
-    if (nextTile === "#") {
+    if (nextTile === "#" || nextTile === "o") {
         const nextDirection = getNextDirection(direction);
 
         input[y][x] = "+";
