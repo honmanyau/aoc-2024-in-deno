@@ -47,44 +47,25 @@ export function findStartingPos(input: Input): [number, number] {
 }
 
 export function solvePart1(input: Input): number {
-    const pos = findStartingPos(input);
+    const startingPosition = findStartingPos(input);
 
-    input[pos[0]][pos[1]] = "X";
+    const visitedPositions: Record<string, boolean> = {
+        [`${startingPosition.join(",")}`]: true,
+    };
 
-    let direction = [-1, 0];
-    let steps = 1;
+    let position: Position = [...startingPosition];
+    let direction: Vector = [...UP];
+    let stepResult: [Position, Vector] | undefined = undefined;
 
     while (
-        input[pos[0] + direction[0]]?.[pos[1] + direction[1]] !== undefined
+        ((stepResult = step(input, position, direction)),
+        stepResult !== undefined)
     ) {
-        const nextTile = input[pos[0] + direction[0]]?.[pos[1] + direction[1]];
-
-        if (nextTile === ".") {
-            input[pos[0] + direction[0]][pos[1] + direction[1]] = "X";
-            pos[0] += direction[0];
-            pos[1] += direction[1];
-            steps += 1;
-        }
-
-        if (nextTile === "X") {
-            pos[0] += direction[0];
-            pos[1] += direction[1];
-        }
-
-        if (nextTile === "#") {
-            if (direction[0] === -1 && direction[1] === 0) {
-                direction = [0, 1];
-            } else if (direction[0] === 0 && direction[1] === 1) {
-                direction = [1, 0];
-            } else if (direction[0] === 1 && direction[1] === 0) {
-                direction = [0, -1];
-            } else if (direction[0] === 0 && direction[1] === -1) {
-                direction = [-1, 0];
-            }
-        }
+        [position, direction] = stepResult;
+        visitedPositions[`${stepResult[0].join(",")}`] = true;
     }
 
-    return steps;
+    return Object.keys(visitedPositions).length;
 }
 
 export function step(

@@ -92,7 +92,7 @@ describe("Day 6", () => {
     });
 
     describe("solvePart1()", () => {
-        it(`return 1 for the input [
+        it(`returns 1 for the input [
                 ["^", "."],
                 [".", "."],
             ]`, () => {
@@ -106,7 +106,7 @@ describe("Day 6", () => {
             expect(result).toBe(1);
         });
 
-        it(`return 2 for the input [
+        it(`returns 2 for the input [
             [".", "."],
             ["^", "."],
         ]`, () => {
@@ -120,7 +120,7 @@ describe("Day 6", () => {
             expect(result).toBe(2);
         });
 
-        it(`return 3 for the input [
+        it(`returns 3 for the input [
             [".", ".", "."],
             [".", ".", "."],
             ["^", ".", "."],
@@ -136,7 +136,7 @@ describe("Day 6", () => {
             expect(result).toBe(3);
         });
 
-        it(`return 4 for the input [
+        it(`returns 4 for the input [
             ["#", ".", "."],
             [".", ".", "#"],
             ["^", ".", "."],
@@ -152,7 +152,7 @@ describe("Day 6", () => {
             expect(result).toBe(4);
         });
 
-        it(`return 4 for the input [
+        it(`returns 4 for the input [
             ["#", ".", "."],
             [".", ".", "#"],
             ["^", ".", "."],
@@ -168,7 +168,7 @@ describe("Day 6", () => {
             expect(result).toBe(4);
         });
 
-        it(`return 3 for the input [
+        it(`returns 3 for the input [
             ["#", ".", "."],
             [".", ".", "#"],
             ["^", "#", "."],
@@ -184,12 +184,20 @@ describe("Day 6", () => {
             expect(result).toBe(3);
         });
 
-        it(`return 41 for the sample input`, async () => {
+        it(`returns 41 for the sample input`, async () => {
             const path = `${Deno.cwd()}/day-6/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
 
             expect(result).toBe(41);
+        });
+
+        it(`returns 4711 for the sample input`, async () => {
+            const path = `${Deno.cwd()}/day-6/input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
+
+            expect(result).toBe(4711);
         });
     });
 
