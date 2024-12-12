@@ -31,6 +31,18 @@ export function solvePart2(input: Input): number {
     return -1;
 }
 
-export function evaluate(equation: string): boolean {
+export function evaluate(line: string): boolean {
+    const matched = line.match(/^(\d+?): (.+$)/);
+
+    if (!matched) throw new Error(`Potentially incorrect parsing of equation!`);
+
+    const value = Number(matched[1]);
+    const oprands = matched[2].split(" ").map(Number);
+    const equations = [];
+
     throw new Error("Not implemented!");
+}
+
+export function constructEquation(oprands: number[]): string[] {
+    return [];
 }
