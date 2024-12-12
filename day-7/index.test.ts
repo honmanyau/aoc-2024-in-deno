@@ -71,17 +71,20 @@ describe("Day 7", () => {
         it('returns the equations "10 + 19" and "10 * 19" for the operands [10, 19]', () => {
             const result = constructEquations([10, 19]);
 
-            expect(result).toEqual(["10 + 19", "10 * 19"]);
+            expect(result).toEqual([
+                [10, "+", 19],
+                [10, "*", 19],
+            ]);
         });
 
         it('returns the equations "81 + 40 + 27", "81 * 40 + 27", "81 + 40 * 27", and "81 * 40 * 27" for the operands [81, 40, 27]', () => {
             const result = constructEquations([81, 40, 27]);
 
             expect(result).toEqual([
-                "81 + 40 + 27",
-                "81 + 40 * 27",
-                "81 * 40 + 27",
-                "81 * 40 * 27",
+                [81, "+", 40, "+", 27],
+                [81, "+", 40, "*", 27],
+                [81, "*", 40, "+", 27],
+                [81, "*", 40, "*", 27],
             ]);
         });
     });

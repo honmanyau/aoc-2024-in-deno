@@ -1,4 +1,5 @@
 type Input = string[][];
+type Equation = (string | number)[];
 
 export async function solveDay7Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-7/input.txt`;
@@ -38,32 +39,54 @@ export function evaluate(line: string): boolean {
 
     const value = Number(matched[1]);
     const operands = matched[2].split(" ").map(Number);
-    const equations = [];
+    const equations = constructEquations(operands);
 
-    throw new Error("Not implemented!");
+    return equations.some((equation) => {
+        let result = equation.shift();
+
+        if (typeof result !== "number") {
+            throw new Error("Invalid operand!");
+        }
+
+        while (equation.length > 0) {
+            const operator = equation.shift();
+            const operand = equation.shift();
+
+            if (typeof operand !== "number") {
+                throw new Error("Invalid operand!");
+            }
+
+            if (operator === "+") result += operand;
+            if (operator === "*") result *= operand;
+        }
+
+        return result === value;
+    });
 }
 
 export function constructEquations(
     operands: number[],
-    equations: string[] = []
-): string[] {
+    equations: Equation[] = []
+): Equation[] {
     if (operands.length === 0) {
         return equations;
     }
 
-    const nextEquations = [];
+    const nextEquations: Equation[] = [];
 
     if (equations.length === 0) {
         const [a, b] = operands.splice(0, 2);
 
-        nextEquations.push(`${a} + ${b}`, `${a} * ${b}`);
+        nextEquations.push([a, "+", b], [a, "*", b]);
     } else {
         const operand = operands.shift();
 
+        if (!operand) throw new Error("Missing operand!");
+
         for (const equation of equations) {
             nextEquations.push(
-                `${equation} + ${operand}`,
-                `${equation} * ${operand}`
+                [...equation, "+", operand],
+                [...equation, "*", operand]
             );
         }
     }
