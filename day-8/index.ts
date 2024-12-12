@@ -73,9 +73,54 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    let result = 0;
+    const antennaPositions = getAntennaPositions(input);
+    const antinodePositions = new Set<string>();
 
-    return result;
+    const isOob = ([y, x]: Position) => input[y]?.[x] === undefined;
+
+    const add = (position: Position, offset: Position, m: number): Position =>
+        [position[0] + offset[0] * m, position[1] + offset[1] * m] as Position;
+
+    for (const [_antennaType, positions] of Object.entries(antennaPositions)) {
+        for (let i = 0; i < positions.length; i++) {
+            for (let j = 0; j < positions.length; j++) {
+                if (i === j) continue;
+
+                const antennaPosition1 = positions[i];
+                const antennaPosition2 = positions[j];
+
+                const offset1: Position = [
+                    antennaPosition1[0] - antennaPosition2[0],
+                    antennaPosition1[1] - antennaPosition2[1],
+                ];
+
+                const offset2: Position = [
+                    antennaPosition2[0] - antennaPosition1[0],
+                    antennaPosition2[1] - antennaPosition1[1],
+                ];
+
+                let n = 1;
+                let antinodePosition = add(antennaPosition2, offset1, n);
+
+                while (!isOob(antinodePosition)) {
+                    antinodePositions.add(keyify(antinodePosition));
+                    n++;
+                    antinodePosition = add(antennaPosition2, offset1, n);
+                }
+
+                n = 1;
+                antinodePosition = add(antennaPosition1, offset2, n);
+
+                while (!isOob(antinodePosition)) {
+                    antinodePositions.add(keyify(antinodePosition));
+                    n++;
+                    antinodePosition = add(antennaPosition1, offset2, n);
+                }
+            }
+        }
+    }
+
+    return antinodePositions.size;
 }
 
 export function getAntennaPositions(input: Input): AntennaPositions {
