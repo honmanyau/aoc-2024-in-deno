@@ -116,7 +116,7 @@ describe("Day 12", () => {
         it(`returns ["E", 3, 8] for \`sample-input\` starting at [0, 3]`, async () => {
             const path = `${Deno.cwd()}/day-12/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const region = findRegion(input, [0, 3]);
+            const region = findRegion(input, [3, 0]);
 
             expect(region).toEqual(["E", 3, 8]);
         });
@@ -124,7 +124,7 @@ describe("Day 12", () => {
         it(`returns ["E", 3, 8] for \`sample-input\` starting at [1, 3]`, async () => {
             const path = `${Deno.cwd()}/day-12/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const region = findRegion(input, [1, 3]);
+            const region = findRegion(input, [3, 1]);
 
             expect(region).toEqual(["E", 3, 8]);
         });
