@@ -47,6 +47,10 @@ export function solvePart1(input: Input): number {
     return price;
 }
 
+export function solvePart2(input: Input): number {
+    return -1;
+}
+
 export function findRegions(input: Input): Region[] {
     const height = input.length;
     const width = input[0].length;

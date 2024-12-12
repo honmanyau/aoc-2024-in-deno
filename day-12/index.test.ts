@@ -8,6 +8,7 @@ import {
     getVertices,
     readPuzzleInput,
     solvePart1,
+    solvePart2,
 } from "./index.ts";
 
 describe("Day 12", () => {
@@ -48,6 +49,48 @@ describe("Day 12", () => {
             const price = solvePart1(input);
 
             expect(price).toEqual(1930);
+        });
+    });
+
+    describe("solvePart2()", () => {
+        it(`returns 80 for the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart2(input);
+
+            expect(price).toEqual(80);
+        });
+
+        it(`returns 436 for the second sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-2.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart2(input);
+
+            expect(price).toEqual(436);
+        });
+
+        it(`returns 1930 for the third sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-3.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart2(input);
+
+            expect(price).toEqual(1206);
+        });
+
+        it(`returns 236 for the third sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-4.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart2(input);
+
+            expect(price).toEqual(236);
+        });
+
+        it(`returns 368 for the third sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-5.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart2(input);
+
+            expect(price).toEqual(368);
         });
     });
 
