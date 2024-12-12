@@ -1,7 +1,12 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { getAntennaPositions, readPuzzleInput, solvePart1 } from "./index.ts";
+import {
+    getAntennaPositions,
+    readPuzzleInput,
+    solvePart1,
+    solvePart2,
+} from "./index.ts";
 
 describe("Day 8", () => {
     describe("readPuzzleInput()", () => {
@@ -101,9 +106,22 @@ describe("Day 8", () => {
     });
 
     describe("solvePart2()", () => {
-        it("returns 11387 for the sample input", async () => {
+        it("returns 34 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-8/sample-input.txt`;
             const input = await readPuzzleInput(path);
+
+            const result = solvePart2(input);
+
+            expect(result).toBe(34);
+        });
+
+        it("returns 9 for the fifth sample input", async () => {
+            const path = `${Deno.cwd()}/day-8/sample-input-5.txt`;
+            const input = await readPuzzleInput(path);
+
+            const result = solvePart2(input);
+
+            expect(result).toBe(9);
         });
     });
 });
