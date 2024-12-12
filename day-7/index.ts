@@ -30,3 +30,7 @@ export function solvePart1(input: Input): number {
 export function solvePart2(input: Input): number {
     return -1;
 }
+
+export function evaluate(equation: string): boolean {
+    throw new Error("Not implemented!");
+}
