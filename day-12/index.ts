@@ -36,7 +36,15 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const regions = findRegions(input);
+
+    let price = 0;
+
+    for (const [_letter, area, perimeter] of regions) {
+        price += area * perimeter;
+    }
+
+    return price;
 }
 
 export function findRegions(input: Input): Region[] {
