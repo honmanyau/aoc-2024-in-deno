@@ -36,7 +36,17 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    let result = 0;
+
+    for (const line of input) {
+        const linerResult = evaluate(line, true);
+
+        if (linerResult !== undefined) {
+            result += linerResult;
+        }
+    }
+
+    return result;
 }
 
 export function evaluate(
