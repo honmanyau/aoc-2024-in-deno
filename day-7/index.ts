@@ -88,7 +88,7 @@ export function constructEquations(
     if (equations.length === 0) {
         const [a, b] = operands.splice(0, 2);
 
-        nextEquations.push([a, "+", b], [a, "*", b]);
+        nextEquations.push([a, "+", b], [a, "*", b], [a, "||", b]);
     } else {
         const operand = operands.shift();
 
@@ -97,7 +97,8 @@ export function constructEquations(
         for (const equation of equations) {
             nextEquations.push(
                 [...equation, "+", operand],
-                [...equation, "*", operand]
+                [...equation, "*", operand],
+                [...equation, "||", operand]
             );
         }
     }
