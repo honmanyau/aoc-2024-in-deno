@@ -1,4 +1,4 @@
-type Input = string[][];
+type Input = string[];
 type Equation = (string | number)[];
 
 export async function solveDay7Part1(): Promise<number> {
@@ -18,10 +18,7 @@ export async function solveDay7Part2(): Promise<number> {
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
 
-    return content
-        .trim()
-        .split("\n")
-        .map((line) => line.split(""));
+    return content.trim().split("\n");
 }
 
 export function solvePart1(input: Input): number {
