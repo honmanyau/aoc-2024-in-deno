@@ -39,7 +39,10 @@ export function solvePart2(input: Input): number {
     return -1;
 }
 
-export function evaluate(line: string): number | undefined {
+export function evaluate(
+    line: string,
+    concat: boolean = false
+): number | undefined {
     const matched = line.match(/^(\d+?): (.+$)/);
 
     if (!matched) throw new Error(`Potentially incorrect parsing of equation!`);
@@ -65,6 +68,12 @@ export function evaluate(line: string): number | undefined {
 
             if (operator === "+") result += operand;
             if (operator === "*") result *= operand;
+
+            if (operator === "||") {
+                if (!concat) return false;
+
+                result = Number(`${result}${operand}`);
+            }
         }
 
         return result === value;

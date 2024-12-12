@@ -29,58 +29,116 @@ describe("Day 7", () => {
     });
 
     describe("evaluate()", () => {
-        it("returns 190 for the calibration equation 190: 10 19", () => {
-            const result = evaluate("190: 10 19");
+        describe("without concatenation", () => {
+            it("returns 190 for the calibration equation 190: 10 19", () => {
+                const result = evaluate("190: 10 19");
 
-            expect(result).toBe(190);
+                expect(result).toBe(190);
+            });
+
+            it("returns 3267 for the calibration equation 3267: 81 40 27", () => {
+                const result = evaluate("3267: 81 40 27");
+
+                expect(result).toBe(3267);
+            });
+
+            it("returns 292 for the calibration equation 292: 11 6 16 20", () => {
+                const result = evaluate("292: 11 6 16 20");
+
+                expect(result).toBe(292);
+            });
+
+            it("returns undefined for the calibration equation 83: 17 5", () => {
+                const result = evaluate("83: 17 5");
+
+                expect(result).toBe(undefined);
+            });
+
+            it("returns undefined for the calibration equation 156: 15 6", () => {
+                const result = evaluate("156: 15 6");
+
+                expect(result).toBe(undefined);
+            });
+
+            it("returns undefined for the calibration equation 7290: 6 8 6 15", () => {
+                const result = evaluate("7290: 6 8 6 15");
+
+                expect(result).toBe(undefined);
+            });
+
+            it("returns undefined for the calibration equation 161011: 16 10 13", () => {
+                const result = evaluate("161011: 16 10 13");
+
+                expect(result).toBe(undefined);
+            });
+
+            it("returns undefined for the calibration equation 192: 17 8 14", () => {
+                const result = evaluate("192: 17 8 14");
+
+                expect(result).toBe(undefined);
+            });
+
+            it("returns undefined for the calibration equation 21037: 9 7 18 13", () => {
+                const result = evaluate("21037: 9 7 18 13");
+
+                expect(result).toBe(undefined);
+            });
         });
 
-        it("returns 3267 for the calibration equation 3267: 81 40 27", () => {
-            const result = evaluate("3267: 81 40 27");
+        describe("with concatenation", () => {
+            it("returns 190 for the calibration equation 190: 10 19", () => {
+                const result = evaluate("190: 10 19", true);
 
-            expect(result).toBe(3267);
-        });
+                expect(result).toBe(190);
+            });
 
-        it("returns 292 for the calibration equation 292: 11 6 16 20", () => {
-            const result = evaluate("292: 11 6 16 20");
+            it("returns 3267 for the calibration equation 3267: 81 40 27", () => {
+                const result = evaluate("3267: 81 40 27", true);
 
-            expect(result).toBe(292);
-        });
+                expect(result).toBe(3267);
+            });
 
-        it("returns undefined for the calibration equation 83: 17 5", () => {
-            const result = evaluate("83: 17 5");
+            it("returns 292 for the calibration equation 292: 11 6 16 20", () => {
+                const result = evaluate("292: 11 6 16 20", true);
 
-            expect(result).toBe(undefined);
-        });
+                expect(result).toBe(292);
+            });
 
-        it("returns undefined for the calibration equation 156: 15 6", () => {
-            const result = evaluate("156: 15 6");
+            it("returns 156 for the calibration equation 156: 15 6", () => {
+                const result = evaluate("156: 15 6", true);
 
-            expect(result).toBe(undefined);
-        });
+                expect(result).toBe(156);
+            });
 
-        it("returns undefined for the calibration equation 7290: 6 8 6 15", () => {
-            const result = evaluate("7290: 6 8 6 15");
+            it("returns 7290 for the calibration equation 7290: 6 8 6 15", () => {
+                const result = evaluate("7290: 6 8 6 15", true);
 
-            expect(result).toBe(undefined);
-        });
+                expect(result).toBe(7290);
+            });
 
-        it("returns undefined for the calibration equation 161011: 16 10 13", () => {
-            const result = evaluate("161011: 16 10 13");
+            it("returns 192 for the calibration equation 192: 17 8 14", () => {
+                const result = evaluate("192: 17 8 14", true);
 
-            expect(result).toBe(undefined);
-        });
+                expect(result).toBe(192);
+            });
 
-        it("returns undefined for the calibration equation 192: 17 8 14", () => {
-            const result = evaluate("192: 17 8 14");
+            it("returns undefined for the calibration equation 83: 17 5", () => {
+                const result = evaluate("83: 17 5", true);
 
-            expect(result).toBe(undefined);
-        });
+                expect(result).toBe(undefined);
+            });
 
-        it("returns undefined for the calibration equation 21037: 9 7 18 13", () => {
-            const result = evaluate("21037: 9 7 18 13");
+            it("returns undefined for the calibration equation 161011: 16 10 13", () => {
+                const result = evaluate("161011: 16 10 13", true);
 
-            expect(result).toBe(undefined);
+                expect(result).toBe(undefined);
+            });
+
+            it("returns undefined for the calibration equation 21037: 9 7 18 13", () => {
+                const result = evaluate("21037: 9 7 18 13", true);
+
+                expect(result).toBe(undefined);
+            });
         });
     });
 
