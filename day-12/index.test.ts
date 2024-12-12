@@ -244,6 +244,19 @@ describe("Day 12", () => {
             expect(sides).toEqual(4);
         });
 
+        it(`returns 8 sides for the region [[0, 0], [1, 1]]`, async () => {
+            const sides = getSides(
+                new Set(
+                    [
+                        [0, 0],
+                        [1, 1],
+                    ].map((v) => v.join(","))
+                )
+            );
+
+            expect(sides).toEqual(8);
+        });
+
         it(`returns 6 sides for the region [[0, 0], [0, 1], [1, 0]]`, async () => {
             const sides = getSides(
                 new Set(
@@ -256,6 +269,23 @@ describe("Day 12", () => {
             );
 
             expect(sides).toEqual(6);
+        });
+
+        it(`returns 4 sides for the region [[0, 0], [0, 1], [1, 0], [1, 1]]`, async () => {
+            const sides = getSides(
+                new Set(
+                    [
+                        [
+                            [0, 0],
+                            [0, 1],
+                            [1, 0],
+                            [1, 1],
+                        ],
+                    ].map((v) => v.join(","))
+                )
+            );
+
+            expect(sides).toEqual(4);
         });
 
         it(`returns 8 sides for the C region in the first sample input`, async () => {
