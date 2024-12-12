@@ -1,7 +1,7 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { readPuzzleInput } from "./index.ts";
+import { getAntennaPositions, readPuzzleInput } from "./index.ts";
 
 describe("Day 8", () => {
     describe("readPuzzleInput()", () => {
@@ -23,6 +23,46 @@ describe("Day 8", () => {
                 "............".split(""),
                 "............".split(""),
             ]);
+        });
+    });
+
+    describe("getAntennasPositions()", () => {
+        it(`returns { "A": [[0, 0]] ) for the input [["A", "."]]`, () => {
+            const input = [["A", "."]];
+            const antennaPositions = getAntennaPositions(input);
+
+            expect(antennaPositions).toEqual({ A: [[0, 0]] });
+        });
+
+        it(`returns { "A": [[0, 0], [1, 1]] ) for the input [["A", "."], [".", "A"]]`, () => {
+            const input = [
+                ["A", "."],
+                [".", "A"],
+            ];
+            const antennaPositions = getAntennaPositions(input);
+
+            expect(antennaPositions).toEqual({
+                A: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            });
+        });
+
+        it(`returns { "A": [[0, 0], [1, 1]], 0: [[0, 1]] ) for the input [["A", "0"], [".", "A"]]`, () => {
+            const input = [
+                ["A", "0"],
+                [".", "A"],
+            ];
+            const antennaPositions = getAntennaPositions(input);
+
+            expect(antennaPositions).toEqual({
+                A: [
+                    [0, 0],
+                    [1, 1],
+                ],
+                0: [[0, 1]],
+            });
         });
     });
 

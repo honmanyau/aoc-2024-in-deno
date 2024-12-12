@@ -1,5 +1,6 @@
 type Input = string[][];
-type Equation = (string | number)[];
+type Position = [number, number];
+type AntennaPositions = { [type: string]: Position[][] };
 
 export async function solveDay8Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-8/input.txt`;
@@ -34,4 +35,8 @@ export function solvePart2(input: Input): number {
     let result = 0;
 
     return result;
+}
+
+export function getAntennaPositions(input: Input): AntennaPositions {
+    return {};
 }
