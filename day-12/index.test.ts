@@ -1,7 +1,12 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { findRegion, findRegions, readPuzzleInput } from "./index.ts";
+import {
+    findRegion,
+    findRegions,
+    readPuzzleInput,
+    solvePart1,
+} from "./index.ts";
 
 describe("Day 12", () => {
     describe("readPuzzleInput()", () => {
@@ -15,6 +20,32 @@ describe("Day 12", () => {
                 ["B", "B", "C", "C"],
                 ["E", "E", "E", "C"],
             ]);
+        });
+    });
+
+    describe("solvePart1()", () => {
+        it(`returns 140 for the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart1(input);
+
+            expect(price).toEqual(140);
+        });
+
+        it(`returns 772 for the second sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-2.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart1(input);
+
+            expect(price).toEqual(772);
+        });
+
+        it(`returns 1930 for the third sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-3.txt`;
+            const input = await readPuzzleInput(path);
+            const price = solvePart1(input);
+
+            expect(price).toEqual(1930);
         });
     });
 

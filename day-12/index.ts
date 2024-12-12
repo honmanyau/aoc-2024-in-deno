@@ -35,6 +35,10 @@ export async function readPuzzleInput(path: string): Promise<Input> {
         .map((line) => line.split(""));
 }
 
+export function solvePart1(input: Input): number {
+    return -1;
+}
+
 export function findRegions(input: Input): Region[] {
     const height = input.length;
     const width = input[0].length;
