@@ -37,12 +37,36 @@ export function evaluate(line: string): boolean {
     if (!matched) throw new Error(`Potentially incorrect parsing of equation!`);
 
     const value = Number(matched[1]);
-    const oprands = matched[2].split(" ").map(Number);
+    const operands = matched[2].split(" ").map(Number);
     const equations = [];
 
     throw new Error("Not implemented!");
 }
 
-export function constructEquation(oprands: number[]): string[] {
-    return [];
+export function constructEquations(
+    operands: number[],
+    equations: string[] = []
+): string[] {
+    if (operands.length === 0) {
+        return equations;
+    }
+
+    const nextEquations = [];
+
+    if (equations.length === 0) {
+        const [a, b] = operands.splice(0, 2);
+
+        nextEquations.push(`${a} + ${b}`, `${a} * ${b}`);
+    } else {
+        const operand = operands.shift();
+
+        for (const equation of equations) {
+            nextEquations.push(
+                `${equation} + ${operand}`,
+                `${equation} * ${operand}`
+            );
+        }
+    }
+
+    return constructEquations(operands, nextEquations);
 }

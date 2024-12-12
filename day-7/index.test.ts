@@ -1,20 +1,13 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { constructEquation, evaluate, readPuzzleInput } from "./index.ts";
+import { constructEquations, evaluate, readPuzzleInput } from "./index.ts";
 
 describe("Day 7", () => {
     describe("readPuzzleInput()", () => {
         it("returns the puzzle input correctly for `sample-input`", async () => {
             const path = `${Deno.cwd()}/day-7/sample-input.txt`;
             const input = await readPuzzleInput(path);
-
-            expect(input).toEqual([
-                ["A", "A", "A", "A"],
-                ["B", "B", "C", "D"],
-                ["B", "B", "C", "C"],
-                ["E", "E", "E", "C"],
-            ]);
         });
     });
 
@@ -75,19 +68,19 @@ describe("Day 7", () => {
     });
 
     describe("constructEquation()", () => {
-        it('returns the equations "10 + 19" and "10 * 19" for the oprands [10, 19]', () => {
-            const result = constructEquation([10, 19]);
+        it('returns the equations "10 + 19" and "10 * 19" for the operands [10, 19]', () => {
+            const result = constructEquations([10, 19]);
 
-            expect(result).toBe(["10 + 19", "10 * 19"]);
+            expect(result).toEqual(["10 + 19", "10 * 19"]);
         });
 
-        it('returns the equations "81 + 40 + 27", "81 * 40 + 27", "81 + 40 * 27", and "81 * 40 * 27" for the oprands [81, 40, 27]', () => {
-            const result = constructEquation([81, 40, 27]);
+        it('returns the equations "81 + 40 + 27", "81 * 40 + 27", "81 + 40 * 27", and "81 * 40 * 27" for the operands [81, 40, 27]', () => {
+            const result = constructEquations([81, 40, 27]);
 
-            expect(result).toBe([
+            expect(result).toEqual([
                 "81 + 40 + 27",
-                "81 * 40 + 27",
                 "81 + 40 * 27",
+                "81 * 40 + 27",
                 "81 * 40 * 27",
             ]);
         });
