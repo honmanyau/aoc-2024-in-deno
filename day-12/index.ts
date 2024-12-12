@@ -1,4 +1,4 @@
-type Input = string[];
+type Input = string[][];
 type Region = [string, number, number];
 type Position = [number, number];
 type Vector = Up | Down | Left | Right;
@@ -29,14 +29,20 @@ export async function solveDay12Part2(): Promise<number> {
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
 
-    return content.trim().split("\n");
+    return content
+        .trim()
+        .split("\n")
+        .map((line) => line.split(""));
 }
 
 export function findRegions(input: Input): Region[] {
     return [];
 }
 
-export function findRegion(input: Input, startingPosition: Position): Region {
+export function findRegion(
+    input: Input,
+    startingPosition: Position
+): [Region, Set<string>] {
     const queue: Position[] = [startingPosition];
     const visited = new Set<string>();
     const startingLetter = input[startingPosition[0]][startingPosition[1]];
@@ -70,7 +76,7 @@ export function findRegion(input: Input, startingPosition: Position): Region {
         visited.add(keyify([y, x]));
     }
 
-    return [startingLetter, area, perimeter];
+    return [[startingLetter, area, perimeter], visited];
 }
 
 function keyify(position: Position): string {
