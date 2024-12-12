@@ -26,9 +26,50 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    let result = 0;
+    const antennaPositions = getAntennaPositions(input);
+    const antinodePositions = new Set<string>();
 
-    return result;
+    const isOob = ([y, x]: Position) => input[y]?.[x] === undefined;
+
+    for (const [_antennaType, positions] of Object.entries(antennaPositions)) {
+        for (let i = 0; i < positions.length; i++) {
+            for (let j = 0; j < positions.length; j++) {
+                if (i === j) continue;
+
+                const antennaPosition1 = positions[i];
+                const antennaPosition2 = positions[j];
+
+                const offset1: Position = [
+                    antennaPosition1[0] - antennaPosition2[0],
+                    antennaPosition1[1] - antennaPosition2[1],
+                ];
+
+                const offset2: Position = [
+                    antennaPosition2[0] - antennaPosition1[0],
+                    antennaPosition2[1] - antennaPosition1[1],
+                ];
+
+                const antinodePosition1: Position = [
+                    antennaPosition1[0] + offset1[0],
+                    antennaPosition1[1] + offset1[1],
+                ];
+                const antinodePosition2: Position = [
+                    antennaPosition2[0] + offset2[0],
+                    antennaPosition2[1] + offset2[1],
+                ];
+
+                if (!isOob(antinodePosition1)) {
+                    antinodePositions.add(keyify(antinodePosition1));
+                }
+
+                if (!isOob(antinodePosition2)) {
+                    antinodePositions.add(keyify(antinodePosition2));
+                }
+            }
+        }
+    }
+
+    return antinodePositions.size;
 }
 
 export function solvePart2(input: Input): number {
@@ -55,4 +96,8 @@ export function getAntennaPositions(input: Input): AntennaPositions {
     }
 
     return antennaPositions;
+}
+
+function keyify(position: Position): string {
+    return position.join(",");
 }
