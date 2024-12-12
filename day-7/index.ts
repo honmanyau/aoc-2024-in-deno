@@ -22,14 +22,24 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    let result = 0;
+
+    for (const line of input) {
+        const linerResult = evaluate(line);
+
+        if (linerResult !== undefined) {
+            result += linerResult;
+        }
+    }
+
+    return result;
 }
 
 export function solvePart2(input: Input): number {
     return -1;
 }
 
-export function evaluate(line: string): boolean {
+export function evaluate(line: string): number | undefined {
     const matched = line.match(/^(\d+?): (.+$)/);
 
     if (!matched) throw new Error(`Potentially incorrect parsing of equation!`);
@@ -38,7 +48,7 @@ export function evaluate(line: string): boolean {
     const operands = matched[2].split(" ").map(Number);
     const equations = constructEquations(operands);
 
-    return equations.some((equation) => {
+    const validEquationFound = equations.some((equation) => {
         let result = equation.shift();
 
         if (typeof result !== "number") {
@@ -59,6 +69,10 @@ export function evaluate(line: string): boolean {
 
         return result === value;
     });
+
+    if (!validEquationFound) return;
+
+    return value;
 }
 
 export function constructEquations(
