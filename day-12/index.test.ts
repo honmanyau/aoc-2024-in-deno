@@ -182,60 +182,55 @@ describe("Day 12", () => {
     });
 
     describe("getSides()", () => {
-        it(`returns 4 sides for the A region in the first sample input`, async () => {
-            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const sides = getSides(input, [0, 0]);
+        it(`returns 4 sides for the region [0, 0]`, async () => {
+            const sides = getSides(new Set([[0, 0]].map((v) => v.join(","))));
 
             expect(sides).toEqual(4);
         });
 
-        it(`returns 4 sides for the A region in the first sample input`, async () => {
-            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const sides = getSides(input, [0, 1]);
+        it(`returns 4 sides for the region [[0, 0], [0, 1]]`, async () => {
+            const sides = getSides(
+                new Set(
+                    [
+                        [0, 0],
+                        [0, 1],
+                    ].map((v) => v.join(","))
+                )
+            );
 
             expect(sides).toEqual(4);
         });
 
-        it(`returns 4 sides for the B region in the first sample input`, async () => {
-            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const sides = getSides(input, [1, 0]);
+        it(`returns 6 sides for the region [[0, 0], [0, 1], [1, 0]]`, async () => {
+            const sides = getSides(
+                new Set(
+                    [
+                        [0, 0],
+                        [0, 1],
+                        [1, 0],
+                    ].map((v) => v.join(","))
+                )
+            );
 
-            expect(sides).toEqual(4);
+            expect(sides).toEqual(6);
         });
 
         it(`returns 8 sides for the C region in the first sample input`, async () => {
             const path = `${Deno.cwd()}/day-12/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const sides = getSides(input, [1, 2]);
+            const [_region, visited] = findRegion(input, [1, 2]);
+            const sides = getSides(visited);
 
             expect(sides).toEqual(8);
         });
 
-        it(`returns 8 sides for the C region in the first sample input`, async () => {
-            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+        it(`returns 20 sides for the O region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input-2.txt`;
             const input = await readPuzzleInput(path);
-            const sides = getSides(input, [3, 3]);
+            const [_region, visited] = findRegion(input, [0, 0]);
+            const sides = getSides(visited);
 
-            expect(sides).toEqual(8);
-        });
-
-        it(`returns 4 sides for the D region in the first sample input`, async () => {
-            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const sides = getSides(input, [1, 3]);
-
-            expect(sides).toEqual(4);
-        });
-
-        it(`returns 4 sides for the E region in the first sample input`, async () => {
-            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const sides = getSides(input, [3, 0]);
-
-            expect(sides).toEqual(4);
+            expect(sides).toEqual(20);
         });
     });
 });

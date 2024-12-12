@@ -107,6 +107,64 @@ export function findRegion(
     return [[startingLetter, area, perimeter], visited];
 }
 
+export function getVertices(position: Position): string[] {
+    const [y, x] = position;
+    const top: Position = [y - 1, x];
+    const bottom: Position = [y + 1, x];
+    const left: Position = [y, x - 1];
+    const right: Position = [y, x + 1];
+    const topLeft: Position = [y - 1, x - 1];
+    const topRight: Position = [y - 1, x + 1];
+    const bottomLeft: Position = [y + 1, x - 1];
+    const bottomRight: Position = [y + 1, x + 1];
+
+    const topLeftVertexSignature = [position, topLeft, top, left].sort(
+        sortYthenX
+    );
+    const topRigbhtVertexSignature = [position, topRight, top, right].sort(
+        sortYthenX
+    );
+    const bottomLeftVertexSignature = [position, bottomLeft, bottom, left].sort(
+        sortYthenX
+    );
+    const bottomRightVertexSignature = [
+        position,
+        bottomRight,
+        bottom,
+        right,
+    ].sort(sortYthenX);
+
+    return [
+        topLeftVertexSignature.map(keyify).join("|"),
+        topRigbhtVertexSignature.map(keyify).join("|"),
+        bottomLeftVertexSignature.map(keyify).join("|"),
+        bottomRightVertexSignature.map(keyify).join("|"),
+    ];
+}
+
+export function getSides(positions: Set<string>): number {
+    const allVertices: { [vertex: string]: boolean } = {};
+
+    for (const positionString of positions.values()) {
+        const [y, x] = positionString.split(",").map(Number);
+        const vertices = getVertices([y, x]);
+
+        for (const vertex of vertices) {
+            if (allVertices[vertex] === undefined) {
+                allVertices[vertex] = false;
+            }
+
+            allVertices[vertex] = !allVertices[vertex];
+        }
+    }
+
+    return Object.entries(allVertices).filter(([_key, value]) => value).length;
+}
+
 function keyify(position: Position): string {
     return position.join(",");
+}
+
+function sortYthenX(a: Position, b: Position): number {
+    return a[0] - b[0] || a[1] - b[1];
 }
