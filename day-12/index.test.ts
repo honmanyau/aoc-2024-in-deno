@@ -4,6 +4,8 @@ import { describe, it } from "@std/testing/bdd";
 import {
     findRegion,
     findRegions,
+    getSides,
+    getVertices,
     readPuzzleInput,
     solvePart1,
 } from "./index.ts";
@@ -163,6 +165,77 @@ describe("Day 12", () => {
             const [region, _visited] = findRegion(input, [3, 1]);
 
             expect(region).toEqual(["E", 3, 8]);
+        });
+    });
+
+    describe("getVertices()", () => {
+        it(`returns `, () => {
+            const vertices = getVertices([0, 0]);
+
+            expect(vertices).toEqual([
+                `-1,-1|-1,0|0,-1|0,0`,
+                `-1,0|-1,1|0,0|0,1`,
+                `0,-1|0,0|1,-1|1,0`,
+                `0,0|0,1|1,0|1,1`,
+            ]);
+        });
+    });
+
+    describe("getSides()", () => {
+        it(`returns 4 sides for the A region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [0, 0]);
+
+            expect(sides).toEqual(4);
+        });
+
+        it(`returns 4 sides for the A region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [0, 1]);
+
+            expect(sides).toEqual(4);
+        });
+
+        it(`returns 4 sides for the B region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [1, 0]);
+
+            expect(sides).toEqual(4);
+        });
+
+        it(`returns 8 sides for the C region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [1, 2]);
+
+            expect(sides).toEqual(8);
+        });
+
+        it(`returns 8 sides for the C region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [3, 3]);
+
+            expect(sides).toEqual(8);
+        });
+
+        it(`returns 4 sides for the D region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [1, 3]);
+
+            expect(sides).toEqual(4);
+        });
+
+        it(`returns 4 sides for the E region in the first sample input`, async () => {
+            const path = `${Deno.cwd()}/day-12/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const sides = getSides(input, [3, 0]);
+
+            expect(sides).toEqual(4);
         });
     });
 });
