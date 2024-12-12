@@ -48,7 +48,26 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    const height = input.length;
+    const width = input[0].length;
+    const visited = new Set<string>();
+
+    let price = 0;
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (visited.has(keyify([y, x]))) continue;
+
+            const [region, regionVisited] = findRegion(input, [y, x]);
+            const sides = getSides(regionVisited);
+
+            price += region[1] * sides;
+
+            regionVisited.forEach((key) => visited.add(key));
+        }
+    }
+
+    return price;
 }
 
 export function findRegions(input: Input): Region[] {
@@ -162,7 +181,31 @@ export function getSides(positions: Set<string>): number {
         }
     }
 
-    return Object.entries(allVertices).filter(([_key, value]) => value).length;
+    let sharedVertexCount = 0;
+
+    for (const vertex in allVertices) {
+        if (allVertices[vertex] === true) continue;
+
+        const [topLeft, topRight, bottomLeft, bottomRight] = vertex.split("|");
+
+        if (
+            (positions.has(topLeft) &&
+                positions.has(bottomRight) &&
+                !positions.has(topRight) &&
+                !positions.has(bottomLeft)) ||
+            (positions.has(topRight) &&
+                positions.has(bottomLeft) &&
+                !positions.has(topLeft) &&
+                !positions.has(bottomRight))
+        ) {
+            sharedVertexCount += 2;
+        }
+    }
+
+    return (
+        Object.entries(allVertices).filter(([_key, value]) => value).length +
+        sharedVertexCount
+    );
 }
 
 function keyify(position: Position): string {
