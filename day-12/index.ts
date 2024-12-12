@@ -36,7 +36,23 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function findRegions(input: Input): Region[] {
-    return [];
+    const height = input.length;
+    const width = input[0].length;
+    const regions = [];
+    const visited = new Set<string>();
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (visited.has(keyify([y, x]))) continue;
+
+            const [region, regionVisited] = findRegion(input, [y, x]);
+
+            regions.push(region);
+            regionVisited.forEach((key) => visited.add(key));
+        }
+    }
+
+    return regions;
 }
 
 export function findRegion(
