@@ -1,7 +1,12 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { constructEquations, evaluate, readPuzzleInput } from "./index.ts";
+import {
+    constructEquations,
+    evaluate,
+    readPuzzleInput,
+    solvePart1,
+} from "./index.ts";
 
 describe("Day 7", () => {
     describe("readPuzzleInput()", () => {
@@ -101,9 +106,15 @@ describe("Day 7", () => {
         });
     });
 
-    // describe("solvePart1()", () => {
+    describe("solvePart1()", () => {
+        it("returns 3749 for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-7/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
 
-    // });
+            expect(result).toBe(3749);
+        });
+    });
 
     // describe("solvePart2()", () => {
 
