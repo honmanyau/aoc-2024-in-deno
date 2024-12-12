@@ -1,5 +1,6 @@
 type Input = string[];
 type Region = [string, number, number];
+type Position = [number, number];
 
 export async function solveDay12Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-12/input.txt`;
@@ -22,5 +23,9 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function findRegions(input: Input): Region[] {
+    return [];
+}
+
+export function findRegion(input: Input, startingPosition: Position): Region[] {
     return [];
 }
