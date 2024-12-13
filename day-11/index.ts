@@ -1,12 +1,5 @@
 type Input = string[];
 
-const DIRECTIONS = [
-    [-1, 0],
-    [1, 0],
-    [0, -1],
-    [0, 1],
-] as const;
-
 export async function solveDay11Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-11/input.txt`;
     const input = await readPuzzleInput(path);
@@ -18,7 +11,7 @@ export async function solveDay11Part2(): Promise<number> {
     const path = `${Deno.cwd()}/day-11/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart2(input);
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
@@ -58,5 +51,11 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    let result = input;
+
+    for (let i = 0; i < 75; i++) {
+        result = blink(result);
+    }
+
+    return result.length;
 }
