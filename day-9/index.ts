@@ -75,7 +75,7 @@ export function defrag(blocks: Blocks): Blocks {
 
 export function defragByFile(blocks: Blocks): Blocks {
     const defragged = [...blocks];
-    const freeSpaceIndex = indexFreeSpace(defragged);
+    let freeSpaceIndex = indexFreeSpace(defragged);
 
     let i = defragged.length - 1;
 
@@ -90,14 +90,16 @@ export function defragByFile(blocks: Blocks): Blocks {
 
             const spaceRequired = fileEndIndex - i + 1;
 
-            for (const [startIndex, freeSpace] of freeSpaceIndex) {
-                if (freeSpace >= spaceRequired) {
+            for (let j = 0; j < freeSpaceIndex.length; j++) {
+                const [startIndex, freeSpace] = freeSpaceIndex[j];
+
+                if (freeSpace >= spaceRequired && startIndex < i) {
                     for (let j = 0; j < spaceRequired; j++) {
                         defragged[startIndex + j] = fileId;
                         defragged[i + j] = ".";
                     }
 
-                    // freeSpaceIndex.delete(startIndex);
+                    freeSpaceIndex = indexFreeSpace(defragged);
 
                     break;
                 }
