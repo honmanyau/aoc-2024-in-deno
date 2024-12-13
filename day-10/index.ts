@@ -12,7 +12,7 @@ export async function solveDay10Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-10/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart1(input);
 }
 
 export async function solveDay10Part2(): Promise<number> {
