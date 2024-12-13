@@ -22,7 +22,29 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function convertToBlocks(input: string): Blocks {
-    return [];
+    let id = 0;
+
+    const blocks: Blocks = [];
+
+    for (let i = 0; i < input.length; i++) {
+        const parsingFileBlocks = i % 2 === 0;
+
+        let remainingBlocks = Number(input[i]);
+
+        if (parsingFileBlocks) {
+            while (remainingBlocks-- > 0) {
+                blocks.push(`${id}`);
+            }
+
+            id++;
+        } else {
+            while (remainingBlocks-- > 0) {
+                blocks.push(".");
+            }
+        }
+    }
+
+    return blocks;
 }
 
 export function solvePart1(input: Input): number {
