@@ -48,7 +48,21 @@ export function convertToBlocks(input: string): Blocks {
 }
 
 export function defrag(blocks: Blocks): Blocks {
-    return [];
+    const defragged = [...blocks];
+
+    let i = 0;
+    let j = defragged.length - 1;
+
+    while (i < j) {
+        if (defragged[i] !== ".") i++;
+        if (defragged[j] === ".") j--;
+
+        if (defragged[i] === "." && defragged[j] !== ".") {
+            [defragged[i], defragged[j]] = [defragged[j], defragged[i]];
+        }
+    }
+
+    return defragged;
 }
 
 export function solvePart1(input: Input): number {
