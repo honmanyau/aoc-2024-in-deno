@@ -64,7 +64,7 @@ export function solvePart1(input: Input): number {
     for (const [vectorA, vectorB, prizePosition] of input) {
         let minTokenCost: number | undefined = undefined;
 
-        const multiples = findMultiples(
+        const multiples = findMultiplesPart1(
             vectorA[0],
             vectorB[0],
             prizePosition[0]
@@ -96,7 +96,11 @@ export function solvePart2(input: Input): number {
     return -1;
 }
 
-function findMultiples(a: number, b: number, sum: number): [number, number][] {
+function findMultiplesPart1(
+    a: number,
+    b: number,
+    sum: number
+): [number, number][] {
     const multiples: [number, number][] = [];
 
     for (let i = 0; i <= 100; i++) {
@@ -105,6 +109,26 @@ function findMultiples(a: number, b: number, sum: number): [number, number][] {
 
         if (!Number.isInteger(remainderB)) continue;
         if (remainderB > 100 || remainderB < 0) continue;
+
+        multiples.push([i, remainderB]);
+    }
+
+    return multiples;
+}
+
+function findMultiplesPart2(
+    a: number,
+    b: number,
+    sum: number
+): [number, number][] {
+    const multiples: [number, number][] = [];
+
+    for (let i = 0; a * i <= sum; i++) {
+        const diff = sum - a * i;
+        const remainderB = diff / b;
+
+        if (!Number.isInteger(remainderB)) continue;
+        if (remainderB < 0) continue;
 
         multiples.push([i, remainderB]);
     }
