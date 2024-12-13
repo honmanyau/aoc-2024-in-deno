@@ -47,6 +47,10 @@ export function convertToBlocks(input: string): Blocks {
     return blocks;
 }
 
+export function defrag(blocks: Blocks): Blocks {
+    return [];
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
