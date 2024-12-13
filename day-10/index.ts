@@ -75,7 +75,19 @@ export function findTrails(input: Input, startingPosition: Position): number {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    let trailCount = 0;
+
+    for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input[0].length; x++) {
+            const height = input[y][x];
+
+            if (height !== 0) continue;
+
+            trailCount += findTrails(input, [y, x]);
+        }
+    }
+
+    return trailCount;
 }
 
 export function solvePart2(input: Input): number {
