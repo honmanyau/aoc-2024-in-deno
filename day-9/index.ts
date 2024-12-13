@@ -1,6 +1,5 @@
-type Input = string[];
-type Position = [number, number];
-type AntennaPositions = { [type: string]: Position[] };
+type Input = string;
+type Blocks = string[];
 
 export async function solveDay9Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-9/input.txt`;
@@ -19,7 +18,11 @@ export async function solveDay9Part2(): Promise<number> {
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
 
-    return content.trim().split("\n");
+    return content.trim();
+}
+
+export function convertToBlocks(input: string): Blocks {
+    return [];
 }
 
 export function solvePart1(input: Input): number {
