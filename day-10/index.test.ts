@@ -1,7 +1,13 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput, solvePart1, solvePart2, step } from "./index.ts";
+import {
+    findTrails,
+    readPuzzleInput,
+    solvePart1,
+    solvePart2,
+    step,
+} from "./index.ts";
 
 describe("Day 10", () => {
     describe("readPuzzleInput()", () => {
@@ -67,6 +73,32 @@ describe("Day 10", () => {
             const positions = step(input, [1, 4]);
 
             expect(positions).toEqual([]);
+        });
+    });
+
+    describe("findTrails()", () => {
+        it("returns 1 for the second sample input", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input-2.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findTrails(input, [0, 0]);
+
+            expect(result).toBe(1);
+        });
+
+        it("returns 2 for the third sample input", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input-3.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findTrails(input, [0, 3]);
+
+            expect(result).toBe(2);
+        });
+
+        it("returns 4 for the fourth sample input", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input-4.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findTrails(input, [0, 3]);
+
+            expect(result).toBe(4);
         });
     });
 

@@ -44,6 +44,10 @@ export function step(input: Input, position: Position): Position[] {
     return nextPositions;
 }
 
+export function findTrails(input: Input, startingPosition: Position): number {
+    return -1;
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
