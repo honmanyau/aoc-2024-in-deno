@@ -1,6 +1,6 @@
 type Input = string;
 type Blocks = string[];
-type FreeSpaceIndex = Map<number, number>;
+type FreeSpaceIndex = [number, number][];
 
 export async function solveDay9Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-9/input.txt`;
@@ -73,10 +73,45 @@ export function defrag(blocks: Blocks): Blocks {
     return defragged;
 }
 
-export function defragByFile(blocks: Blocks): Blocks {}
+export function defragByFile(blocks: Blocks): Blocks {
+    const defragged = [...blocks];
+    const freeSpaceIndex = indexFreeSpace(defragged);
+
+    let i = defragged.length - 1;
+
+    while (i > 0) {
+        if (defragged[i] !== ".") {
+            const fileEndIndex = i;
+            const fileId = defragged[i];
+
+            while (defragged[i - 1] === fileId) {
+                i--;
+            }
+
+            const spaceRequired = fileEndIndex - i + 1;
+
+            for (const [startIndex, freeSpace] of freeSpaceIndex) {
+                if (freeSpace >= spaceRequired) {
+                    for (let j = 0; j < spaceRequired; j++) {
+                        defragged[startIndex + j] = fileId;
+                        defragged[i + j] = ".";
+                    }
+
+                    // freeSpaceIndex.delete(startIndex);
+
+                    break;
+                }
+            }
+        }
+
+        i--;
+    }
+
+    return defragged;
+}
 
 export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
-    const freeSpaceIndex: FreeSpaceIndex = new Map();
+    const freeSpaceIndex: FreeSpaceIndex = [];
 
     let i = 0;
     let contiguousFreeSpace = 0;
@@ -84,10 +119,10 @@ export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
     while (i <= blocks.length) {
         if (blocks[i] !== ".") {
             if (contiguousFreeSpace > 0) {
-                freeSpaceIndex.set(
+                freeSpaceIndex.push([
                     i - contiguousFreeSpace,
-                    contiguousFreeSpace
-                );
+                    contiguousFreeSpace,
+                ]);
             }
 
             contiguousFreeSpace = 0;

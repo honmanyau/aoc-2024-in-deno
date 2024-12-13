@@ -95,12 +95,10 @@ describe("Day 9", () => {
             const input = "0..111....22222".split("");
             const result = indexFreeSpace(input);
 
-            expect(result).toEqual(
-                new Map([
-                    [1, 2],
-                    [6, 4],
-                ])
-            );
+            expect(result).toEqual([
+                [1, 2],
+                [6, 4],
+            ]);
         });
 
         it(`returns { 2: 4, 8: 3, 12: 3, 18: 1, 21: 1, 26: 1, 31: 1, 35: 1 } for the blocks 00...111...2...333.44.5555.6666.777.888899`, () => {
@@ -109,18 +107,16 @@ describe("Day 9", () => {
             );
             const result = indexFreeSpace(input);
 
-            expect(result).toEqual(
-                new Map([
-                    [2, 3],
-                    [8, 3],
-                    [12, 3],
-                    [18, 1],
-                    [21, 1],
-                    [26, 1],
-                    [31, 1],
-                    [35, 1],
-                ])
-            );
+            expect(result).toEqual([
+                [2, 3],
+                [8, 3],
+                [12, 3],
+                [18, 1],
+                [21, 1],
+                [26, 1],
+                [31, 1],
+                [35, 1],
+            ]);
         });
     });
 
