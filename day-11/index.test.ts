@@ -51,6 +51,8 @@ describe("Day 11", () => {
             const path = `${Deno.cwd()}/day-11/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
+
+            expect(result).toHaveLength(55312);
         });
     });
 
