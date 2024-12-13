@@ -93,7 +93,36 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    let totalTokenCost = 0;
+
+    for (const [vectorA, vectorB, prizePosition] of input) {
+        // Oh, I'm stupid. This is actually the intersection of two lines.
+        // :facepalm:
+        // ax + by = c             ---- 1
+        // dx + ey = f             ---- 2
+        // x = (c - by) / a        ---- 3
+        // d(c - by) / a + ey = f  ---- substitute 3 into 2
+        // y = (af - cd) / (ae - bd)
+
+        prizePosition[0] += 10000000000000;
+        prizePosition[1] += 10000000000000;
+
+        const a = vectorA[0];
+        const b = vectorB[0];
+        const c = prizePosition[0];
+        const d = vectorA[1];
+        const e = vectorB[1];
+        const f = prizePosition[1];
+
+        const y = (a * f - c * d) / (a * e - b * d);
+        const x = (c - b * y) / a;
+
+        if (Number.isInteger(x) && Number.isInteger(y)) {
+            totalTokenCost += x * 3 + y;
+        }
+    }
+
+    return totalTokenCost;
 }
 
 function findMultiplesPart1(
@@ -129,7 +158,7 @@ function findMultiplesPart2(
 
         if (!Number.isInteger(remainderB)) continue;
         if (remainderB < 0) continue;
-
+        console.log("AYA: PUSH", [i, remainderB]);
         multiples.push([i, remainderB]);
     }
 
