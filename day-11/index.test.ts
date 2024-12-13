@@ -1,12 +1,15 @@
+import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
 import { readPuzzleInput, solvePart1, solvePart2 } from "./index.ts";
 
 describe("Day 11", () => {
     describe("readPuzzleInput()", () => {
-        it("returns the puzzle input correctly for `sample-input`", async () => {
+        it("returns the sample puzzle input correctly", async () => {
             const path = `${Deno.cwd()}/day-11/sample-input.txt`;
             const input = await readPuzzleInput(path);
+
+            expect(input).toEqual(["125", "17"]);
         });
     });
 
@@ -20,7 +23,7 @@ describe("Day 11", () => {
 
     describe("solvePart2()", () => {
         it("returns 3 for the fifth sample input", async () => {
-            const path = `${Deno.cwd()}/day-11/sample-input-5.txt`;
+            const path = `${Deno.cwd()}/day-11/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart2(input);
         });

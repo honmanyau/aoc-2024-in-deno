@@ -1,5 +1,4 @@
-type Input = number[][];
-type Position = [number, number];
+type Input = string[];
 
 const DIRECTIONS = [
     [-1, 0],
@@ -24,9 +23,8 @@ export async function solveDay11Part2(): Promise<number> {
 
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
-    const lines = content.trim().split("\n");
 
-    return lines.map((line) => line.split("").map(Number));
+    return content.trim().split(" ");
 }
 
 export function solvePart1(input: Input): number {
@@ -35,8 +33,4 @@ export function solvePart1(input: Input): number {
 
 export function solvePart2(input: Input): number {
     return -1;
-}
-
-function keyify(position: Position): string {
-    return position.join(",");
 }
