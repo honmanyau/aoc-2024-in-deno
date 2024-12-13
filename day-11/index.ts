@@ -87,5 +87,28 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    let result: CompressedInput = compressStones(input);
+
+    for (let i = 0; i < 75; i++) {
+        const newResult: CompressedInput = {};
+
+        for (const [stone, count] of Object.entries(result)) {
+            const newStones = atomicBlink(stone);
+
+            for (const newStone of newStones) {
+                if (!newResult[newStone]) {
+                    newResult[newStone] = 0;
+                }
+
+                newResult[newStone] += count;
+            }
+
+            result = newResult;
+        }
+    }
+
+    return Object.entries(result).reduce(
+        (acc, [_stone, count]) => acc + count,
+        0
+    );
 }
