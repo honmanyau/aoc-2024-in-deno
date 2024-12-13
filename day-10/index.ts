@@ -45,7 +45,33 @@ export function step(input: Input, position: Position): Position[] {
 }
 
 export function findTrails(input: Input, startingPosition: Position): number {
-    return -1;
+    const branches = [startingPosition];
+    const peakLocations: { [position: string]: true } = {};
+
+    while (branches.length > 0) {
+        const position = branches.shift();
+
+        if (!position) throw new Error("Something went horribly wrong!");
+
+        const [y, x] = position;
+        const height = input[y][x];
+
+        if (height === 9) {
+            peakLocations[keyify(position)] = true;
+        }
+
+        const nextPositions = step(input, position);
+
+        for (const [nextY, nextX] of nextPositions) {
+            const nextHeight = input[nextY][nextX];
+
+            if (nextHeight === height + 1) {
+                branches.push([nextY, nextX]);
+            }
+        }
+    }
+
+    return Object.keys(peakLocations).length;
 }
 
 export function solvePart1(input: Input): number {
@@ -54,4 +80,8 @@ export function solvePart1(input: Input): number {
 
 export function solvePart2(input: Input): number {
     return -1;
+}
+
+function keyify(position: Position): string {
+    return position.join(",");
 }
