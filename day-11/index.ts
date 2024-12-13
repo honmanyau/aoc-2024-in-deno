@@ -1,4 +1,5 @@
 type Input = string[];
+type CompressedInput = { [stone: string]: number };
 
 export async function solveDay11Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-11/input.txt`;
@@ -42,6 +43,20 @@ export function atomicBlink(stone: string): string[] {
     }
 
     return [String(Number(stone) * 2024)];
+}
+
+export function compressStones(stones: Input): CompressedInput {
+    const compressedInput: CompressedInput = {};
+
+    for (const stone of stones) {
+        if (!compressedInput[stone]) {
+            compressedInput[stone] = 0;
+        }
+
+        compressedInput[stone]++;
+    }
+
+    return compressedInput;
 }
 
 export function solvePart1(input: Input): number {
