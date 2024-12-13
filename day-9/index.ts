@@ -12,7 +12,7 @@ export async function solveDay9Part2(): Promise<number> {
     const path = `${Deno.cwd()}/day-9/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return solvePart2(input);
+    return -1;
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
@@ -66,7 +66,18 @@ export function defrag(blocks: Blocks): Blocks {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const blocks = convertToBlocks(input);
+    const defragged = defrag(blocks);
+
+    let checksum = 0;
+
+    for (let i = 0; i < defragged.length; i++) {
+        if (defragged[i] === ".") break;
+
+        checksum += Number(defragged[i]) * i;
+    }
+
+    return checksum;
 }
 
 export function solvePart2(input: Input): number {
