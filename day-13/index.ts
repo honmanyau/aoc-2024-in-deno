@@ -62,30 +62,18 @@ export function solvePart1(input: Input): number {
     let totalTokenCost = 0;
 
     for (const [vectorA, vectorB, prizePosition] of input) {
-        let minTokenCost: number | undefined = undefined;
+        const a = vectorA[0];
+        const b = vectorB[0];
+        const c = prizePosition[0];
+        const d = vectorA[1];
+        const e = vectorB[1];
+        const f = prizePosition[1];
 
-        const multiples = findMultiplesPart1(
-            vectorA[0],
-            vectorB[0],
-            prizePosition[0]
-        );
+        const y = (a * f - c * d) / (a * e - b * d);
+        const x = (c - b * y) / a;
 
-        for (const [vectorAMultiple, vectorBMultiple] of multiples) {
-            const isValidMultiplesForY =
-                vectorAMultiple * vectorA[1] + vectorBMultiple * vectorB[1] ===
-                prizePosition[1];
-
-            if (isValidMultiplesForY) {
-                const tokenCost = vectorAMultiple * 3 + vectorBMultiple;
-
-                if (minTokenCost === undefined || minTokenCost < tokenCost) {
-                    minTokenCost = tokenCost;
-                }
-            }
-        }
-
-        if (minTokenCost !== undefined) {
-            totalTokenCost += minTokenCost;
+        if (Number.isInteger(x) && Number.isInteger(y)) {
+            totalTokenCost += x * 3 + y;
         }
     }
 
@@ -123,44 +111,4 @@ export function solvePart2(input: Input): number {
     }
 
     return totalTokenCost;
-}
-
-function findMultiplesPart1(
-    a: number,
-    b: number,
-    sum: number
-): [number, number][] {
-    const multiples: [number, number][] = [];
-
-    for (let i = 0; i <= 100; i++) {
-        const diff = sum - a * i;
-        const remainderB = diff / b;
-
-        if (!Number.isInteger(remainderB)) continue;
-        if (remainderB > 100 || remainderB < 0) continue;
-
-        multiples.push([i, remainderB]);
-    }
-
-    return multiples;
-}
-
-function findMultiplesPart2(
-    a: number,
-    b: number,
-    sum: number
-): [number, number][] {
-    const multiples: [number, number][] = [];
-
-    for (let i = 0; a * i <= sum; i++) {
-        const diff = sum - a * i;
-        const remainderB = diff / b;
-
-        if (!Number.isInteger(remainderB)) continue;
-        if (remainderB < 0) continue;
-        console.log("AYA: PUSH", [i, remainderB]);
-        multiples.push([i, remainderB]);
-    }
-
-    return multiples;
 }
