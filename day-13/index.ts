@@ -59,9 +59,55 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    let totalTokenCost = 0;
+
+    for (const [vectorA, vectorB, prizePosition] of input) {
+        let minTokenCost: number | undefined = undefined;
+
+        const multiples = findMultiples(
+            vectorA[0],
+            vectorB[0],
+            prizePosition[0]
+        );
+
+        for (const [vectorAMultiple, vectorBMultiple] of multiples) {
+            const isValidMultiplesForY =
+                vectorAMultiple * vectorA[1] + vectorBMultiple * vectorB[1] ===
+                prizePosition[1];
+
+            if (isValidMultiplesForY) {
+                const tokenCost = vectorAMultiple * 3 + vectorBMultiple;
+
+                if (minTokenCost === undefined || minTokenCost < tokenCost) {
+                    minTokenCost = tokenCost;
+                }
+            }
+        }
+
+        if (minTokenCost !== undefined) {
+            totalTokenCost += minTokenCost;
+        }
+    }
+
+    return totalTokenCost;
 }
 
 export function solvePart2(input: Input): number {
     return -1;
+}
+
+function findMultiples(a: number, b: number, sum: number): [number, number][] {
+    const multiples: [number, number][] = [];
+
+    for (let i = 0; i <= 100; i++) {
+        const diff = sum - a * i;
+        const remainderB = diff / b;
+
+        if (!Number.isInteger(remainderB)) continue;
+        if (remainderB > 100 || remainderB < 0) continue;
+
+        multiples.push([i, remainderB]);
+    }
+
+    return multiples;
 }
