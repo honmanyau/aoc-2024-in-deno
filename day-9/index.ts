@@ -73,6 +73,8 @@ export function defrag(blocks: Blocks): Blocks {
     return defragged;
 }
 
+export function defragByFile(blocks: Blocks): Blocks {}
+
 export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
     const freeSpaceIndex: FreeSpaceIndex = new Map();
 

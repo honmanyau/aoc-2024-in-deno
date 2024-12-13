@@ -4,6 +4,7 @@ import { expect } from "@std/expect/expect";
 import {
     convertToBlocks,
     defrag,
+    defragByFile,
     indexFreeSpace,
     readPuzzleInput,
     solvePart1,
@@ -72,6 +73,19 @@ describe("Day 9", () => {
 
             expect(result).toEqual(
                 "0099811188827773336446555566..............".split("")
+            );
+        });
+    });
+
+    describe("defragByFile()", () => {
+        it(`converts 00...111...2...333.44.5555.6666.777.888899 to 00992111777.44.333....5555.6666.....8888..`, async () => {
+            const input = "00...111...2...333.44.5555.6666.777.888899".split(
+                ""
+            );
+            const result = defragByFile(input);
+
+            expect(result).toEqual(
+                "00992111777.44.333....5555.6666.....8888..".split("")
             );
         });
     });
