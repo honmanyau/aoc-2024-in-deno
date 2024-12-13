@@ -60,13 +60,30 @@ export function compressStones(stones: Input): CompressedInput {
 }
 
 export function solvePart1(input: Input): number {
-    let result = input;
+    let result: CompressedInput = compressStones(input);
 
     for (let i = 0; i < 25; i++) {
-        result = blink(result);
+        const newResult: CompressedInput = {};
+
+        for (const [stone, count] of Object.entries(result)) {
+            const newStones = atomicBlink(stone);
+
+            for (const newStone of newStones) {
+                if (!newResult[newStone]) {
+                    newResult[newStone] = 0;
+                }
+
+                newResult[newStone] += count;
+            }
+
+            result = newResult;
+        }
     }
 
-    return result.length;
+    return Object.entries(result).reduce(
+        (acc, [_stone, count]) => acc + count,
+        0
+    );
 }
 
 export function solvePart2(input: Input): number {
