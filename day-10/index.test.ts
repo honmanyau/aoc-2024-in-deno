@@ -80,7 +80,7 @@ describe("Day 10", () => {
         it("returns 1 for the second sample input", async () => {
             const path = `${Deno.cwd()}/day-10/sample-input-2.txt`;
             const input = await readPuzzleInput(path);
-            const result = findTrails(input, [0, 0]);
+            const result = findTrails(input, [0, 0])[0];
 
             expect(result).toBe(1);
         });
@@ -88,7 +88,7 @@ describe("Day 10", () => {
         it("returns 2 for the third sample input", async () => {
             const path = `${Deno.cwd()}/day-10/sample-input-3.txt`;
             const input = await readPuzzleInput(path);
-            const result = findTrails(input, [0, 3]);
+            const result = findTrails(input, [0, 3])[0];
 
             expect(result).toBe(2);
         });
@@ -96,7 +96,7 @@ describe("Day 10", () => {
         it("returns 4 for the fourth sample input", async () => {
             const path = `${Deno.cwd()}/day-10/sample-input-4.txt`;
             const input = await readPuzzleInput(path);
-            const result = findTrails(input, [0, 3]);
+            const result = findTrails(input, [0, 3])[0];
 
             expect(result).toBe(4);
         });
@@ -113,10 +113,36 @@ describe("Day 10", () => {
     });
 
     describe("solvePart2()", () => {
-        it("returns", async () => {
+        it("returns 3 for the fifth sample input", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input-5.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toBe(3);
+        });
+
+        it("returns 13 for the sixth sample input", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input-6.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toBe(13);
+        });
+
+        it("returns 227 for the seventh sample input", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input-7.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toBe(227);
+        });
+
+        it("returns 81 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-10/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart2(input);
+
+            expect(result).toBe(81);
         });
     });
 });

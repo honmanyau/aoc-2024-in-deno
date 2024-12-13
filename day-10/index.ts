@@ -44,9 +44,14 @@ export function step(input: Input, position: Position): Position[] {
     return nextPositions;
 }
 
-export function findTrails(input: Input, startingPosition: Position): number {
+export function findTrails(
+    input: Input,
+    startingPosition: Position
+): [number, number] {
     const branches = [startingPosition];
     const peakLocations: { [position: string]: true } = {};
+
+    let rating = 0;
 
     while (branches.length > 0) {
         const position = branches.shift();
@@ -57,6 +62,7 @@ export function findTrails(input: Input, startingPosition: Position): number {
         const height = input[y][x];
 
         if (height === 9) {
+            rating += 1;
             peakLocations[keyify(position)] = true;
         }
 
@@ -71,7 +77,7 @@ export function findTrails(input: Input, startingPosition: Position): number {
         }
     }
 
-    return Object.keys(peakLocations).length;
+    return [Object.keys(peakLocations).length, rating];
 }
 
 export function solvePart1(input: Input): number {
@@ -83,7 +89,7 @@ export function solvePart1(input: Input): number {
 
             if (height !== 0) continue;
 
-            trailCount += findTrails(input, [y, x]);
+            trailCount += findTrails(input, [y, x])[0];
         }
     }
 
@@ -91,7 +97,19 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    let trailCount = 0;
+
+    for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input[0].length; x++) {
+            const height = input[y][x];
+
+            if (height !== 0) continue;
+
+            trailCount += findTrails(input, [y, x])[1];
+        }
+    }
+
+    return trailCount;
 }
 
 function keyify(position: Position): string {
