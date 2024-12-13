@@ -1,5 +1,6 @@
 type Input = string;
 type Blocks = string[];
+type FreeSpaceIndex = { [position: number]: number };
 
 export async function solveDay9Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-9/input.txt`;
@@ -70,6 +71,10 @@ export function defrag(blocks: Blocks): Blocks {
     }
 
     return defragged;
+}
+
+export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
+    return {};
 }
 
 export function solvePart1(input: Input): number {

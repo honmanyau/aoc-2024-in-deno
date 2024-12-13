@@ -4,6 +4,7 @@ import { expect } from "@std/expect/expect";
 import {
     convertToBlocks,
     defrag,
+    indexFreeSpace,
     readPuzzleInput,
     solvePart1,
 } from "./index.ts";
@@ -72,6 +73,36 @@ describe("Day 9", () => {
             expect(result).toEqual(
                 "0099811188827773336446555566..............".split("")
             );
+        });
+    });
+
+    describe("indexFreeSpace()", () => {
+        it(`returns { 1: 2, 6: 4 } for the blocks 0..111....22222`, () => {
+            const input = "0..111....22222".split("");
+            const result = indexFreeSpace(input);
+
+            expect(result).toEqual({
+                1: 2,
+                6: 4,
+            });
+        });
+
+        it(`returns { 2: 4, 8: 3, 12: 3, 18: 1, 21: 1, 26: 1, 31: 1, 35: 1 } for the blocks 00...111...2...333.44.5555.6666.777.888899`, () => {
+            const input = "00...111...2...333.44.5555.6666.777.888899".split(
+                ""
+            );
+            const result = indexFreeSpace(input);
+
+            expect(result).toEqual({
+                2: 4,
+                8: 3,
+                12: 3,
+                18: 1,
+                21: 1,
+                26: 1,
+                31: 1,
+                35: 1,
+            });
         });
     });
 
