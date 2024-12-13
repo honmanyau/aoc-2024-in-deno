@@ -103,10 +103,12 @@ describe("Day 10", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns", async () => {
+        it("returns 36 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-10/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
+
+            expect(result).toBe(36);
         });
     });
 
