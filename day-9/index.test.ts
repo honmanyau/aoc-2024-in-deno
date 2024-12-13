@@ -1,7 +1,12 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { convertToBlocks, defrag, readPuzzleInput } from "./index.ts";
+import {
+    convertToBlocks,
+    defrag,
+    readPuzzleInput,
+    solvePart1,
+} from "./index.ts";
 
 describe("Day 9", () => {
     describe("readPuzzleInput()", () => {
@@ -70,9 +75,15 @@ describe("Day 9", () => {
         });
     });
 
-    // describe("solvePart1()", () => {
+    describe("solvePart1()", () => {
+        it("returns 1928 for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-9/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
 
-    // });
+            expect(result).toBe(1928);
+        });
+    });
 
     // describe("solvePart2()", () => {
 
