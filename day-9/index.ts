@@ -54,8 +54,15 @@ export function defrag(blocks: Blocks): Blocks {
     let j = defragged.length - 1;
 
     while (i < j) {
-        if (defragged[i] !== ".") i++;
-        if (defragged[j] === ".") j--;
+        if (defragged[i] !== ".") {
+            i++;
+            continue;
+        }
+
+        if (defragged[j] === ".") {
+            j--;
+            continue;
+        }
 
         if (defragged[i] === "." && defragged[j] !== ".") {
             [defragged[i], defragged[j]] = [defragged[j], defragged[i]];
