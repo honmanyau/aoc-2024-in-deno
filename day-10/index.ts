@@ -1,4 +1,5 @@
 type Input = number[][];
+type Position = [number, number];
 
 export async function solveDay10Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-10/input.txt`;
@@ -19,6 +20,10 @@ export async function readPuzzleInput(path: string): Promise<Input> {
     const lines = content.trim().split("\n");
 
     return lines.map((line) => line.split("").map(Number));
+}
+
+export function step(input: Input, position: Position): Position[] {
+    return [];
 }
 
 export function solvePart1(input: Input): number {

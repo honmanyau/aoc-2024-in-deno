@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput, solvePart1, solvePart2 } from "./index.ts";
+import { readPuzzleInput, solvePart1, solvePart2, step } from "./index.ts";
 
 describe("Day 10", () => {
     describe("readPuzzleInput()", () => {
@@ -19,6 +19,54 @@ describe("Day 10", () => {
                 "01329801".split("").map(Number),
                 "10456732".split("").map(Number),
             ]);
+        });
+    });
+
+    describe("step()", () => {
+        it("returns [[0, 3], [1, 2]] for the sample input with a starting position of [0, 2]", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const positions = step(input, [0, 2]);
+
+            expect(input).toEqual([
+                [0, 3],
+                [1, 2],
+            ]);
+        });
+
+        it("returns [[1, 4]] for the sample input with a starting position of [2, 4]", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const positions = step(input, [2, 4]);
+
+            expect(positions).toEqual([[1, 4]]);
+        });
+
+        it("returns [[1, 4]] for the sample input with a starting position of [2, 4]", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const positions = step(input, [2, 4]);
+
+            expect(positions).toEqual([[1, 4]]);
+        });
+
+        it("returns [[1, 3]] for the sample input with a starting position of [1, 4]", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const positions = step(input, [1, 4]);
+
+            expect(positions).toEqual([[1, 4]]);
+        });
+
+        it("returns [] for the sample input with a starting position of [1, 4] if [1, 3] were replaced with a number that's not a single increase in height", async () => {
+            const path = `${Deno.cwd()}/day-10/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+
+            input[1][3] = input[1][3] + 1;
+
+            const positions = step(input, [1, 4]);
+
+            expect(positions).toEqual([]);
         });
     });
 
