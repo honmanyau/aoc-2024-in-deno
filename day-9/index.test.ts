@@ -8,6 +8,7 @@ import {
     indexFreeSpace,
     readPuzzleInput,
     solvePart1,
+    solvePart2,
 } from "./index.ts";
 
 describe("Day 9", () => {
@@ -130,7 +131,13 @@ describe("Day 9", () => {
         });
     });
 
-    // describe("solvePart2()", () => {
+    describe("solvePart1()", () => {
+        it("returns 2858 for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-9/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
 
-    // });
+            expect(result).toBe(2858);
+        });
+    });
 });

@@ -154,5 +154,16 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    const blocks = convertToBlocks(input);
+    const defragged = defragByFile(blocks);
+
+    let checksum = 0;
+
+    for (let i = 0; i < defragged.length; i++) {
+        if (defragged[i] === ".") continue;
+
+        checksum += Number(defragged[i]) * i;
+    }
+
+    return checksum;
 }
