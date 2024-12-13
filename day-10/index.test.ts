@@ -28,9 +28,9 @@ describe("Day 10", () => {
             const input = await readPuzzleInput(path);
             const positions = step(input, [0, 2]);
 
-            expect(input).toEqual([
-                [0, 3],
+            expect(positions).toEqual([
                 [1, 2],
+                [0, 3],
             ]);
         });
 
@@ -55,7 +55,7 @@ describe("Day 10", () => {
             const input = await readPuzzleInput(path);
             const positions = step(input, [1, 4]);
 
-            expect(positions).toEqual([[1, 4]]);
+            expect(positions).toEqual([[1, 3]]);
         });
 
         it("returns [] for the sample input with a starting position of [1, 4] if [1, 3] were replaced with a number that's not a single increase in height", async () => {

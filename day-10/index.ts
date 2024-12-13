@@ -1,6 +1,13 @@
 type Input = number[][];
 type Position = [number, number];
 
+const DIRECTIONS = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+] as const;
+
 export async function solveDay10Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-10/input.txt`;
     const input = await readPuzzleInput(path);
@@ -23,7 +30,18 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function step(input: Input, position: Position): Position[] {
-    return [];
+    const nextPositions: Position[] = [];
+    const currentHeight = input[position[0]][position[1]];
+
+    for (const [dy, dx] of DIRECTIONS) {
+        const adjacentHeight = input[position[0] + dy]?.[position[1] + dx];
+
+        if (adjacentHeight === currentHeight + 1) {
+            nextPositions.push([position[0] + dy, position[1] + dx]);
+        }
+    }
+
+    return nextPositions;
 }
 
 export function solvePart1(input: Input): number {
