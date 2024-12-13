@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput, solvePart1 } from "./index.ts";
+import { readPuzzleInput, solvePart1, solvePart2 } from "./index.ts";
 
 describe("Day 13", () => {
     describe("readPuzzleInput()", () => {
@@ -106,7 +106,37 @@ describe("Day 13", () => {
         });
     });
 
-    // describe("solvePart2()", () => {
+    describe("solvePart2()", () => {
+        it("returns 0 for the first entry in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-13/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2([input[0]]);
 
-    // });
+            expect(result).toBe(0);
+        });
+
+        it("returns some number greater than 0 for the second entry in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-13/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2([input[1]]);
+
+            expect(result).toBeGreaterThan(0);
+        });
+
+        it("returns 0 for the third entry in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-13/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2([input[2]]);
+
+            expect(result).toBe(0);
+        });
+
+        it("returns some number greater than 0 for the fourth entry in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-13/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2([input[3]]);
+
+            expect(result).toBeGreaterThan(0);
+        });
+    });
 });
