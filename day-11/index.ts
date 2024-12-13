@@ -27,6 +27,10 @@ export async function readPuzzleInput(path: string): Promise<Input> {
     return content.trim().split(" ");
 }
 
+export function blink(input: Input): Input {
+    return [];
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
