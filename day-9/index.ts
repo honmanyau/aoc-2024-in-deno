@@ -1,6 +1,6 @@
 type Input = string;
 type Blocks = string[];
-type FreeSpaceIndex = { [position: number]: number };
+type FreeSpaceIndex = Map<number, number>;
 
 export async function solveDay9Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-9/input.txt`;
@@ -74,7 +74,7 @@ export function defrag(blocks: Blocks): Blocks {
 }
 
 export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
-    const freeSpaceIndex: FreeSpaceIndex = {};
+    const freeSpaceIndex: FreeSpaceIndex = new Map();
 
     let i = 0;
     let contiguousFreeSpace = 0;
@@ -82,7 +82,10 @@ export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
     while (i <= blocks.length) {
         if (blocks[i] !== ".") {
             if (contiguousFreeSpace > 0) {
-                freeSpaceIndex[i - contiguousFreeSpace] = contiguousFreeSpace;
+                freeSpaceIndex.set(
+                    i - contiguousFreeSpace,
+                    contiguousFreeSpace
+                );
             }
 
             contiguousFreeSpace = 0;
