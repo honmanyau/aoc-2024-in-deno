@@ -74,7 +74,26 @@ export function defrag(blocks: Blocks): Blocks {
 }
 
 export function indexFreeSpace(blocks: Blocks): FreeSpaceIndex {
-    return {};
+    const freeSpaceIndex: FreeSpaceIndex = {};
+
+    let i = 0;
+    let contiguousFreeSpace = 0;
+
+    while (i <= blocks.length) {
+        if (blocks[i] !== ".") {
+            if (contiguousFreeSpace > 0) {
+                freeSpaceIndex[i - contiguousFreeSpace] = contiguousFreeSpace;
+            }
+
+            contiguousFreeSpace = 0;
+        } else {
+            contiguousFreeSpace++;
+        }
+
+        i++;
+    }
+
+    return freeSpaceIndex;
 }
 
 export function solvePart1(input: Input): number {

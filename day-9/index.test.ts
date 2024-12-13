@@ -94,7 +94,7 @@ describe("Day 9", () => {
             const result = indexFreeSpace(input);
 
             expect(result).toEqual({
-                2: 4,
+                2: 3,
                 8: 3,
                 12: 3,
                 18: 1,
