@@ -5,8 +5,11 @@
 // import { solveDay5Part1, solveDay5Part2 } from "./day-5/index.ts";
 // import { solveDay6Part1, solveDay6Part2 } from "./day-6/index.ts";
 // import { solveDay7Part1, solveDay7Part2 } from "./day-7/index.ts";
-import { solveDay8Part1, solveDay8Part2 } from "./day-8/index.ts";
+// import { solveDay8Part1, solveDay8Part2 } from "./day-8/index.ts";
+import { solveDay9Part1, solveDay9Part2 } from "./day-9/index.ts";
 // import { solveDay12Part1, solveDay12Part2 } from "./day-12/index.ts";
+// import { solveDay13Part1, solveDay13Part2 } from "./day-12/index.ts";
+import { solveDay13Part1, solveDay13Part2 } from "./day-13/index.ts";
 
 // console.log("Day 1, part 1:", await solveDay1Part1());
 // console.log("Day 1, part 2:", await solveDay1Part2());
@@ -22,7 +25,11 @@ import { solveDay8Part1, solveDay8Part2 } from "./day-8/index.ts";
 // console.log("Day 6, part 2:", await solveDay6Part2());
 // console.log("Day 7, part 1:", await solveDay7Part1());
 // console.log("Day 7, part 2:", await solveDay7Part2());
-console.log("Day 8, part 1:", await solveDay8Part1());
-console.log("Day 8, part 2:", await solveDay8Part2());
+// console.log("Day 8, part 1:", await solveDay8Part1());
+// console.log("Day 8, part 1:", await solveDay8Part2());
+console.log("Day 9, part 2:", await solveDay9Part1());
+console.log("Day 9, part 2:", await solveDay9Part2());
 // console.log("Day 12, part 1:", await solveDay12Part1());
 // console.log("Day 12, part 2:", await solveDay12Part2());
+console.log("Day 13, part 2:", await solveDay13Part1());
+console.log("Day 13, part 2:", await solveDay13Part2());
