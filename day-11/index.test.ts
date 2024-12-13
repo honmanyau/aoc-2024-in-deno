@@ -47,12 +47,12 @@ describe("Day 11", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns 36 for the sample input", async () => {
+        it("returns 55312 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-11/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
 
-            expect(result).toHaveLength(55312);
+            expect(result).toBe(55312);
         });
     });
 

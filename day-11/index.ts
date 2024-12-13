@@ -48,7 +48,13 @@ export function blink(stones: Input): Input {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    let result = input;
+
+    for (let i = 0; i < 25; i++) {
+        result = blink(result);
+    }
+
+    return result.length;
 }
 
 export function solvePart2(input: Input): number {
