@@ -41,8 +41,8 @@ export function step(
     const [y, x] = position;
     const dy = velocity[0] * numberOfSteps;
     const dx = velocity[1] * numberOfSteps;
-    const finalY = (y + dy) % grid[0];
-    const finalX = (x + dx) % grid[1];
+    const finalY = (((y + dy) % grid[0]) + grid[0]) % grid[0];
+    const finalX = (((x + dx) % grid[1]) + grid[1]) % grid[1];
 
     return [finalY, finalX];
 }
@@ -51,7 +51,31 @@ export function countQuadrants(
     positions: Position[],
     grid: Vector = [101, 103]
 ): [number, number, number, number] {
-    throw new Error("Not implemented!");
+    const halfY = (grid[0] - 1) / 2;
+    const halfX = (grid[1] - 1) / 2;
+    let topLeft = 0;
+    let topRight = 0;
+    let bottomLeft = 0;
+    ``;
+    let bottomRight = 0;
+
+    for (const [y, x] of positions) {
+        if (y < halfY) {
+            if (x < halfX) {
+                topLeft++;
+            } else if (x > halfX) {
+                topRight++;
+            }
+        } else if (y > halfY) {
+            if (x < halfX) {
+                bottomLeft++;
+            } else if (x > halfX) {
+                bottomRight++;
+            }
+        }
+    }
+
+    return [topLeft, topRight, bottomLeft, bottomRight];
 }
 
 export function solvePart1(input: Input): number {

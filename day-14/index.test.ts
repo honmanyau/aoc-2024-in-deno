@@ -121,7 +121,7 @@ describe("Day 14", () => {
             );
             const counts = countQuadrants(positions, [7, 11]);
 
-            expect(counts).toEqual([1, 2, 3, 1]);
+            expect(counts).toEqual([1, 3, 4, 1]);
         });
     });
 
