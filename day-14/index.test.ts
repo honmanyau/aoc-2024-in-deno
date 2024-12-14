@@ -126,10 +126,12 @@ describe("Day 14", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns", async () => {
+        it("returns 12 for the sample input after 100 seconds", async () => {
             const path = `${Deno.cwd()}/day-14/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
+
+            expect(result).toBe(12);
         });
     });
 

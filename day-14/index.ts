@@ -79,7 +79,12 @@ export function countQuadrants(
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const positions = input.map(([position, velocity]) =>
+        step(position, velocity, 100, [7, 11])
+    );
+    const counts = countQuadrants(positions, [7, 11]);
+
+    return counts.reduce((acc, val) => acc * val);
 }
 
 export function solvePart2(input: Input): number {
