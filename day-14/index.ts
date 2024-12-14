@@ -6,7 +6,7 @@ export async function solveDay14Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-14/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart1(input);
 }
 
 export async function solveDay14Part2(): Promise<number> {
@@ -36,7 +36,7 @@ export function step(
     position: Position,
     velocity: Vector,
     numberOfSteps: number,
-    grid: Vector = [101, 103]
+    grid: Vector = [103, 101]
 ): Position {
     const [y, x] = position;
     const dy = velocity[0] * numberOfSteps;
@@ -49,7 +49,7 @@ export function step(
 
 export function countQuadrants(
     positions: Position[],
-    grid: Vector = [101, 103]
+    grid: Vector = [103, 101]
 ): [number, number, number, number] {
     const halfY = (grid[0] - 1) / 2;
     const halfX = (grid[1] - 1) / 2;
@@ -78,11 +78,12 @@ export function countQuadrants(
     return [topLeft, topRight, bottomLeft, bottomRight];
 }
 
-export function solvePart1(input: Input): number {
+export function solvePart1(input: Input, grid: Vector = [103, 101]): number {
     const positions = input.map(([position, velocity]) =>
-        step(position, velocity, 100, [7, 11])
+        step(position, velocity, 100, grid)
     );
-    const counts = countQuadrants(positions, [7, 11]);
+
+    const counts = countQuadrants(positions, grid);
 
     return counts.reduce((acc, val) => acc * val);
 }
