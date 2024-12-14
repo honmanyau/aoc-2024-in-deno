@@ -2,6 +2,7 @@ import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
 import {
+    countQuadrants,
     Position,
     readPuzzleInput,
     solvePart1,
@@ -108,6 +109,19 @@ describe("Day 14", () => {
             const finalPosition = step(position, velocity, 9, [7, 11]);
 
             expect(finalPosition).toEqual([2, 7]);
+        });
+    });
+
+    describe("countQuadrants()", () => {
+        it("returns [1, 2, 3, 1] for the sample input after 100 seconds", async () => {
+            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const positions = input.map(([position, velocity]) =>
+                step(position, velocity, 100, [7, 11])
+            );
+            const counts = countQuadrants(positions, [7, 11]);
+
+            expect(counts).toEqual([1, 2, 3, 1]);
         });
     });
 

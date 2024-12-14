@@ -47,6 +47,13 @@ export function step(
     return [finalY, finalX];
 }
 
+export function countQuadrants(
+    positions: Position[],
+    grid: Vector = [101, 103]
+): [number, number, number, number] {
+    throw new Error("Not implemented!");
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
