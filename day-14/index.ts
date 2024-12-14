@@ -1,6 +1,6 @@
-type Input = [Position, Vector][];
-type Position = [number, number];
-type Vector = [number, number];
+export type Input = [Position, Vector][];
+export type Position = [number, number];
+export type Vector = [number, number];
 
 export async function solveDay14Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-14/input.txt`;
@@ -30,6 +30,15 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 
         return [position, velocity];
     });
+}
+
+export function step(
+    position: Position,
+    velocity: Vector,
+    numberOfSteps: number,
+    grid: Vector = [101, 103]
+): Position {
+    throw new Error("Not implemented!");
 }
 
 export function solvePart1(input: Input): number {
