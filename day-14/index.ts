@@ -13,7 +13,7 @@ export async function solveDay14Part2(): Promise<number> {
     const path = `${Deno.cwd()}/day-14/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart2(input);
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
@@ -89,5 +89,45 @@ export function solvePart1(input: Input, grid: Vector = [103, 101]): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    let steps = 0;
+
+    while (true) {
+        const seen: { [position: string]: true } = {};
+
+        let easterEggFound = true;
+
+        for (const [position, velocity] of input) {
+            const newPosition = step(position, velocity, steps);
+            const key = newPosition.join(",");
+
+            if (seen[key]) {
+                easterEggFound = false;
+                break;
+            }
+
+            seen[key] = true;
+        }
+
+        if (easterEggFound) {
+            break;
+        }
+
+        steps++;
+    }
+
+    plot(input.map(([position, velocity]) => step(position, velocity, steps)));
+
+    return steps;
+}
+
+function plot(positions: Position[]) {
+    const grid = Array.from({ length: 103 }).map(() =>
+        Array.from({ length: 101 }).fill(".")
+    );
+
+    for (const position of positions) {
+        grid[position[0]][position[1]] = "#";
+    }
+
+    console.log(grid.map((row) => row.join("")).join("\n"));
 }

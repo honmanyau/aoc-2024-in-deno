@@ -6,7 +6,6 @@ import {
     Position,
     readPuzzleInput,
     solvePart1,
-    solvePart2,
     step,
     Vector,
 } from "./index.ts";
@@ -139,7 +138,6 @@ describe("Day 14", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-14/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const result = solvePart2([input[0]]);
         });
     });
 });
