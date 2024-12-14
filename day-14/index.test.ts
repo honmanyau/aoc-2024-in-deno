@@ -11,24 +11,52 @@ describe("Day 14", () => {
 
             expect(input).toEqual([
                 [
-                    [94, 34],
-                    [22, 67],
-                    [8400, 5400],
+                    [4, 0],
+                    [-3, 3],
                 ],
                 [
-                    [26, 66],
-                    [67, 21],
-                    [12748, 12176],
+                    [3, 6],
+                    [-3, -1],
                 ],
                 [
-                    [17, 86],
-                    [84, 37],
-                    [7870, 6450],
+                    [3, 10],
+                    [2, -1],
                 ],
                 [
-                    [69, 23],
-                    [27, 71],
-                    [18641, 10279],
+                    [0, 2],
+                    [-1, 2],
+                ],
+                [
+                    [0, 0],
+                    [3, 1],
+                ],
+                [
+                    [0, 3],
+                    [-2, -2],
+                ],
+                [
+                    [6, 7],
+                    [-3, -1],
+                ],
+                [
+                    [0, 3],
+                    [-2, -1],
+                ],
+                [
+                    [3, 9],
+                    [3, 2],
+                ],
+                [
+                    [3, 7],
+                    [2, -1],
+                ],
+                [
+                    [4, 2],
+                    [-3, 2],
+                ],
+                [
+                    [5, 9],
+                    [-3, -3],
                 ],
             ]);
         });
@@ -65,78 +93,18 @@ describe("Day 14", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns 280 for the first entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart1([input[0]]);
-
-            expect(result).toBe(280);
-        });
-
-        it("returns 0 for the second entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart1([input[1]]);
-
-            expect(result).toBe(0);
-        });
-
-        it("returns 200 for the third entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart1([input[2]]);
-
-            expect(result).toBe(200);
-        });
-
-        it("returns 0 for the fourth entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart1([input[3]]);
-
-            expect(result).toBe(0);
-        });
-
-        it("returns 480 for the the sample input", async () => {
+        it("returns", async () => {
             const path = `${Deno.cwd()}/day-14/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
-
-            expect(result).toBe(480);
         });
     });
 
     describe("solvePart2()", () => {
-        it("returns 0 for the first entry in the sample input", async () => {
+        it("returns", async () => {
             const path = `${Deno.cwd()}/day-14/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart2([input[0]]);
-
-            expect(result).toBe(0);
-        });
-
-        it("returns some number greater than 0 for the second entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart2([input[1]]);
-
-            expect(result).toBeGreaterThan(0);
-        });
-
-        it("returns 0 for the third entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart2([input[2]]);
-
-            expect(result).toBe(0);
-        });
-
-        it("returns some number greater than 0 for the fourth entry in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-14/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart2([input[3]]);
-
-            expect(result).toBeGreaterThan(0);
         });
     });
 });
