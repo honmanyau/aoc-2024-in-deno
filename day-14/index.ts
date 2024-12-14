@@ -38,7 +38,13 @@ export function step(
     numberOfSteps: number,
     grid: Vector = [101, 103]
 ): Position {
-    throw new Error("Not implemented!");
+    const [y, x] = position;
+    const dy = velocity[0] * numberOfSteps;
+    const dx = velocity[1] * numberOfSteps;
+    const finalY = (y + dy) % grid[0];
+    const finalX = (x + dx) % grid[1];
+
+    return [finalY, finalX];
 }
 
 export function solvePart1(input: Input): number {
