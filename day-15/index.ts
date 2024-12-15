@@ -3,6 +3,13 @@ export type Input = [InputMap, Position, string];
 export type Position = [number, number];
 export type Vector = [number, number];
 
+const DIRECTIONS: { [instruction: string]: Vector } = {
+    "^": [-1, 0],
+    v: [1, 0],
+    ">": [0, 1],
+    "<": [0, -1],
+};
+
 export async function solveDay15Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-15/input.txt`;
     const input = await readPuzzleInput(path);
@@ -19,10 +26,58 @@ export async function solveDay15Part2(): Promise<number> {
 
 export function step(
     map: InputMap,
-    position: Position,
+    robotPosition: Position,
     instruction: string
-): Promise<Position> {
-    throw new Error("Not implemented!");
+): Position {
+    const vector = DIRECTIONS[instruction];
+
+    if (!vector) throw new Error("Invalid instruction: " + instruction);
+
+    const [y, x] = robotPosition;
+    const [dy, dx] = vector;
+    const closestSpace = findClosestValidSpace(map, robotPosition, vector);
+
+    if (!closestSpace) return robotPosition;
+
+    const nextY = y + dy;
+    const nextX = x + dx;
+    const nextTile = map[nextY]?.[nextX];
+
+    if (!nextTile) throw new Error("Unexpected OOB!");
+
+    if (nextTile === "O") {
+        map[nextY][nextX] = ".";
+        map[closestSpace[0]][closestSpace[1]] = "O";
+    }
+
+    map[y][x] = ".";
+    map[nextY][nextX] = "@";
+
+    return [nextY, nextX];
+}
+
+function findClosestValidSpace(
+    map: InputMap,
+    robotPosition: Position,
+    direction: Vector
+): Position | undefined {
+    const [dy, dx] = direction;
+    let [y, x] = robotPosition;
+
+    while (true) {
+        const nextY = y + dy;
+        const nextX = x + dx;
+        const nextTile = map[nextY]?.[nextX];
+
+        if (nextTile === "#") return;
+        if (nextTile === undefined) return;
+        if (nextTile === ".") return [nextY, nextX];
+
+        y = nextY;
+        x = nextX;
+    }
+
+    throw new Error("Invalid logic!");
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
