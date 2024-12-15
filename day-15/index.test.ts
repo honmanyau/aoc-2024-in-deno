@@ -1,3 +1,4 @@
+import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
 import { readPuzzleInput } from "./index.ts";
@@ -6,7 +7,14 @@ describe("Day 14", () => {
     describe("readPuzzleInput()", () => {
         it("returns the puzzle input correctly for `sample-input`", async () => {
             const path = `${Deno.cwd()}/day-15/sample-input.txt`;
-            const input = await readPuzzleInput(path);
+            const [map, instructions] = await readPuzzleInput(path);
+
+            expect(map.slice(0, 2)).toEqual([
+                "##########".split(""),
+                "#..O..O.O#".split(""),
+            ]);
+
+            expect(instructions.slice(0, 10)).toBe("<vv>^<v^>v");
         });
     });
 
