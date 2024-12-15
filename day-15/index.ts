@@ -45,13 +45,15 @@ export function step(
     while (queue.length > 0) {
         const [y, x] = queue.shift()!;
         const tile = map[y][x];
+
+        if (!tile || tile === "#") throw new Error("Unexpected tile found!");
+        if (tile === "." || !!movables[keyify([y, x])]) continue;
+
         const nextY = y + dy;
         const nextX = x + dx;
         const nextTile = map[nextY]?.[nextX];
 
-        if (!tile || tile === "#") throw new Error("Unexpected tile found!");
-        if (tile === ".") continue;
-        if (!nextTile || nextTile === "#") return [startX, startY];
+        if (!nextTile || nextTile === "#") return [startY, startX];
 
         if (tile === "[") {
             queue.push([y, x + 1]);
@@ -59,7 +61,7 @@ export function step(
             queue.push([y, x - 1]);
         }
 
-        if (["O", "[", "]"].includes(nextTile)) {
+        if (["O", "[", "]", "."].includes(nextTile)) {
             queue.push([nextY, nextX]);
         }
 
@@ -172,10 +174,20 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    const [unprocessedMap, position, instructions] = input;
+    const [unprocessedMap, _, instructions] = input;
     const map = makePart2Map(unprocessedMap);
 
-    let robotPosition = position;
+    let robotPosition: Position | undefined;
+
+    for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[0].length; x++) {
+            if (map[y][x] === "@") {
+                robotPosition = [y, x];
+            }
+        }
+    }
+
+    if (!robotPosition) throw new Error("Robot not found!");
 
     for (const instruction of instructions) {
         robotPosition = step(map, robotPosition, instruction);
@@ -185,7 +197,7 @@ export function solvePart2(input: Input): number {
 
     for (let y = 0; y < map.length; y++) {
         for (let x = 0; x < map[0].length; x++) {
-            if (map[y][x] === "O") {
+            if (map[y][x] === "O" || map[y][x] === "[") {
                 result += 100 * y + x;
             }
         }
