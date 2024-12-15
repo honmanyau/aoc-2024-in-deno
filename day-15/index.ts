@@ -99,3 +99,7 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 
     return [map, robotPosition, instructions];
 }
+
+export function solvePart1(input: Input): number {
+    return -1;
+}
