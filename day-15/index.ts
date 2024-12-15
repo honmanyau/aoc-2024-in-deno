@@ -109,6 +109,26 @@ function keyify(position: Position) {
     return `${position.join(",")}`;
 }
 
+function makePart2Map(map: InputMap): InputMap {
+    return map.map((row) => {
+        const newRow = [];
+
+        for (const tile of row) {
+            if (tile === "#") {
+                newRow.push("#", "#");
+            } else if (tile === "O") {
+                newRow.push("[", "]");
+            } else if (tile === ".") {
+                newRow.push(".", ".");
+            } else if (tile === "@") {
+                newRow.push("@", ".");
+            }
+        }
+
+        return newRow;
+    });
+}
+
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
     const [protoMap, instructions] = content.trim().split("\n\n");
@@ -149,4 +169,8 @@ export function solvePart1(input: Input): number {
     }
 
     return result;
+}
+
+export function solvePart2(input: Input): number {
+    return -1;
 }
