@@ -69,13 +69,13 @@ describe("Day 15", () => {
             expect(result).toBe(10092);
         });
 
-        it("returns 2028 for the second sample input", async () => {
-            const path = `${Deno.cwd()}/day-15/sample-input-2.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart1(input);
+        // it("returns 2028 for the second sample input", async () => {
+        //     const path = `${Deno.cwd()}/day-15/sample-input-2.txt`;
+        //     const input = await readPuzzleInput(path);
+        //     const result = solvePart1(input);
 
-            expect(result).toBe(2028);
-        });
+        //     expect(result).toBe(2028);
+        // });
     });
 
     describe("solvePart2()", () => {

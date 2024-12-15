@@ -97,9 +97,27 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 
     if (!robotPosition) throw new Error("Robot not found!");
 
-    return [map, robotPosition, instructions];
+    return [map, robotPosition, instructions.replace(/\s/g, "")];
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const [map, position, instructions] = input;
+
+    let robotPosition = position;
+
+    for (const instruction of instructions) {
+        robotPosition = step(map, robotPosition, instruction);
+    }
+
+    let result = 0;
+
+    for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[0].length; x++) {
+            if (map[y][x] === "O") {
+                result += 100 * y + x;
+            }
+        }
+    }
+
+    return result;
 }
