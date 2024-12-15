@@ -1,7 +1,7 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { readPuzzleInput, solvePart1, step } from "./index.ts";
+import { Position, readPuzzleInput, solvePart1, step } from "./index.ts";
 
 describe("Day 15", () => {
     describe("readPuzzleInput()", () => {
@@ -57,6 +57,311 @@ describe("Day 15", () => {
             expect(map[1][3]).toBe(".");
             expect(map[1][5]).toBe("O");
             expect(map[1][6]).toBe("O");
+        });
+    });
+
+    describe("step() part 2", () => {
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##@[].....##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 2];
+            const instruction = ">";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([1, 3]);
+            expect(map[1][2]).toBe(".");
+            expect(map[1][3]).toBe("@");
+            expect(map[1][4]).toBe("[");
+            expect(map[1][5]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##@[][]...##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 2];
+            const instruction = ">";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([1, 3]);
+            expect(map[1][2]).toBe(".");
+            expect(map[1][3]).toBe("@");
+            expect(map[1][4]).toBe("[");
+            expect(map[1][5]).toBe("]");
+            expect(map[1][6]).toBe("[");
+            expect(map[1][7]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##.[]@....##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 5];
+            const instruction = "<";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([1, 4]);
+            expect(map[1][5]).toBe(".");
+            expect(map[1][4]).toBe("@");
+            expect(map[1][3]).toBe("]");
+            expect(map[1][2]).toBe("[");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##.[][]@..##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 7];
+            const instruction = "<";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([1, 6]);
+            expect(map[1][7]).toBe(".");
+            expect(map[1][6]).toBe("@");
+            expect(map[1][5]).toBe("]");
+            expect(map[1][4]).toBe("[");
+            expect(map[1][3]).toBe("]");
+            expect(map[1][2]).toBe("[");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##[][]@...##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 6];
+            const instruction = "<";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([1, 6]);
+            expect(map[1][6]).toBe("@");
+            expect(map[1][5]).toBe("]");
+            expect(map[1][4]).toBe("[");
+            expect(map[1][3]).toBe("]");
+            expect(map[1][2]).toBe("[");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##....@...##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 6];
+            const instruction = "<";
+            const instruction2 = ">";
+
+            let newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([1, 5]);
+            expect(map[1][6]).toBe(".");
+            expect(map[1][5]).toBe("@");
+
+            newRobotPosition = step(map, newRobotPosition, instruction2);
+
+            expect(newRobotPosition).toEqual([1, 6]);
+            expect(map[1][6]).toBe("@");
+            expect(map[1][5]).toBe(".");
+        });
+
+        // Vertical
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##@.......##".split(""),
+                "##[]......##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 2];
+            const instruction = "v";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([2, 2]);
+            expect(map[1][2]).toBe(".");
+            expect(map[2][2]).toBe("@");
+            expect(map[2][3]).toBe(".");
+            expect(map[3][2]).toBe("[");
+            expect(map[3][3]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##.@......##".split(""),
+                "##[]......##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 3];
+            const instruction = "v";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([2, 3]);
+            expect(map[1][3]).toBe(".");
+            expect(map[2][2]).toBe(".");
+            expect(map[2][3]).toBe("@");
+            expect(map[3][2]).toBe("[");
+            expect(map[3][3]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##@.......##".split(""),
+                "##[]......##".split(""),
+                "##[]......##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 2];
+            const instruction = "v";
+            const newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([2, 2]);
+            expect(map[1][2]).toBe(".");
+            expect(map[2][2]).toBe("@");
+            expect(map[2][3]).toBe(".");
+            expect(map[3][2]).toBe("[");
+            expect(map[3][3]).toBe("]");
+            expect(map[4][2]).toBe("[");
+            expect(map[4][3]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##.@......##".split(""),
+                "##.[].....##".split(""),
+                "##[][]....##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 3];
+            const instruction = "v";
+
+            let newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([2, 3]);
+            expect(map[1][3]).toBe(".");
+            expect(map[2][3]).toBe("@");
+            expect(map[2][4]).toBe(".");
+            expect(map[3][3]).toBe("[");
+            expect(map[3][4]).toBe("]");
+            expect(map[4][2]).toBe("[");
+            expect(map[4][3]).toBe("]");
+            expect(map[4][4]).toBe("[");
+            expect(map[4][5]).toBe("]");
+
+            // Doesn't move
+            newRobotPosition = step(map, newRobotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([2, 3]);
+            expect(map[1][3]).toBe(".");
+            expect(map[2][3]).toBe("@");
+            expect(map[2][4]).toBe(".");
+            expect(map[3][3]).toBe("[");
+            expect(map[3][4]).toBe("]");
+            expect(map[4][2]).toBe("[");
+            expect(map[4][3]).toBe("]");
+            expect(map[4][4]).toBe("[");
+            expect(map[4][5]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##........##".split(""),
+                "##.[].....##".split(""),
+                "##[][]....##".split(""),
+                "##.@......##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [4, 3];
+            const instruction = "^";
+
+            let newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([3, 3]);
+            expect(map[4][3]).toBe(".");
+            expect(map[3][2]).toBe(".");
+            expect(map[3][3]).toBe("@");
+            expect(map[2][2]).toBe("[");
+            expect(map[2][3]).toBe("]");
+            expect(map[1][3]).toBe("[");
+            expect(map[1][4]).toBe("]");
+            expect(map[3][4]).toBe("[");
+            expect(map[3][5]).toBe("]");
+
+            // Doesn't move
+            newRobotPosition = step(map, newRobotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([3, 3]);
+            expect(map[4][3]).toBe(".");
+            expect(map[3][2]).toBe(".");
+            expect(map[3][3]).toBe("@");
+            expect(map[2][2]).toBe("[");
+            expect(map[2][3]).toBe("]");
+            expect(map[1][3]).toBe("[");
+            expect(map[1][4]).toBe("]");
+            expect(map[3][4]).toBe("[");
+            expect(map[3][5]).toBe("]");
+        });
+
+        it("moves correctly", () => {
+            const map = [
+                "############".split(""),
+                "##@.......##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "##........##".split(""),
+                "############".split(""),
+            ];
+            const robotPosition: Position = [1, 2];
+            const instruction = "v";
+            const instruction2 = "^";
+
+            let newRobotPosition = step(map, robotPosition, instruction);
+
+            expect(newRobotPosition).toEqual([2, 2]);
+            expect(map[1][2]).toBe(".");
+            expect(map[2][2]).toBe("@");
+
+            newRobotPosition = step(map, newRobotPosition, instruction2);
+
+            expect(newRobotPosition).toEqual([1, 2]);
+            expect(map[1][2]).toBe("@");
+            expect(map[2][2]).toBe(".");
         });
     });
 
