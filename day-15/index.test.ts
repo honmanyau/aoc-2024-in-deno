@@ -3,7 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 
 import { readPuzzleInput } from "./index.ts";
 
-describe("Day 14", () => {
+describe("Day 15", () => {
     describe("readPuzzleInput()", () => {
         it("returns the puzzle input correctly for `sample-input`", async () => {
             const path = `${Deno.cwd()}/day-15/sample-input.txt`;
