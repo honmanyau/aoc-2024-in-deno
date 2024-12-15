@@ -33,27 +33,52 @@ export function step(
 
     if (!vector) throw new Error("Invalid instruction: " + instruction);
 
-    const [y, x] = robotPosition;
+    const [startY, startX] = robotPosition;
     const [dy, dx] = vector;
     const closestSpace = findClosestValidSpace(map, robotPosition, vector);
 
     if (!closestSpace) return robotPosition;
 
-    const nextY = y + dy;
-    const nextX = x + dx;
-    const nextTile = map[nextY]?.[nextX];
+    const queue: Position[] = [[startY, startX]];
+    const movables: { [position: string]: string } = {};
 
-    if (!nextTile) throw new Error("Unexpected OOB!");
+    while (queue.length > 0) {
+        const [y, x] = queue.shift()!;
+        const tile = map[y][x];
+        const nextY = y + dy;
+        const nextX = x + dx;
+        const nextTile = map[nextY]?.[nextX];
 
-    if (nextTile === "O") {
-        map[nextY][nextX] = ".";
-        map[closestSpace[0]][closestSpace[1]] = "O";
+        if (!tile || tile === "#") throw new Error("Unexpected tile found!");
+        if (tile === ".") continue;
+        if (!nextTile || nextTile === "#") return [startX, startY];
+
+        if (tile === "[") {
+            queue.push([y, x + 1]);
+        } else if (tile === "]") {
+            queue.push([y, x - 1]);
+        }
+
+        if (["O", "[", "]"].includes(nextTile)) {
+            queue.push([nextY, nextX]);
+        }
+
+        movables[keyify([y, x])] = tile;
     }
 
-    map[y][x] = ".";
-    map[nextY][nextX] = "@";
+    for (const [key, tile] of Object.entries(movables)) {
+        const [y, x] = key.split(",").map(Number) as Position;
+        const nextY = y + dy;
+        const nextX = x + dx;
 
-    return [nextY, nextX];
+        map[nextY][nextX] = tile;
+
+        if (!movables[keyify([y - dy, x - dx])]) {
+            map[y][x] = ".";
+        }
+    }
+
+    return [startY + dy, startX + dx];
 }
 
 function findClosestValidSpace(
@@ -78,6 +103,10 @@ function findClosestValidSpace(
     }
 
     throw new Error("Invalid logic!");
+}
+
+function keyify(position: Position) {
+    return `${position.join(",")}`;
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
