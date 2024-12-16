@@ -24,10 +24,20 @@ describe("Day 16", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns", async () => {
+        it("returns 7036 for the first sample input", async () => {
             const path = `${Deno.cwd()}/day-16/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
+
+            expect(result).toBe(7036);
+        });
+
+        it("returns 11048 for the second sample input", async () => {
+            const path = `${Deno.cwd()}/day-16/sample-input-2.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
+
+            expect(result).toBe(11048);
         });
     });
 
