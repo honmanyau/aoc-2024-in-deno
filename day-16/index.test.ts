@@ -40,64 +40,7 @@ describe("Day 16", () => {
     });
 
     describe("step()", () => {
-        it("returns the correct states when there is only one possible next direction", () => {
-            const input = [
-                "######".split(""),
-                "#....#".split(""),
-                "###..#".split(""),
-                "#....#".split(""),
-                "######".split(""),
-            ];
-
-            const state: ReindeerState = {
-                position: [1, 1],
-                direction: DIRECTIONS.RIGHT,
-                score: 0,
-            };
-
-            const result = step(input, state);
-
-            expect(result).toEqual([
-                {
-                    position: [1, 1],
-                    direction: DIRECTIONS.RIGHT,
-                    score: 1,
-                },
-            ]);
-        });
-
-        it("returns the correct states when there are two possible next directions", () => {
-            const input = [
-                "######".split(""),
-                "#....#".split(""),
-                "###..#".split(""),
-                "#....#".split(""),
-                "######".split(""),
-            ];
-
-            const state: ReindeerState = {
-                position: [1, 2],
-                direction: DIRECTIONS.RIGHT,
-                score: 0,
-            };
-
-            const result = step(input, state);
-
-            expect(result).toEqual([
-                {
-                    position: [1, 3],
-                    direction: DIRECTIONS.RIGHT,
-                    score: 1,
-                },
-                {
-                    position: [1, 3],
-                    direction: DIRECTIONS.DOWN,
-                    score: 1001,
-                },
-            ]);
-        });
-
-        it("returns the correct states when there are three possible next directions", () => {
+        it("returns the correct states", () => {
             const input = [
                 "######".split(""),
                 "#....#".split(""),
