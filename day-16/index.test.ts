@@ -5,9 +5,9 @@ import {
     DIRECTION,
     readPuzzleInput,
     ReindeerState,
-    solvePart1,
     solvePart2,
     step,
+    walk,
 } from "./index.ts";
 
 describe("Day 16", () => {
@@ -23,21 +23,25 @@ describe("Day 16", () => {
         });
     });
 
-    describe("solvePart1()", () => {
+    describe("walk()", () => {
         it("returns 7036 for the first sample input", async () => {
             const path = `${Deno.cwd()}/day-16/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const result = solvePart1(input);
+            const result = walk(input);
 
-            expect(result).toBe(7036);
+            for (const state of Object.values(result)) {
+                expect(state.score).toBe(7036);
+            }
         });
 
-        it("returns 11048 for the second sample input", async () => {
+        it("returns 11048 for the first sample input", async () => {
             const path = `${Deno.cwd()}/day-16/sample-input-2.txt`;
             const input = await readPuzzleInput(path);
-            const result = solvePart1(input);
+            const result = walk(input);
 
-            expect(result).toBe(11048);
+            for (const state of Object.values(result)) {
+                expect(state.score).toBe(11048);
+            }
         });
     });
 

@@ -6,6 +6,7 @@ export type ReindeerState = {
     position: Position;
     direction: Vector;
     score: number;
+    visitedPositions?: Position[];
 };
 
 export const DIRECTION: { [key: string]: Vector } = {
@@ -39,7 +40,7 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 export function solvePart1(input: Input): number {
     const startPosition = findStartPosition(input);
     const visited: Visited = {};
-    const queue = [
+    const queue: ReindeerState[] = [
         {
             position: startPosition,
             direction: DIRECTION.UP,
@@ -131,6 +132,51 @@ export function step(
             score: score + 1001,
         },
     ];
+}
+
+export function stepPart2(
+    input: Input,
+    { position, direction, score, visitedPositions }: ReindeerState
+): ReindeerState[] | undefined {
+    if (!visitedPositions) {
+        throw new Error("No visited positions!");
+    }
+
+    const [startY, startX] = position;
+    const [dy, dx] = direction;
+    const nextY = startY + dy;
+    const nextX = startX + dx;
+    const nextTile = input[nextY]?.[nextX];
+
+    if (nextTile === undefined) {
+        throw new Error("Invalid logic!");
+    }
+
+    // Walking into a wall terminates a path.
+    if (nextTile === "#") return undefined;
+    if (nextTile === "E") return [];
+
+    return [
+        {
+            position: [nextY, nextX],
+            direction,
+            score: score + 1,
+        },
+        {
+            position: [nextY, nextX],
+            direction: getLeftTurnDirection(direction),
+            score: score + 1001,
+        },
+        {
+            position: [nextY, nextX],
+            direction: getRightTurnDirection(direction),
+            score: score + 1001,
+        },
+    ];
+}
+
+export function walk(input: Input): ReindeerState[] {
+    throw new Error("Not implemented!");
 }
 
 function getLeftTurnDirection([y, x]: Vector): Vector {
