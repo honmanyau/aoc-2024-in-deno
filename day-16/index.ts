@@ -37,7 +37,59 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const startPosition = findStartPosition(input);
+    const visited: Visited = {};
+    const queue = [
+        {
+            position: startPosition,
+            direction: DIRECTION.UP,
+            score: 1000,
+        },
+        {
+            position: startPosition,
+            direction: DIRECTION.RIGHT,
+            score: 0,
+        },
+        {
+            position: startPosition,
+            direction: DIRECTION.DOWN,
+            score: 1000,
+        },
+        {
+            position: startPosition,
+            direction: DIRECTION.LEFT,
+            score: 2000,
+        },
+    ];
+    const scores: number[] = [];
+
+    while (queue.length > 0) {
+        const state = queue.shift()!;
+        const positionKey = keyify(state.position);
+        const directionKey = keyify(state.direction);
+        const visitedScore = visited[positionKey]?.[directionKey];
+
+        if (visitedScore && visitedScore < state.score) continue;
+
+        if (!visited[positionKey]) {
+            visited[positionKey] = {};
+        }
+
+        visited[positionKey][directionKey] = state.score;
+
+        const nextStates = step(input, state);
+
+        if (!nextStates) continue;
+
+        if (nextStates.length === 0) {
+            scores.push(state.score + 1);
+            continue;
+        }
+
+        queue.push(...nextStates);
+    }
+
+    return Math.min(...scores);
 }
 
 export function solvePart2(input: Input): number {
@@ -95,6 +147,27 @@ function getRightTurnDirection([y, x]: Vector): Vector {
     }
 
     return y === 1 ? DIRECTION.LEFT : DIRECTION.RIGHT;
+}
+
+function findStartPosition(input: Input): Position {
+    let startPosition: Position | undefined;
+
+    for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input[y].length; x++) {
+            if (input[y][x] === "S") {
+                startPosition = [y, x] as Position;
+                break;
+            }
+        }
+
+        if (startPosition) break;
+    }
+
+    if (!startPosition) {
+        throw new Error("Could not find start position!");
+    }
+
+    return startPosition;
 }
 
 function keyify(position: Position | Vector) {
