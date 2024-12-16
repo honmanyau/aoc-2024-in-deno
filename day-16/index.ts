@@ -161,22 +161,97 @@ export function stepPart2(
             position: [nextY, nextX],
             direction,
             score: score + 1,
+            visitedPositions: [...visitedPositions, [nextY, nextX]],
         },
         {
             position: [nextY, nextX],
             direction: getLeftTurnDirection(direction),
             score: score + 1001,
+            visitedPositions: [...visitedPositions, [nextY, nextX]],
         },
         {
             position: [nextY, nextX],
             direction: getRightTurnDirection(direction),
             score: score + 1001,
+            visitedPositions: [...visitedPositions, [nextY, nextX]],
         },
     ];
 }
 
 export function walk(input: Input): ReindeerState[] {
-    throw new Error("Not implemented!");
+    const startPosition = findStartPosition(input);
+    const visited: Visited = {};
+    const queue: ReindeerState[] = [
+        {
+            position: startPosition,
+            direction: DIRECTION.UP,
+            score: 1000,
+            visitedPositions: [startPosition],
+        },
+        {
+            position: startPosition,
+            direction: DIRECTION.RIGHT,
+            score: 0,
+            visitedPositions: [startPosition],
+        },
+        {
+            position: startPosition,
+            direction: DIRECTION.DOWN,
+            score: 1000,
+            visitedPositions: [startPosition],
+        },
+        {
+            position: startPosition,
+            direction: DIRECTION.LEFT,
+            score: 2000,
+            visitedPositions: [startPosition],
+        },
+    ];
+    const validPaths: ReindeerState[] = [];
+
+    while (queue.length > 0) {
+        const state = queue.shift()!;
+        const positionKey = keyify(state.position);
+        const directionKey = keyify(state.direction);
+        const visitedScore = visited[positionKey]?.[directionKey];
+
+        if (!state.visitedPositions) {
+            throw new Error("No visited positions!");
+        }
+
+        if (visitedScore && visitedScore < state.score) continue;
+
+        if (!visited[positionKey]) {
+            visited[positionKey] = {};
+        }
+
+        visited[positionKey][directionKey] = state.score;
+
+        const nextStates = stepPart2(input, state);
+
+        if (!nextStates) continue;
+
+        if (nextStates.length === 0) {
+            validPaths.push({
+                ...state,
+                position: [
+                    state.position[0] + state.direction[0],
+                    state.position[1] + state.direction[1],
+                ],
+                direction: state.direction,
+                score: state.score + 1,
+                visitedPositions: [...state.visitedPositions, state.position],
+            });
+
+            continue;
+        }
+
+        queue.push(...nextStates);
+    }
+
+    const minScore = Math.min(...validPaths.map((state) => state.score));
+
+    return validPaths.filter((state) => state.score === minScore);
 }
 
 function getLeftTurnDirection([y, x]: Vector): Vector {

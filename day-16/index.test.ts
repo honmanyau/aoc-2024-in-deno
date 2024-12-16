@@ -5,6 +5,7 @@ import {
     DIRECTION,
     readPuzzleInput,
     ReindeerState,
+    solvePart1,
     solvePart2,
     step,
     walk,
@@ -20,36 +21,6 @@ describe("Day 16", () => {
 
             expect(secondLine).toEqual("#.......#....E#".split(""));
             expect(secondLastLine).toEqual("#S..#.....#...#".split(""));
-        });
-    });
-
-    describe("walk()", () => {
-        it("returns 7036 for the first sample input", async () => {
-            const path = `${Deno.cwd()}/day-16/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = walk(input);
-
-            for (const state of Object.values(result)) {
-                expect(state.score).toBe(7036);
-            }
-        });
-
-        it("returns 11048 for the first sample input", async () => {
-            const path = `${Deno.cwd()}/day-16/sample-input-2.txt`;
-            const input = await readPuzzleInput(path);
-            const result = walk(input);
-
-            for (const state of Object.values(result)) {
-                expect(state.score).toBe(11048);
-            }
-        });
-    });
-
-    describe("solvePart2()", () => {
-        it("returns", async () => {
-            const path = `${Deno.cwd()}/day-16/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart2(input);
         });
     });
 
@@ -148,6 +119,54 @@ describe("Day 16", () => {
             const result = step(input, state);
 
             expect(result).toBeUndefined();
+        });
+    });
+
+    describe("walk()", () => {
+        it("returns 7036 for the first sample input", async () => {
+            const path = `${Deno.cwd()}/day-16/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = walk(input);
+
+            for (const state of Object.values(result)) {
+                expect(state.score).toBe(7036);
+            }
+        });
+
+        it("returns 11048 for the first sample input", async () => {
+            const path = `${Deno.cwd()}/day-16/sample-input-2.txt`;
+            const input = await readPuzzleInput(path);
+            const result = walk(input);
+
+            for (const state of Object.values(result)) {
+                expect(state.score).toBe(11048);
+            }
+        });
+    });
+
+    describe("solvePart1()", () => {
+        it("returns 7036 for the first sample input", async () => {
+            const path = `${Deno.cwd()}/day-16/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
+
+            expect(result).toBe(7036);
+        });
+
+        it("returns 11048 for the second sample input", async () => {
+            const path = `${Deno.cwd()}/day-16/sample-input-2.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
+
+            expect(result).toBe(11048);
+        });
+    });
+
+    describe("solvePart2()", () => {
+        it("returns", async () => {
+            const path = `${Deno.cwd()}/day-16/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
         });
     });
 });
