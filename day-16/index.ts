@@ -8,7 +8,7 @@ export type ReindeerState = {
     score: number;
 };
 
-export const DIRECTIONS: { [key: string]: Vector } = {
+export const DIRECTION: { [key: string]: Vector } = {
     UP: [-1, 0],
     RIGHT: [0, 1],
     DOWN: [1, 0],
@@ -48,7 +48,53 @@ export function step(
     input: Input,
     { position, direction, score }: ReindeerState
 ): ReindeerState[] | undefined {
-    throw new Error("Not implemented");
+    const [startY, startX] = position;
+    const [dy, dx] = direction;
+    const nextY = startY + dy;
+    const nextX = startX + dx;
+    const nextTile = input[nextY]?.[nextX];
+
+    if (nextTile === undefined) {
+        throw new Error("Invalid logic!");
+    }
+
+    // Walking into a wall terminates a path.
+    if (nextTile === "#") return undefined;
+    if (nextTile === "E") return [];
+
+    return [
+        {
+            position: [nextY, nextX],
+            direction,
+            score: score + 1,
+        },
+        {
+            position: [nextY, nextX],
+            direction: getLeftTurnDirection(direction),
+            score: score + 1001,
+        },
+        {
+            position: [nextY, nextX],
+            direction: getRightTurnDirection(direction),
+            score: score + 1001,
+        },
+    ];
+}
+
+function getLeftTurnDirection([y, x]: Vector): Vector {
+    if (y === 0) {
+        return x === 1 ? DIRECTION.UP : DIRECTION.DOWN;
+    }
+
+    return y === 1 ? DIRECTION.RIGHT : DIRECTION.LEFT;
+}
+
+function getRightTurnDirection([y, x]: Vector): Vector {
+    if (y === 0) {
+        return x === 1 ? DIRECTION.DOWN : DIRECTION.UP;
+    }
+
+    return y === 1 ? DIRECTION.LEFT : DIRECTION.RIGHT;
 }
 
 function keyify(position: Position | Vector) {

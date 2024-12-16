@@ -2,7 +2,7 @@ import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
 import {
-    DIRECTIONS,
+    DIRECTION,
     readPuzzleInput,
     ReindeerState,
     solvePart1,
@@ -51,7 +51,7 @@ describe("Day 16", () => {
 
             const state: ReindeerState = {
                 position: [2, 1],
-                direction: DIRECTIONS.RIGHT,
+                direction: DIRECTION.RIGHT,
                 score: 0,
             };
 
@@ -60,17 +60,17 @@ describe("Day 16", () => {
             expect(result).toEqual([
                 {
                     position: [2, 2],
-                    direction: DIRECTIONS.RIGHT,
+                    direction: DIRECTION.RIGHT,
                     score: 1,
                 },
                 {
                     position: [2, 2],
-                    direction: DIRECTIONS.UP,
+                    direction: DIRECTION.UP,
                     score: 1001,
                 },
                 {
                     position: [2, 2],
-                    direction: DIRECTIONS.DOWN,
+                    direction: DIRECTION.DOWN,
                     score: 1001,
                 },
             ]);
@@ -87,7 +87,7 @@ describe("Day 16", () => {
 
             const state: ReindeerState = {
                 position: [1, 2],
-                direction: DIRECTIONS.RIGHT,
+                direction: DIRECTION.RIGHT,
                 score: 0,
             };
 
@@ -107,7 +107,7 @@ describe("Day 16", () => {
 
             const state: ReindeerState = {
                 position: [1, 1],
-                direction: DIRECTIONS.LEFT,
+                direction: DIRECTION.LEFT,
                 score: 0,
             };
 
@@ -127,7 +127,7 @@ describe("Day 16", () => {
 
             const state: ReindeerState = {
                 position: [1, 1],
-                direction: DIRECTIONS.UP,
+                direction: DIRECTION.UP,
                 score: 0,
             };
 
