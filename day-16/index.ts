@@ -94,7 +94,13 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    const finalStates = walk(input);
+    const tiles = finalStates
+        .map((state) => state.visitedPositions || [])
+        .flat();
+    const uniqueTiles = [...new Set(tiles.map(keyify))];
+
+    return uniqueTiles.length;
 }
 
 export function step(
@@ -232,15 +238,17 @@ export function walk(input: Input): ReindeerState[] {
         if (!nextStates) continue;
 
         if (nextStates.length === 0) {
+            const finalPosition: Position = [
+                state.position[0] + state.direction[0],
+                state.position[1] + state.direction[1],
+            ];
+
             validPaths.push({
                 ...state,
-                position: [
-                    state.position[0] + state.direction[0],
-                    state.position[1] + state.direction[1],
-                ],
+                position: finalPosition,
                 direction: state.direction,
                 score: state.score + 1,
-                visitedPositions: [...state.visitedPositions, state.position],
+                visitedPositions: [...state.visitedPositions, finalPosition],
             });
 
             continue;
