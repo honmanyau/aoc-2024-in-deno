@@ -71,6 +71,10 @@ export function adv(registers: Registers, operand: number): void {
     registers.A = Math.floor(quotient);
 }
 
+export function bxl(registers: Registers, operand: number): void {
+    registers.B = registers.B ^ operand;
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
