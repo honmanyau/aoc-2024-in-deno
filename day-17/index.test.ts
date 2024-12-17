@@ -3,9 +3,11 @@ import { describe, it } from "@std/testing/bdd";
 import { expect } from "@std/expect/expect";
 import {
     adv,
+    bdv,
     bst,
     bxc,
     bxl,
+    cdv,
     getComboOperandValue,
     out,
     readPuzzleInput,
@@ -64,6 +66,93 @@ describe("Day 17", () => {
             expect(result5).toBe(registers.B);
             expect(result6).toBe(registers.C);
             expect(() => getComboOperandValue(registers, operand7)).toThrow();
+        });
+    });
+
+    describe("adv()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 256,
+                B: 4,
+                C: 24,
+            };
+
+            adv(registers, 1);
+
+            expect(registers).toEqual({
+                A: 128,
+                B: 4,
+                C: 24,
+            });
+
+            adv(registers, 5);
+
+            expect(registers).toEqual({
+                A: 8,
+                B: 4,
+                C: 24,
+            });
+
+            registers.A = 9;
+            adv(registers, 2);
+
+            expect(registers).toEqual({
+                A: 2,
+                B: 4,
+                C: 24,
+            });
+        });
+    });
+
+    describe("bdv()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 256,
+                B: 3,
+                C: 4,
+            };
+
+            bdv(registers, 1);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 128,
+                C: 4,
+            });
+
+            bdv(registers, 6);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 16,
+                C: 4,
+            });
+        });
+    });
+
+    describe("cdv()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 256,
+                B: 4,
+                C: 3,
+            };
+
+            cdv(registers, 1);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 4,
+                C: 128,
+            });
+
+            cdv(registers, 5);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 4,
+                C: 16,
+            });
         });
     });
 

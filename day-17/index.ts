@@ -71,6 +71,22 @@ export function adv(registers: Registers, operand: number): void {
     registers.A = Math.floor(quotient);
 }
 
+export function bdv(registers: Registers, operand: number): void {
+    const operandValue = getComboOperandValue(registers, operand);
+    const denominator = 2 ** operandValue;
+    const quotient = registers.A / denominator;
+
+    registers.B = Math.floor(quotient);
+}
+
+export function cdv(registers: Registers, operand: number): void {
+    const operandValue = getComboOperandValue(registers, operand);
+    const denominator = 2 ** operandValue;
+    const quotient = registers.A / denominator;
+
+    registers.C = Math.floor(quotient);
+}
+
 export function bxl(registers: Registers, operand: number): void {
     registers.B = registers.B ^ operand;
 }
