@@ -63,6 +63,13 @@ export function getComboOperandValue(
     throw new Error("Not implemented");
 }
 
+export function adv(registers: Registers, operand: number): void {
+    const operandValue = getComboOperandValue(registers, operand);
+    const denominator = 2 ** operandValue;
+
+    registers.A = registers.A / denominator;
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }

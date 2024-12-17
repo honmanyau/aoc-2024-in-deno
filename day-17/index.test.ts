@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { getComboOperandValue, readPuzzleInput } from "./index.ts";
+import { adv, getComboOperandValue, readPuzzleInput } from "./index.ts";
 
 describe("Day 17", () => {
     describe("readPuzzleInput()", () => {
@@ -56,6 +56,32 @@ describe("Day 17", () => {
             expect(result5).toBe(registers.B);
             expect(result6).toBe(registers.C);
             expect(() => getComboOperandValue(registers, operand7)).toThrow();
+        });
+    });
+
+    describe("adv()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 256,
+                B: 4,
+                C: 24,
+            };
+
+            adv(registers, 1);
+
+            expect(registers).toEqual({
+                A: 128,
+                B: 4,
+                C: 24,
+            });
+
+            adv(registers, 5);
+
+            expect(registers).toEqual({
+                A: 8,
+                B: 4,
+                C: 24,
+            });
         });
     });
 
