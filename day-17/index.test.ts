@@ -26,7 +26,7 @@ describe("Day 17", () => {
                 C: 42,
             });
 
-            expect(program).toBe("0,3,1,2,4,0");
+            expect(program).toEqual([0, 3, 1, 2, 4, 0]);
         });
     });
 
@@ -282,7 +282,7 @@ describe("Day 17", () => {
                 C: 3,
             };
 
-            const program = "5,0,5,1,5,4";
+            const program = [5, 0, 5, 1, 5, 4];
             const result = run(registers, program);
 
             expect(result).toBe("0,1,2");
@@ -295,7 +295,7 @@ describe("Day 17", () => {
                 C: 3,
             };
 
-            const program = "0,1,5,4,3,0";
+            const program = [0, 1, 5, 4, 3, 0];
             const result = run(registers, program);
 
             expect(result).toBe("4,2,5,6,7,7,7,7,3,1,0");

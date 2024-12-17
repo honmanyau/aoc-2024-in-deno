@@ -21,7 +21,7 @@ export async function solveDay17Part2(): Promise<number> {
 
 export async function readPuzzleInput(
     path: string
-): Promise<[Registers, string]> {
+): Promise<[Registers, number[]]> {
     const content = await Deno.readTextFile(path);
     const [registersText, programText] = content.split("\n\n");
     const registers: Registers = {
@@ -29,7 +29,11 @@ export async function readPuzzleInput(
         B: Number(registersText.match(/Register B: (\d+)/)![1]),
         C: Number(registersText.match(/Register C: (\d+)/)![1]),
     };
-    const program = programText.replace(/^Program: /, "").trim();
+    const program = programText
+        .replace(/^Program: /, "")
+        .trim()
+        .split(",")
+        .map(Number);
 
     return [registers, program];
 }
@@ -95,12 +99,44 @@ export function out(registers: Registers, operand: number): number {
     return operandValue % 8;
 }
 
-export function run(registers: Registers, program: string): number[] {
+export function run(registers: Registers, program: number[]): string {
     let pointer = 0;
+    let outputs = [];
 
-    // while (pointer < program.length) {}
+    while (pointer < program.length) {
+        const opCode = Number(program[pointer]);
+        const operand = Number(program[pointer + 1]);
 
-    return [];
+        if (opCode === 3) {
+            if (registers.A === 0) {
+                pointer += 2;
+            } else {
+                pointer = operand;
+            }
+
+            continue;
+        }
+
+        if (opCode === 0) {
+            adv(registers, operand);
+        } else if (opCode === 1) {
+            bxl(registers, operand);
+        } else if (opCode === 2) {
+            bst(registers, operand);
+        } else if (opCode === 4) {
+            bxc(registers, operand);
+        } else if (opCode === 5) {
+            outputs.push(out(registers, operand));
+        } else if (opCode === 6) {
+            bdv(registers, operand);
+        } else if (opCode === 7) {
+            cdv(registers, operand);
+        }
+
+        pointer += 2;
+    }
+
+    return outputs.join(",");
 }
 
 export function solvePart1(input: Input): number {
