@@ -25,11 +25,7 @@ describe("Day 17", () => {
                 C: 42,
             });
 
-            expect(program).toEqual([
-                ["0", 3],
-                ["1", 2],
-                ["4", 0],
-            ]);
+            expect(program).toBe("0,3,1,2,4,0");
         });
     });
 

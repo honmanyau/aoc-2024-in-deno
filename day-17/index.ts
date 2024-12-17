@@ -5,8 +5,6 @@ export type Registers = {
     C: number;
 };
 
-export type Program = [string, number][];
-
 export async function solveDay17Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-17/input.txt`;
     const input = await readPuzzleInput(path);
@@ -23,7 +21,7 @@ export async function solveDay17Part2(): Promise<number> {
 
 export async function readPuzzleInput(
     path: string
-): Promise<[Registers, Program]> {
+): Promise<[Registers, string]> {
     const content = await Deno.readTextFile(path);
     const [registersText, programText] = content.split("\n\n");
     const registers: Registers = {
@@ -31,17 +29,7 @@ export async function readPuzzleInput(
         B: Number(registersText.match(/Register B: (\d+)/)![1]),
         C: Number(registersText.match(/Register C: (\d+)/)![1]),
     };
-    const program = programText
-        .replace(/^Program: /, "")
-        .trim()
-        .split(",")
-        .reduce((acc, val, i, arr) => {
-            if (i % 2 === 0) {
-                acc.push([val, Number(arr[i + 1])]);
-            }
-
-            return acc;
-        }, [] as Program);
+    const program = programText.replace(/^Program: /, "").trim();
 
     return [registers, program];
 }
@@ -105,6 +93,10 @@ export function out(registers: Registers, operand: number): number {
     const operandValue = getComboOperandValue(registers, operand);
 
     return operandValue % 8;
+}
+
+export function run(registers: Registers, program: string): number[] {
+    return [];
 }
 
 export function solvePart1(input: Input): number {
