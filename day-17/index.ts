@@ -46,6 +46,13 @@ export async function readPuzzleInput(
     return [registers, program];
 }
 
+export function getComboOperandValue(
+    registers: Registers,
+    operand: number
+): number {
+    throw new Error("Not implemented");
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
