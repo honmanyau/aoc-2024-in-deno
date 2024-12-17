@@ -1,15 +1,15 @@
-export type Input = string[];
+export type Input = [Registers, number[]];
 export type Registers = {
     A: number;
     B: number;
     C: number;
 };
 
-export async function solveDay17Part1(): Promise<number> {
+export async function solveDay17Part1(): Promise<string> {
     const path = `${Deno.cwd()}/day-17/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart1(input);
 }
 
 export async function solveDay17Part2(): Promise<number> {
@@ -139,8 +139,10 @@ export function run(registers: Registers, program: number[]): string {
     return outputs.join(",");
 }
 
-export function solvePart1(input: Input): number {
-    return -1;
+export function solvePart1(input: Input): string {
+    const [registers, program] = input;
+
+    return run(registers, program);
 }
 
 export function solvePart2(input: Input): number {
