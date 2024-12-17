@@ -85,6 +85,12 @@ export function bxc(registers: Registers, _operand: number): void {
     registers.B = registers.B ^ registers.C;
 }
 
+export function out(registers: Registers, operand: number): number {
+    const operandValue = getComboOperandValue(registers, operand);
+
+    return operandValue % 8;
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }

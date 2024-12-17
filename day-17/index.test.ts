@@ -7,6 +7,7 @@ import {
     bxc,
     bxl,
     getComboOperandValue,
+    out,
     readPuzzleInput,
 } from "./index.ts";
 
@@ -170,6 +171,23 @@ describe("Day 17", () => {
             });
         });
     });
+
+    describe("out()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 10,
+                B: 5,
+                C: 3,
+            };
+
+            expect(out(registers, 0)).toBe(0);
+            expect(out(registers, 1)).toBe(1);
+            expect(out(registers, 4)).toBe(2);
+            expect(out(registers, 5)).toBe(5);
+            expect(out(registers, 3)).toBe(3);
+        });
+    });
+
     describe("solvePart1()", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-17/sample-input.txt`;
