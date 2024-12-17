@@ -75,6 +75,12 @@ export function bxl(registers: Registers, operand: number): void {
     registers.B = registers.B ^ operand;
 }
 
+export function bst(registers: Registers, operand: number): void {
+    const operandValue = getComboOperandValue(registers, operand);
+
+    registers.B = operandValue % 8;
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }

@@ -1,7 +1,13 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { adv, bxl, getComboOperandValue, readPuzzleInput } from "./index.ts";
+import {
+    adv,
+    bst,
+    bxl,
+    getComboOperandValue,
+    readPuzzleInput,
+} from "./index.ts";
 
 describe("Day 17", () => {
     describe("readPuzzleInput()", () => {
@@ -108,6 +114,40 @@ describe("Day 17", () => {
                 A: 256,
                 B: 6,
                 C: 24,
+            });
+        });
+    });
+
+    describe("bst()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 256,
+                B: 1,
+                C: 9,
+            };
+
+            bst(registers, 3);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 3,
+                C: 9,
+            });
+
+            bst(registers, 4);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 0,
+                C: 9,
+            });
+
+            bst(registers, 6);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 1,
+                C: 9,
             });
         });
     });
