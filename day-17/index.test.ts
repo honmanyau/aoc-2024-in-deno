@@ -11,6 +11,7 @@ import {
     getComboOperandValue,
     out,
     readPuzzleInput,
+    run,
 } from "./index.ts";
 
 describe("Day 17", () => {
@@ -270,6 +271,42 @@ describe("Day 17", () => {
             expect(out(registers, 4)).toBe(2);
             expect(out(registers, 5)).toBe(5);
             expect(out(registers, 3)).toBe(3);
+        });
+    });
+
+    describe("run()", () => {
+        it("returns the expected output", () => {
+            const registers = {
+                A: 10,
+                B: 5,
+                C: 3,
+            };
+
+            const program = "5,0,5,1,5,4";
+            const result = run(registers, program);
+
+            expect(result).toBe("0,1,2");
+        });
+
+        it("returns the expected output", () => {
+            const registers = {
+                A: 2024,
+                B: 5,
+                C: 3,
+            };
+
+            const program = "0,1,5,4,3,0";
+            const result = run(registers, program);
+
+            expect(result).toBe("4,2,5,6,7,7,7,7,3,1,0");
+        });
+
+        it("returns 4,6,3,5,6,3,5,2,1,0 for the sample input ", async () => {
+            const path = `${Deno.cwd()}/day-17/sample-input.txt`;
+            const [registers, program] = await readPuzzleInput(path);
+            const result = run(registers, program);
+
+            expect(result).toBe("4,6,3,5,6,3,5,2,1,0");
         });
     });
 

@@ -96,6 +96,10 @@ export function out(registers: Registers, operand: number): number {
 }
 
 export function run(registers: Registers, program: string): number[] {
+    let pointer = 0;
+
+    // while (pointer < program.length) {}
+
     return [];
 }
 
