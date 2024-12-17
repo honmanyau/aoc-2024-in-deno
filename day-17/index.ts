@@ -50,6 +50,16 @@ export function getComboOperandValue(
     registers: Registers,
     operand: number
 ): number {
+    if (operand >= 0 && operand <= 3) {
+        return operand;
+    } else if (operand === 4) {
+        return registers.A;
+    } else if (operand === 5) {
+        return registers.B;
+    } else if (operand === 6) {
+        return registers.C;
+    }
+
     throw new Error("Not implemented");
 }
 
