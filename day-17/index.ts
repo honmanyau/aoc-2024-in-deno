@@ -66,8 +66,9 @@ export function getComboOperandValue(
 export function adv(registers: Registers, operand: number): void {
     const operandValue = getComboOperandValue(registers, operand);
     const denominator = 2 ** operandValue;
+    const quotient = registers.A / denominator;
 
-    registers.A = registers.A / denominator;
+    registers.A = Math.floor(quotient);
 }
 
 export function solvePart1(input: Input): number {

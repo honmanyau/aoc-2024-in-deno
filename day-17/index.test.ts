@@ -82,6 +82,15 @@ describe("Day 17", () => {
                 B: 4,
                 C: 24,
             });
+
+            registers.A = 9;
+            adv(registers, 2);
+
+            expect(registers).toEqual({
+                A: 2,
+                B: 4,
+                C: 24,
+            });
         });
     });
 
