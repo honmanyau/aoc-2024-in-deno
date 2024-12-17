@@ -146,5 +146,13 @@ export function solvePart1(input: Input): string {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    const [registers, program] = input;
+
+    let result = 0;
+
+    while (run({ ...registers, A: result }, program) !== program.join(",")) {
+        result++;
+    }
+
+    return result;
 }
