@@ -81,6 +81,10 @@ export function bst(registers: Registers, operand: number): void {
     registers.B = operandValue % 8;
 }
 
+export function bxc(registers: Registers, _operand: number): void {
+    registers.B = registers.B ^ registers.C;
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }

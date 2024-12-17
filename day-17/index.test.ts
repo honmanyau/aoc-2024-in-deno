@@ -4,6 +4,7 @@ import { expect } from "@std/expect/expect";
 import {
     adv,
     bst,
+    bxc,
     bxl,
     getComboOperandValue,
     readPuzzleInput,
@@ -152,6 +153,23 @@ describe("Day 17", () => {
         });
     });
 
+    describe("bxc()", () => {
+        it("returns the correct value as described in the puzzle", async () => {
+            const registers = {
+                A: 256,
+                B: 5,
+                C: 3,
+            };
+
+            bxc(registers, 4);
+
+            expect(registers).toEqual({
+                A: 256,
+                B: 6,
+                C: 3,
+            });
+        });
+    });
     describe("solvePart1()", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-17/sample-input.txt`;
