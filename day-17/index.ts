@@ -80,7 +80,7 @@ export function cdv(registers: Registers, operand: number): void {
 }
 
 export function bxl(registers: Registers, operand: number): void {
-    registers.B = registers.B ^ operand;
+    registers.B = xor53Bit(registers.B, operand);
 }
 
 export function bst(registers: Registers, operand: number): void {
@@ -90,7 +90,7 @@ export function bst(registers: Registers, operand: number): void {
 }
 
 export function bxc(registers: Registers, _operand: number): void {
-    registers.B = registers.B ^ registers.C;
+    registers.B = xor53Bit(registers.B, registers.C);
 }
 
 export function out(registers: Registers, operand: number): number {
@@ -159,16 +159,17 @@ export async function solvePart2(): Promise<number> {
         console.log("\n\nAYA: ============================", targetBMod8);
         const nextResults: { a: number; b: number; c: number }[] = [];
 
-        for (const { a, b, c } of results) {
+        for (const { a } of results) {
             nextResults.push(...findPossibleInitialStates(a, targetBMod8));
         }
 
         results = nextResults;
 
-        console.log("AYA: nextResults", nextResults);
+        console.log("AYA: nextResults", targetBMod8, "--", nextResults[0]);
         console.log("\n\n");
     }
 
+    console.log("\n\nAYA: TARGET target", target);
     return -1;
 }
 
@@ -182,7 +183,7 @@ export function findPossibleInitialStates(
         // x is just a common part in both the expressions for calculating b
         // and c from a.
         const x = xor53Bit(a % 8, 5);
-        const c = a >> x;
+        const c = Math.floor(a / 2 ** x);
         const b = xor53Bit(xor53Bit(x, 6), c);
 
         if (b % 8 === targetBMod8) {
