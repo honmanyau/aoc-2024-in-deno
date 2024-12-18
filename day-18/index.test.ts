@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput, simulate } from "./index.ts";
+import { readPuzzleInput, simulate, solvePart1 } from "./index.ts";
 
 describe("Day 18", () => {
     describe("readPuzzleInput()", () => {
@@ -41,6 +41,9 @@ describe("Day 18", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-18/sample-input.txt`;
             const input = await readPuzzleInput(path);
+            const result = solvePart1(input, 12, 7);
+
+            expect(result).toEqual(22);
         });
     });
 
