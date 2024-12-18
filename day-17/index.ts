@@ -13,10 +13,9 @@ export async function solveDay17Part1(): Promise<string> {
 }
 
 export async function solveDay17Part2(): Promise<number> {
-    const path = `${Deno.cwd()}/day-17/input.txt`;
-    const input = await readPuzzleInput(path);
+    const results = await solvePart2();
 
-    return -1;
+    return results[0].a;
 }
 
 export async function readPuzzleInput(
@@ -145,18 +144,18 @@ export function solvePart1(input: Input): string {
     return run(registers, program);
 }
 
-export async function solvePart2(): Promise<number> {
+export async function solvePart2(): Promise<
+    { a: number; b: number; c: number }[]
+> {
     const path = `${Deno.cwd()}/day-17/input.txt`;
     const input = await readPuzzleInput(path);
     const [_registers, program] = input;
     const targetBMod8s = [...program].reverse();
-    const target = Number(program.join(""));
 
     let results: { a: number; b: number; c: number }[] = [{ a: 0, b: 0, c: 0 }];
 
     for (let i = 0; i < targetBMod8s.length; i++) {
         const targetBMod8 = targetBMod8s[i];
-        console.log("\n\nAYA: ============================", targetBMod8);
         const nextResults: { a: number; b: number; c: number }[] = [];
 
         for (const { a } of results) {
@@ -164,13 +163,9 @@ export async function solvePart2(): Promise<number> {
         }
 
         results = nextResults;
-
-        console.log("AYA: nextResults", targetBMod8, "--", nextResults[0]);
-        console.log("\n\n");
     }
 
-    console.log("\n\nAYA: TARGET target", target);
-    return -1;
+    return results;
 }
 
 export function findPossibleInitialStates(
@@ -214,5 +209,3 @@ function xor53Bit(a: number, b: number) {
 
     return Number(`0b${resultBinary}`);
 }
-
-solvePart2();
