@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput } from "./index.ts";
+import { readPuzzleInput, simulate } from "./index.ts";
 
 describe("Day 18", () => {
     describe("readPuzzleInput()", () => {
@@ -15,6 +15,24 @@ describe("Day 18", () => {
                 [0, 0],
                 [6, 7],
                 [24, 42],
+            ]);
+        });
+    });
+
+    describe("simulate()", () => {
+        it("returns", async () => {
+            const path = `${Deno.cwd()}/day-18/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = simulate(input, 12, 6);
+
+            expect(result).toEqual([
+                "...#...".split(""),
+                "..#..#.".split(""),
+                "....#..".split(""),
+                "...#..#".split(""),
+                "..#..#.".split(""),
+                ".#..#..".split(""),
+                "#.#....".split(""),
             ]);
         });
     });

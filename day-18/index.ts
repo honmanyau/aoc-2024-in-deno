@@ -1,4 +1,5 @@
 export type Input = [number, number][];
+export type Grid = ("." | "#")[][];
 
 export async function solveDay18Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-18/input.txt`;
@@ -28,4 +29,12 @@ export function solvePart1(input: Input): number {
 
 export function solvePart2(): number {
     return -1;
+}
+
+export function simulate(
+    input: Input,
+    steps: number,
+    gridSize: number = 70
+): Grid {
+    return [];
 }
