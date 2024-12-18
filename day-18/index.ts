@@ -16,7 +16,7 @@ export const DIRECTION: { [key: string]: Vector } = {
     LEFT: [0, -1],
 };
 
-export async function solveDay18Part1(): Promise<number> {
+export async function solveDay18Part1(): Promise<number | undefined> {
     const path = `${Deno.cwd()}/day-18/input.txt`;
     const input = await readPuzzleInput(path);
 
@@ -38,7 +38,11 @@ export async function readPuzzleInput(path: string): Promise<Input> {
     );
 }
 
-export function solvePart1(input: Input, steps = 1024, gridSize = 71): number {
+export function solvePart1(
+    input: Input,
+    steps = 1024,
+    gridSize = 71
+): number | undefined {
     const grid = simulate(input, steps, gridSize);
     const visited: Visited = {};
     const queue: State[] = [
@@ -124,11 +128,23 @@ export function solvePart1(input: Input, steps = 1024, gridSize = 71): number {
         }
     }
 
+    if (finalStates.length === 0) return;
+
     return Math.min(...finalStates.map((state) => state.score));
 }
 
-export function solvePart2(): number {
-    return -1;
+export function solvePart2(
+    input: Input,
+    steps = 1024,
+    gridSize = 71
+): string | undefined {
+    for (let i = steps; i < input.length; i++) {
+        if (solvePart1(input, i, gridSize) === undefined) {
+            return input[i - 1].reverse().join(",");
+        }
+    }
+
+    throw new Error("No solutions found!");
 }
 
 export function simulate(
