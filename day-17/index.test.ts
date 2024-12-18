@@ -8,6 +8,7 @@ import {
     bxc,
     bxl,
     cdv,
+    findPossibleInitialStates,
     getComboOperandValue,
     out,
     readPuzzleInput,
@@ -317,10 +318,23 @@ describe("Day 17", () => {
         });
     });
 
-    // describe("solvePart2()", () => {
-    //     it("returns", async () => {
-    //         const path = `${Deno.cwd()}/day-17/sample-input.txt`;
-    //         const input = await readPuzzleInput(path);
-    //     });
-    // });
+    describe("findPossibleInitialStates()", () => {
+        it("returns", async () => {
+            const result = findPossibleInitialStates(0, 0);
+            const result2 = findPossibleInitialStates(3, 3);
+            const result3 = findPossibleInitialStates(24, 3);
+
+            expect(result).toEqual([{ a: 3, b: 0, c: 0 }]);
+            expect(result2).toEqual([
+                { a: 24, b: 3, c: 0 },
+                { a: 25, b: 3, c: 1 },
+                { a: 29, b: 27, c: 29 },
+                { a: 31, b: 3, c: 7 },
+            ]);
+            expect(result3).toEqual([
+                { a: 195, b: 3, c: 3 },
+                { a: 197, b: 195, c: 197 },
+            ]);
+        });
+    });
 });

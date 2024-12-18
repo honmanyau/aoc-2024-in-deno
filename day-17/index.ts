@@ -172,7 +172,7 @@ export async function solvePart2(): Promise<number> {
     return -1;
 }
 
-function findPossibleInitialStates(
+export function findPossibleInitialStates(
     targetA: number,
     targetBMod8: number
 ): { a: number; b: number; c: number }[] {
