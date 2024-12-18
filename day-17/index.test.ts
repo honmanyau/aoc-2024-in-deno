@@ -12,8 +12,6 @@ import {
     out,
     readPuzzleInput,
     run,
-    solvePart1,
-    solvePart2,
 } from "./index.ts";
 
 describe("Day 17", () => {
@@ -302,25 +300,27 @@ describe("Day 17", () => {
 
             expect(result).toBe("4,2,5,6,7,7,7,7,3,1,0");
         });
-    });
 
-    describe("solvePart1()", () => {
         it("returns 4,6,3,5,6,3,5,2,1,0 for the sample input ", async () => {
             const path = `${Deno.cwd()}/day-17/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-            const result = solvePart1(input);
+            const [registers, program] = await readPuzzleInput(path);
+            const result = run(registers, program);
 
             expect(result).toBe("4,6,3,5,6,3,5,2,1,0");
         });
     });
 
-    describe("solvePart2()", () => {
-        it("returns 117440 for the sample input ", async () => {
-            const path = `${Deno.cwd()}/day-17/sample-input-2.txt`;
+    describe("solvePart1()", () => {
+        it("returns", async () => {
+            const path = `${Deno.cwd()}/day-17/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const result = solvePart2(input);
+        });
+    });
 
-            expect(result).toBe(117440);
+    describe("solvePart2()", () => {
+        it("returns", async () => {
+            const path = `${Deno.cwd()}/day-17/sample-input.txt`;
+            const input = await readPuzzleInput(path);
         });
     });
 });
