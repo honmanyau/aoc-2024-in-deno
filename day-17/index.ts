@@ -181,9 +181,9 @@ export function findPossibleInitialStates(
     for (let a = targetA * 8; a < targetA * 8 + 8; a++) {
         // x is just a common part in both the expressions for calculating b
         // and c from a.
-        const x = a % 8 ^ 5;
+        const x = xor53Bit(a % 8, 5);
         const c = a >> x;
-        const b = x ^ 6 ^ c;
+        const b = xor53Bit(xor53Bit(x, 6), c);
 
         if (b % 8 === targetBMod8) {
             results.push({ a, b, c });
@@ -191,6 +191,27 @@ export function findPossibleInitialStates(
     }
 
     return results;
+}
+
+function xor53Bit(a: number, b: number) {
+    if (a > Number.MAX_SAFE_INTEGER || b > Number.MAX_SAFE_INTEGER) {
+        throw new Error("Unsupported operation!");
+    }
+
+    const aBinary = a.toString(2).padStart(53, "0");
+    const bBinary = b.toString(2).padStart(53, "0");
+
+    let resultBinary = "";
+
+    for (let i = 0; i < aBinary.length; i++) {
+        if (aBinary[i] === bBinary[i]) {
+            resultBinary += "0";
+        } else {
+            resultBinary += "1";
+        }
+    }
+
+    return Number(`0b${resultBinary}`);
 }
 
 solvePart2();
