@@ -317,10 +317,10 @@ describe("Day 17", () => {
         });
     });
 
-    describe("solvePart2()", () => {
-        it("returns", async () => {
-            const path = `${Deno.cwd()}/day-17/sample-input.txt`;
-            const input = await readPuzzleInput(path);
-        });
-    });
+    // describe("solvePart2()", () => {
+    //     it("returns", async () => {
+    //         const path = `${Deno.cwd()}/day-17/sample-input.txt`;
+    //         const input = await readPuzzleInput(path);
+    //     });
+    // });
 });

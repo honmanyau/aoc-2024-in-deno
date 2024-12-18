@@ -145,6 +145,52 @@ export function solvePart1(input: Input): string {
     return run(registers, program);
 }
 
-export function solvePart2(input: Input): number {
+export async function solvePart2(): Promise<number> {
+    const path = `${Deno.cwd()}/day-17/input.txt`;
+    const input = await readPuzzleInput(path);
+    const [_registers, program] = input;
+    const targetBMod8s = [...program].reverse();
+    const target = Number(program.join(""));
+
+    let results: { a: number; b: number; c: number }[] = [{ a: 0, b: 0, c: 0 }];
+
+    for (let i = 0; i < targetBMod8s.length; i++) {
+        const targetBMod8 = targetBMod8s[i];
+        console.log("\n\nAYA: ============================", targetBMod8);
+        const nextResults: { a: number; b: number; c: number }[] = [];
+
+        for (const { a, b, c } of results) {
+            nextResults.push(...findPossibleInitialStates(a, targetBMod8));
+        }
+
+        results = nextResults;
+
+        console.log("AYA: nextResults", nextResults);
+        console.log("\n\n");
+    }
+
     return -1;
 }
+
+function findPossibleInitialStates(
+    targetA: number,
+    targetBMod8: number
+): { a: number; b: number; c: number }[] {
+    const results = [];
+
+    for (let a = targetA * 8; a < targetA * 8 + 8; a++) {
+        // x is just a common part in both the expressions for calculating b
+        // and c from a.
+        const x = a % 8 ^ 5;
+        const c = a >> x;
+        const b = x ^ 6 ^ c;
+
+        if (b % 8 === targetBMod8) {
+            results.push({ a, b, c });
+        }
+    }
+
+    return results;
+}
+
+solvePart2();
