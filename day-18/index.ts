@@ -36,5 +36,17 @@ export function simulate(
     steps: number,
     gridSize: number = 70
 ): Grid {
-    return [];
+    const grid: Grid = [];
+
+    for (let i = 0; i < gridSize; i++) {
+        grid.push(Array(gridSize).fill("."));
+    }
+
+    for (let i = 0; i < steps; i++) {
+        const [y, x] = input[i];
+
+        grid[y][x] = "#";
+    }
+
+    return grid;
 }

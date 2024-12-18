@@ -13,8 +13,8 @@ describe("Day 18", () => {
                 [2, 1],
                 [4, 3],
                 [0, 0],
-                [6, 7],
-                [24, 42],
+                [5, 4],
+                [2, 5],
             ]);
         });
     });
@@ -23,7 +23,7 @@ describe("Day 18", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-18/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const result = simulate(input, 12, 6);
+            const result = simulate(input, 12, 7);
 
             expect(result).toEqual([
                 "...#...".split(""),
