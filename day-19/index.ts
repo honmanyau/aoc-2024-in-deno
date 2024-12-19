@@ -6,7 +6,7 @@ export async function solveDay19Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-19/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart1(input);
 }
 
 export async function solveDay19Part2(): Promise<number> {
@@ -55,10 +55,26 @@ export function buildTowel(colors: Colors, towel: string): string[][] {
     return combinations;
 }
 
+export function canBuildTowel(colors: Colors, fragment: string): boolean {
+    if (fragment.length === 0) return true;
+
+    for (let i = 0; i < fragment.length; i++) {
+        const color = fragment.slice(0, i + 1);
+        const nextFragment = fragment.slice(i + 1);
+
+        if (colors[color] && canBuildTowel(colors, nextFragment)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export function solvePart1(input: Input): number {
     const [colors, towels] = input;
 
-    return -1;
+    return towels.map((towel) => canBuildTowel(colors, towel)).filter((b) => b)
+        .length;
 }
 
 export function solvePart2(input: Input): number {
