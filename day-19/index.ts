@@ -78,7 +78,17 @@ export function findValidStartingColors(
     colors: Colors,
     towel: string
 ): string[] {
-    return [];
+    const validStartingColors: string[] = [];
+
+    for (let i = 0; i < towel.length; i++) {
+        const color = towel.slice(0, i + 1);
+
+        if (!colors[color]) break;
+
+        validStartingColors.push(color);
+    }
+
+    return validStartingColors;
 }
 
 export function solvePart1(input: Input): number {

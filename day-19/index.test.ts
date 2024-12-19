@@ -57,7 +57,7 @@ describe("Day 19", () => {
 
     describe("findValidStartingColors()", () => {
         it("returns ['r', 'rb'] for the string 'rbgbr' using the colours in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-19/sample-input-0.txt`;
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
             const [colors] = await readPuzzleInput(path);
             const result = findValidStartingColors(colors, "rbgbr");
 
@@ -65,7 +65,7 @@ describe("Day 19", () => {
         });
 
         it("returns ['b'] for the string 'bgbr' using the colours in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-19/sample-input-0.txt`;
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
             const [colors] = await readPuzzleInput(path);
             const result = findValidStartingColors(colors, "bgbr");
 
@@ -73,7 +73,7 @@ describe("Day 19", () => {
         });
 
         it("returns ['g', 'gb'] for the string 'gbr' using the colours in the sample input", async () => {
-            const path = `${Deno.cwd()}/day-19/sample-input-0.txt`;
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
             const [colors] = await readPuzzleInput(path);
             const result = findValidStartingColors(colors, "gbr");
 
