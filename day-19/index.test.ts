@@ -1,7 +1,12 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { buildTowel, readPuzzleInput, solvePart1 } from "./index.ts";
+import {
+    buildTowel,
+    findValidStartingColors,
+    readPuzzleInput,
+    solvePart1,
+} from "./index.ts";
 
 describe("Day 19", () => {
     describe("readPuzzleInput()", () => {
@@ -47,6 +52,32 @@ describe("Day 19", () => {
                 ["gb", "b", "r"],
                 ["g", "b", "b", "r"],
             ]);
+        });
+    });
+
+    describe("findValidStartingColors()", () => {
+        it("returns ['r', 'rb'] for the string 'rbgbr' using the colours in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input-0.txt`;
+            const [colors] = await readPuzzleInput(path);
+            const result = findValidStartingColors(colors, "rbgbr");
+
+            expect(result).toEqual(["r", "rb"]);
+        });
+
+        it("returns ['b'] for the string 'bgbr' using the colours in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input-0.txt`;
+            const [colors] = await readPuzzleInput(path);
+            const result = findValidStartingColors(colors, "bgbr");
+
+            expect(result).toEqual(["b"]);
+        });
+
+        it("returns ['g', 'gb'] for the string 'gbr' using the colours in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input-0.txt`;
+            const [colors] = await readPuzzleInput(path);
+            const result = findValidStartingColors(colors, "gbr");
+
+            expect(result).toEqual(["g", "gb"]);
         });
     });
 

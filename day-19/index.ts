@@ -29,6 +29,10 @@ export async function readPuzzleInput(path: string): Promise<Input> {
     return [colors, towelStrings.trim().split("\n")];
 }
 
+/**
+ * @deprecated Super naive BFS implementation that doesn't scale at all for the
+ * real input.
+ */
 export function buildTowel(colors: Colors, towel: string): string[][] {
     const combinations: string[][] = [];
     const queue: [string, string[]][] = [[towel, []]];
@@ -68,6 +72,13 @@ export function canBuildTowel(colors: Colors, fragment: string): boolean {
     }
 
     return false;
+}
+
+export function findValidStartingColors(
+    colors: Colors,
+    towel: string
+): string[] {
+    return [];
 }
 
 export function solvePart1(input: Input): number {
