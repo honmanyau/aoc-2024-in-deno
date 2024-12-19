@@ -56,7 +56,11 @@ export function buildTowel(colors: Colors, towel: string): string[][] {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const [colors, towels] = input;
+    const allCombinations = towels.map((towel) => buildTowel(colors, towel));
+
+    return allCombinations.filter((combinations) => combinations.length > 0)
+        .length;
 }
 
 export function solvePart2(input: Input): number {
