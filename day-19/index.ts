@@ -19,9 +19,14 @@ export async function solveDay19Part2(): Promise<number> {
 
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
-    const lines = content.trim().split("\n");
+    const [colorStrings, towelStrings] = content.trim().split("\n\n");
+    const colors: Colors = {};
 
-    return lines;
+    for (const color of colorStrings.replaceAll(/\s/g, "").split(",")) {
+        colors[color] = true;
+    }
+
+    return [colors, towelStrings.trim().split("\n")];
 }
 
 export function solvePart1(input: Input): number {

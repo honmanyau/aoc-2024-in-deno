@@ -10,7 +10,7 @@ describe("Day 19", () => {
             const input = await readPuzzleInput(path);
 
             expect(input).toEqual([
-                { r: true, wr: true, bggr: true },
+                { r: true, wr: true, br: true },
                 ["brwrr", "bggr"],
             ]);
         });
@@ -19,14 +19,12 @@ describe("Day 19", () => {
     describe("solvePart1()", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-19/sample-input.txt`;
-            const input = await readPuzzleInput(path);
         });
     });
 
     describe("solvePart2()", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-19/sample-input.txt`;
-            const input = await readPuzzleInput(path);
         });
     });
 });
