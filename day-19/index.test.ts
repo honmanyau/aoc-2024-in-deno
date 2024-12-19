@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput } from "./index.ts";
+import { buildTowel, readPuzzleInput } from "./index.ts";
 
 describe("Day 19", () => {
     describe("readPuzzleInput()", () => {
@@ -12,6 +12,19 @@ describe("Day 19", () => {
             expect(input).toEqual([
                 { r: true, wr: true, br: true },
                 ["brwrr", "bggr"],
+            ]);
+        });
+    });
+
+    describe("buildTowel()", () => {
+        it("returns [ 'b', 'r', 'wr', 'r' ] and [ 'br', 'wr', 'r' ] for the first towel in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const [colors, towels] = await readPuzzleInput(path);
+            const result = buildTowel(colors, towels[0]);
+
+            expect(result).toEqual([
+                ["b", "r", "wr", "r"],
+                ["br", "wr", "r"],
             ]);
         });
     });

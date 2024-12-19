@@ -29,6 +29,10 @@ export async function readPuzzleInput(path: string): Promise<Input> {
     return [colors, towelStrings.trim().split("\n")];
 }
 
+export function buildTowel(colors: Colors, towel: string): string[][] {
+    return [];
+}
+
 export function solvePart1(input: Input): number {
     return -1;
 }
