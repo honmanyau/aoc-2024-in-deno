@@ -124,5 +124,9 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    const [colors, towels] = input;
+
+    return towels
+        .map((towel) => getNumberOfCombinations(colors, towel))
+        .reduce((a, b) => a + b, 0);
 }
