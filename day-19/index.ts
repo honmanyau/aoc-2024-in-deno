@@ -14,7 +14,7 @@ export async function solveDay19Part2(): Promise<number> {
     const input = await readPuzzleInput(path);
     const result = solvePart2(input);
 
-    return -1;
+    return result;
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
