@@ -1,4 +1,6 @@
-export type Input = string[];
+export type Input = [Colors, string[]];
+
+export type Colors = { [color: string]: boolean };
 
 export async function solveDay19Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-19/input.txt`;

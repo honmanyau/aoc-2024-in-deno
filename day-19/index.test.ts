@@ -10,11 +10,8 @@ describe("Day 19", () => {
             const input = await readPuzzleInput(path);
 
             expect(input).toEqual([
-                [2, 1],
-                [4, 3],
-                [0, 0],
-                [5, 4],
-                [2, 5],
+                { r: true, wr: true, bggr: true },
+                ["brwrr", "bggr"],
             ]);
         });
     });
