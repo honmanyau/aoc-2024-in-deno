@@ -23,8 +23,8 @@ describe("Day 19", () => {
             const result = buildTowel(colors, towels[0]);
 
             expect(result).toEqual([
-                ["b", "r", "wr", "r"],
                 ["br", "wr", "r"],
+                ["b", "r", "wr", "r"],
             ]);
         });
     });
