@@ -91,6 +91,10 @@ export function findValidStartingColors(
     return validStartingColors;
 }
 
+export function getNumberOfCombinations(colors: Colors, towel: string): number {
+    return -1;
+}
+
 export function solvePart1(input: Input): number {
     const [colors, towels] = input;
 
