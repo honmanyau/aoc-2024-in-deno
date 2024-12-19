@@ -27,6 +27,27 @@ describe("Day 19", () => {
                 ["b", "r", "wr", "r"],
             ]);
         });
+
+        it("returns [ 'b', 'g', 'g', 'r' ] for the second towel in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const [colors, towels] = await readPuzzleInput(path);
+            const result = buildTowel(colors, towels[1]);
+
+            expect(result).toEqual([["b", "g", "g", "r"]]);
+        });
+
+        it("returns the expected combinations for the third towel in the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const [colors, towels] = await readPuzzleInput(path);
+            const result = buildTowel(colors, towels[2]);
+
+            expect(result).toEqual([
+                ["gb", "br"],
+                ["g", "b", "br"],
+                ["gb", "b", "r"],
+                ["g", "b", "b", "r"],
+            ]);
+        });
     });
 
     describe("solvePart1()", () => {
