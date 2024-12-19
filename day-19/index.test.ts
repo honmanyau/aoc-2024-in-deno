@@ -6,6 +6,7 @@ import {
     findValidStartingColors,
     readPuzzleInput,
     solvePart1,
+    solvePart2,
 } from "./index.ts";
 
 describe("Day 19", () => {
@@ -92,8 +93,56 @@ describe("Day 19", () => {
     });
 
     describe("solvePart2()", () => {
-        it("returns", async () => {
+        it("returns 16 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toEqual(16);
+        });
+
+        it("returns 14 for the sample when the first towel is removed", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+
+            input[1].shift();
+
+            const result = solvePart2(input);
+
+            expect(result).toEqual(14);
+        });
+
+        it("returns 13 for the sample when the first two towels are removed", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+
+            input[1].splice(0, 2);
+
+            const result = solvePart2(input);
+
+            expect(result).toEqual(13);
+        });
+
+        it("returns 9 for the sample when the first three towels are removed", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+
+            input[1].splice(0, 3);
+
+            const result = solvePart2(input);
+
+            expect(result).toEqual(9);
+        });
+
+        it("returns 3 for the sample when the first four towels are removed", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+
+            input[1].splice(0, 4);
+
+            const result = solvePart2(input);
+
+            expect(result).toEqual(3);
         });
     });
 });
