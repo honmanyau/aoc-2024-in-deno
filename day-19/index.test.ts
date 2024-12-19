@@ -126,12 +126,36 @@ describe("Day 19", () => {
             expect(result).toEqual(6);
         });
 
-        it("returns 1 for the fifth towel of the sample input", async () => {
+        it("returns 0 for the fifth towel of the sample input", async () => {
             const path = `${Deno.cwd()}/day-19/sample-input.txt`;
             const [colors, towels] = await readPuzzleInput(path);
             const result = getNumberOfCombinations(colors, towels[4]);
 
+            expect(result).toEqual(0);
+        });
+
+        it("returns 1 for the sixth towel of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const [colors, towels] = await readPuzzleInput(path);
+            const result = getNumberOfCombinations(colors, towels[5]);
+
             expect(result).toEqual(1);
+        });
+
+        it("returns 2 for the seventh towel of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const [colors, towels] = await readPuzzleInput(path);
+            const result = getNumberOfCombinations(colors, towels[6]);
+
+            expect(result).toEqual(2);
+        });
+
+        it("returns 0 for the eighth towel of the sample input", async () => {
+            const path = `${Deno.cwd()}/day-19/sample-input.txt`;
+            const [colors, towels] = await readPuzzleInput(path);
+            const result = getNumberOfCombinations(colors, towels[7]);
+
+            expect(result).toEqual(0);
         });
     });
 

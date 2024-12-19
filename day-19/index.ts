@@ -83,7 +83,7 @@ export function findValidStartingColors(
     for (let i = 0; i < towel.length; i++) {
         const color = towel.slice(0, i + 1);
 
-        if (!colors[color]) break;
+        if (!colors[color]) continue;
 
         validStartingColors.push(color);
     }
@@ -92,7 +92,28 @@ export function findValidStartingColors(
 }
 
 export function getNumberOfCombinations(colors: Colors, towel: string): number {
-    return -1;
+    const terminalIndex = towel.length - 1;
+    const allTerminationCounts: number[] = Array(towel.length).fill(0);
+
+    for (let i = towel.length - 1; i >= 0; i--) {
+        const validStartingColors = findValidStartingColors(
+            colors,
+            towel.slice(i)
+        );
+
+        for (const validStartingColor of validStartingColors) {
+            const lookAheadIndex = i + validStartingColor.length - 1;
+
+            if (lookAheadIndex === terminalIndex) {
+                allTerminationCounts[i] += 1;
+            } else {
+                allTerminationCounts[i] +=
+                    allTerminationCounts[lookAheadIndex + 1];
+            }
+        }
+    }
+
+    return allTerminationCounts[0];
 }
 
 export function solvePart1(input: Input): number {
