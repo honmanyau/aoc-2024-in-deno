@@ -16,7 +16,8 @@
 // import { solveDay16Part1, solveDay16Part2 } from "./day-16/index.ts";
 // import { solveDay17Part1, solveDay17Part2 } from "./day-17/index.ts";
 // import { solveDay18Part1, solveDay18Part2 } from "./day-18/index.ts";
-import { solveDay19Part1, solveDay19Part2 } from "./day-19/index.ts";
+// import { solveDay19Part1, solveDay19Part2 } from "./day-19/index.ts";
+import { solveDay20Part1, solveDay20Part2 } from "./day-20/index.ts";
 
 // console.log("Day 1, part 1:", await solveDay1Part1());
 // console.log("Day 1, part 2:", await solveDay1Part2());
@@ -52,5 +53,5 @@ import { solveDay19Part1, solveDay19Part2 } from "./day-19/index.ts";
 // console.log("Day 16, part 2:", await solveDay16Part2());
 // console.log("Day 17, part 1:", await solveDay17Part1());
 // console.log("Day 17, part 2:", await solveDay17Part2());
-console.log("Day 19, part 1:", await solveDay19Part1());
-console.log("Day 19, part 2:", await solveDay19Part2());
+console.log("Day 20, part 1:", await solveDay20Part1());
+console.log("Day 20, part 2:", await solveDay20Part2());
