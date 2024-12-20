@@ -1,12 +1,7 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import {
-    generateTrackData,
-    readPuzzleInput,
-    solvePart1,
-    walk,
-} from "./index.ts";
+import { generateTrackData, readPuzzleInput, walk } from "./index.ts";
 
 describe("Day 20", () => {
     describe("readPuzzleInput()", () => {
@@ -70,10 +65,10 @@ describe("Day 20", () => {
     });
 
     describe("walk()", () => {
-        it("returns the state correctly for the first sample input", async () => {
+        it("returns the state correctly for the sample input for part 1", async () => {
             const path = `${Deno.cwd()}/day-20/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const result = walk(input);
+            const result = walk(input, 2);
 
             expect(result).toEqual({
                 "2": 14,
@@ -89,13 +84,46 @@ describe("Day 20", () => {
                 "64": 1,
             });
         });
+
+        it("returns the state correctly for the sample input for part 2 with 6 picoseconds allowed", async () => {
+            const path = `${Deno.cwd()}/day-20/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const unfilteredResult = walk(input, 20);
+            const result: typeof unfilteredResult = {};
+
+            for (const [picoSecondsSavedString, count] of Object.entries(
+                unfilteredResult
+            )) {
+                const picosecondsSaved = Number(picoSecondsSavedString);
+
+                if (picosecondsSaved >= 50) {
+                    result[picosecondsSaved] = count;
+                }
+            }
+
+            expect(result).toEqual({
+                "50": 32,
+                "52": 31,
+                "54": 29,
+                "56": 39,
+                "58": 25,
+                "60": 23,
+                "62": 20,
+                "64": 19,
+                "66": 12,
+                "68": 14,
+                "70": 12,
+                "72": 22,
+                "74": 4,
+                "76": 3,
+            });
+        });
     });
 
     describe("solvePart1()", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-20/sample-input.txt`;
             const input = await readPuzzleInput(path);
-            const result = solvePart1(input);
         });
     });
 

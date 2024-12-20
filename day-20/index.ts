@@ -68,7 +68,10 @@ export function solvePart2(input: Input): number {
     return -1;
 }
 
-export function walk(input: Input): { [picosecondsSaved: number]: number } {
+export function walk(
+    input: Input,
+    maxTunnellingPicoseconds = 20
+): { [picosecondsSaved: number]: number } {
     const startPosition = findStartPosition(input);
     const trackData = generateTrackData(input);
     const result: { [picosecondsSaved: number]: number } = {};
@@ -82,15 +85,20 @@ export function walk(input: Input): { [picosecondsSaved: number]: number } {
             throw new Error("Logic error!");
         }
 
-        for (const vector of TUNNELLING_VECTOR) {
-            const [ty, tx] = vector;
-            const tunneledPosition: Position = [y + ty, x + tx];
+        for (const tunneledPosition of findTunnelPositions(
+            input,
+            [y, x],
+            maxTunnellingPicoseconds
+        )) {
             const tunneledTileTrackData = trackData[keyify(tunneledPosition)];
+            const picosecondsTunneled =
+                Math.abs(tunneledPosition[0] - y) +
+                Math.abs(tunneledPosition[1] - x);
             const picosecondsSaved =
                 tunneledTileTrackData &&
                 tileTrackData.picosecondsFromEnd -
                     tunneledTileTrackData.picosecondsFromEnd -
-                    2;
+                    picosecondsTunneled;
 
             if (picosecondsSaved && picosecondsSaved > 0) {
                 result[picosecondsSaved] ||= 0;
@@ -208,6 +216,44 @@ function getNextTileData(
     }
 
     throw new Error("No next tile found!");
+}
+
+function findTunnelPositions(
+    input: Input,
+    startingPosition: Position,
+    maxTunnellingPicoseconds = 20
+): Vector[] {
+    const [startY, startX] = startingPosition;
+    const vectors: Vector[] = [];
+
+    for (
+        let dy = -maxTunnellingPicoseconds;
+        dy <= maxTunnellingPicoseconds;
+        dy++
+    ) {
+        const nextY = startY + dy;
+
+        for (
+            let dx = Math.abs(dy) - maxTunnellingPicoseconds;
+            dx <= maxTunnellingPicoseconds - Math.abs(dy);
+            dx++
+        ) {
+            const nextX = startX + dx;
+
+            if (Math.abs(dy) + Math.abs(dx) < 2) continue;
+
+            if (
+                input[nextY]?.[nextX] === undefined ||
+                input[nextY][nextX] === "#"
+            ) {
+                continue;
+            }
+
+            vectors.push([nextY, nextX]);
+        }
+    }
+
+    return vectors;
 }
 
 function keyify(position: Position | Vector) {
