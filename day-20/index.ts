@@ -67,6 +67,35 @@ export function walk(input: Input): { [picosecondsSaved: number]: number } {
     const trackData = generateTrackData(input);
     const result: { [picosecondsSaved: number]: number } = {};
 
+    let [y, x] = startPosition;
+
+    while (input[y][x] !== "E") {
+        const tileTrackData = trackData[keyify([y, x])];
+
+        if (!tileTrackData) {
+            throw new Error("Logic error!");
+        }
+
+        for (const vector of TUNNELLING_VECTOR) {
+            const [ty, tx] = vector;
+            const tunneledPosition: Position = [y + ty, x + tx];
+            const tunneledTileTrackData = trackData[keyify(tunneledPosition)];
+            const picosecondsSaved =
+                tunneledTileTrackData &&
+                tileTrackData.picosecondsFromEnd -
+                    tunneledTileTrackData.picosecondsFromEnd -
+                    2;
+
+            if (picosecondsSaved && picosecondsSaved > 0) {
+                result[picosecondsSaved] ||= 0;
+                result[picosecondsSaved] += 1;
+            }
+        }
+
+        input[y][x] = "#";
+        [y, x] = getNextTileData(input, [y, x])[0];
+    }
+
     return result;
 }
 
