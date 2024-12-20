@@ -57,8 +57,8 @@ describe("Day 20", () => {
                 picosecondsFromEnd: 1,
             });
 
-            expect(trackData["7,4"]).toEqual({
-                direction: [0, 1],
+            expect(trackData["7,5"]).toEqual({
+                direction: [0, 0],
                 picosecondsFromEnd: 0,
             });
         });

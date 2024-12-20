@@ -50,7 +50,108 @@ export function solvePart2(input: Input): number {
 }
 
 export function generateTrackData(input: Input): TrackData {
-    return {};
+    const inputCopy = JSON.parse(JSON.stringify(input));
+    const startPosition = findStartPosition(inputCopy);
+    const endPosition = findEndPosition(inputCopy);
+    const trackData: TrackData = {
+        [keyify(endPosition)]: {
+            direction: [0, 0],
+            picosecondsFromEnd: 0,
+        },
+    };
+
+    let [y, x] = endPosition;
+    let picosecondsFromEnd = 0;
+
+    while (y !== startPosition[0] || x !== startPosition[1]) {
+        const [position, direction] = getNextTileData(inputCopy, [y, x], true);
+
+        trackData[keyify(position)] = {
+            direction,
+            picosecondsFromEnd: ++picosecondsFromEnd,
+        };
+
+        inputCopy[y][x] = "#";
+        y = position[0];
+        x = position[1];
+    }
+
+    return trackData;
+}
+
+function findStartPosition(input: Input): Position {
+    let startPosition: Position | undefined;
+
+    for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input[y].length; x++) {
+            if (input[y][x] === "S") {
+                startPosition = [y, x] as Position;
+                break;
+            }
+        }
+
+        if (startPosition) break;
+    }
+
+    if (!startPosition) {
+        throw new Error("Could not find start position!");
+    }
+
+    return startPosition;
+}
+
+function findEndPosition(input: Input): Position {
+    let endPosition: Position | undefined;
+
+    for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input[y].length; x++) {
+            if (input[y][x] === "E") {
+                endPosition = [y, x] as Position;
+                break;
+            }
+        }
+
+        if (endPosition) break;
+    }
+
+    if (!endPosition) {
+        throw new Error("Could not find start position!");
+    }
+
+    return endPosition;
+}
+
+function getNextTileData(
+    input: Input,
+    position: Position,
+    reverse = false
+): [Position, Vector] {
+    let nextPosition: Position | undefined;
+    let nextDirection: Vector | undefined;
+
+    for (const [_direction, vector] of Object.entries(DIRECTION)) {
+        const tile = input[position[0] + vector[0]]?.[position[1] + vector[1]];
+
+        if (tile !== "#" && tile !== undefined) {
+            nextPosition = [
+                position[0] + vector[0],
+                position[1] + vector[1],
+            ] as Position;
+
+            nextDirection = [...vector];
+
+            if (reverse) {
+                nextDirection[0] =
+                    nextDirection[0] === 0 ? 0 : nextDirection[0] * -1;
+                nextDirection[1] =
+                    nextDirection[1] === 0 ? 0 : nextDirection[1] * -1;
+            }
+
+            return [nextPosition, nextDirection];
+        }
+    }
+
+    throw new Error("No next tile found!");
 }
 
 function keyify(position: Position | Vector) {
