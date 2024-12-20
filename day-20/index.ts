@@ -20,6 +20,17 @@ export const DIRECTION: { [key: string]: Vector } = {
     LEFT: [0, -1],
 };
 
+export const TUNNELLING_VECTOR: Vector[] = [
+    [-1, -1],
+    [-1, 1],
+    [1, -1],
+    [1, 1],
+    [2, 0],
+    [-2, 0],
+    [0, 2],
+    [0, -2],
+];
+
 export async function solveDay20Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-20/input.txt`;
     const input = await readPuzzleInput(path);
@@ -42,11 +53,21 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
+    walk(input);
+
     return -1;
 }
 
 export function solvePart2(input: Input): number {
     return -1;
+}
+
+export function walk(input: Input): { [picosecondsSaved: number]: number } {
+    const startPosition = findStartPosition(input);
+    const trackData = generateTrackData(input);
+    const result: { [picosecondsSaved: number]: number } = {};
+
+    return result;
 }
 
 export function generateTrackData(input: Input): TrackData {

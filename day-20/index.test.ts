@@ -1,7 +1,12 @@
 import { expect } from "@std/expect/expect";
 import { describe, it } from "@std/testing/bdd";
 
-import { generateTrackData, readPuzzleInput } from "./index.ts";
+import {
+    generateTrackData,
+    readPuzzleInput,
+    solvePart1,
+    walk,
+} from "./index.ts";
 
 describe("Day 20", () => {
     describe("readPuzzleInput()", () => {
@@ -64,10 +69,33 @@ describe("Day 20", () => {
         });
     });
 
+    describe("walk()", () => {
+        it("returns the state correctly for the first sample input", async () => {
+            const path = `${Deno.cwd()}/day-20/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = walk(input);
+
+            expect(result).toEqual({
+                "2": 14,
+                "4": 14,
+                "6": 2,
+                "8": 4,
+                "10": 2,
+                "12": 3,
+                "20": 1,
+                "36": 1,
+                "38": 1,
+                "40": 1,
+                "64": 1,
+            });
+        });
+    });
+
     describe("solvePart1()", () => {
         it("returns", async () => {
             const path = `${Deno.cwd()}/day-20/sample-input.txt`;
             const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
         });
     });
 
