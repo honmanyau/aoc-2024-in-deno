@@ -35,7 +35,7 @@ export async function solveDay20Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-20/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart1(input);
 }
 
 export async function solveDay20Part2(): Promise<number> {
@@ -53,9 +53,15 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    walk(input);
+    let result = 0;
 
-    return -1;
+    for (const [picosecondsSavedString, count] of Object.entries(walk(input))) {
+        if (Number(picosecondsSavedString) >= 100) {
+            result += count;
+        }
+    }
+
+    return result;
 }
 
 export function solvePart2(input: Input): number {
