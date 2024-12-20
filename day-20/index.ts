@@ -64,8 +64,16 @@ export function solvePart1(input: Input): number {
     return result;
 }
 
-export function solvePart2(input: Input): number {
-    return -1;
+export function solvePart2(input: Input, threshold: number = 100): number {
+    let result = 0;
+
+    for (const [picosecondsSavedString, count] of Object.entries(walk(input))) {
+        if (Number(picosecondsSavedString) >= threshold) {
+            result += count;
+        }
+    }
+
+    return result;
 }
 
 export function walk(
