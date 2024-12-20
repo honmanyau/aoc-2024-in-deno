@@ -2,6 +2,10 @@ export type Input = string[][];
 export type Position = [number, number];
 export type Vector = [number, number];
 export type Visited = { [position: string]: { [direction: string]: number } };
+export type TrackData = {
+    [position: string]: { direction: Vector; picosecondsFromEnd: number };
+};
+
 export type State = {
     position: Position;
     direction: Vector;
@@ -43,6 +47,10 @@ export function solvePart1(input: Input): number {
 
 export function solvePart2(input: Input): number {
     return -1;
+}
+
+export function generateTrackData(input: Input): TrackData {
+    return {};
 }
 
 function keyify(position: Position | Vector) {
