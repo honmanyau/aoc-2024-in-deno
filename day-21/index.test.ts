@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput } from "./index.ts";
+import { findShortestPaths, NUMBER_PAD, readPuzzleInput } from "./index.ts";
 
 describe("Day 21", () => {
     describe("readPuzzleInput()", () => {
@@ -24,6 +24,42 @@ describe("Day 21", () => {
         it("returns the state correctly for the sample input for part 2 with 6 picoseconds allowed", async () => {
             const path = `${Deno.cwd()}/day-21/sample-input.txt`;
             const input = await readPuzzleInput(path);
+        });
+    });
+
+    describe("findShortestPaths()", () => {
+        it(`returns [["<"]] the number pad starting at A and ending at 0`, async () => {
+            const result = findShortestPaths(NUMBER_PAD, "A", "0");
+
+            expect(result).toEqual([["<"].join("")]);
+        });
+
+        it(`returns [["<", "^"], ["<", "^"]] the number pad starting at A and ending at 0`, async () => {
+            const result = findShortestPaths(NUMBER_PAD, "A", "2");
+
+            expect(result).toEqual([["^", "<"].join(""), ["<", "^"].join("")]);
+        });
+
+        it(`returns [["^"]] the number pad starting at A and ending at 0`, async () => {
+            const result = findShortestPaths(NUMBER_PAD, "A", "5");
+
+            expect(result).toEqual([
+                ["^", "^", "<"].join(""),
+                ["^", "<", "^"].join(""),
+                ["<", "^", "^"].join(""),
+            ]);
+        });
+
+        it(`returns [] the number pad starting at 4 and ending at A`, async () => {
+            const result = findShortestPaths(NUMBER_PAD, "4", "A");
+
+            expect(result).toEqual([
+                ["v", ">", "v", ">"].join(""),
+                ["v", ">", ">", "v"].join(""),
+                [">", "v", "v", ">"].join(""),
+                [">", "v", ">", "v"].join(""),
+                [">", ">", "v", "v"].join(""),
+            ]);
         });
     });
 });
