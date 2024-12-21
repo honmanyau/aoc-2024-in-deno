@@ -3,6 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 import { expect } from "@std/expect/expect";
 import {
     findShortestPaths,
+    generateDirectionPadPathsMap,
     generateNumberPadPathsMap,
     NUMBER_PAD,
     readPuzzleInput,
@@ -33,19 +34,19 @@ describe("Day 21", () => {
     });
 
     describe("findShortestPaths()", () => {
-        it(`returns [["<"]] the number pad starting at A and ending at 0`, async () => {
+        it(`returns [["<"]] the number pad starting at A and ending at 0`, () => {
             const result = findShortestPaths(NUMBER_PAD, "A", "0");
 
             expect(result).toEqual([["<"].join("")]);
         });
 
-        it(`returns [["<", "^"], ["<", "^"]] the number pad starting at A and ending at 0`, async () => {
+        it(`returns [["<", "^"], ["<", "^"]] the number pad starting at A and ending at 0`, () => {
             const result = findShortestPaths(NUMBER_PAD, "A", "2");
 
             expect(result).toEqual([["^", "<"].join(""), ["<", "^"].join("")]);
         });
 
-        it(`returns [["^"]] the number pad starting at A and ending at 0`, async () => {
+        it(`returns [["^"]] the number pad starting at A and ending at 0`, () => {
             const result = findShortestPaths(NUMBER_PAD, "A", "5");
 
             expect(result).toEqual([
@@ -55,7 +56,7 @@ describe("Day 21", () => {
             ]);
         });
 
-        it(`returns [] the number pad starting at 4 and ending at A`, async () => {
+        it(`returns [] the number pad starting at 4 and ending at A`, () => {
             const result = findShortestPaths(NUMBER_PAD, "4", "A");
 
             expect(result).toEqual([
@@ -85,6 +86,20 @@ describe("Day 21", () => {
             const result = generateNumberPadPathsMap();
 
             expect(result["A"]["5"]).toEqual(["^^<", "^<^", "<^^"]);
+        });
+    });
+
+    describe("generateDirectionPadPathsMap()", () => {
+        it(`accessing the object returned with the keys "A" and "^" returns ["<"]`, () => {
+            const result = generateDirectionPadPathsMap();
+
+            expect(result["A"]["^"]).toEqual(["<"]);
+        });
+
+        it(`accessing the object returned with the keys "A" and "v" returns ["<"]`, () => {
+            const result = generateDirectionPadPathsMap();
+
+            expect(result["A"]["v"]).toEqual(["<v", "v<"]);
         });
     });
 });

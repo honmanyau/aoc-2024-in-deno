@@ -14,6 +14,7 @@ export const DIRECTION_PAD = [
 ] as const;
 
 export const NUMBER_PAD_SEQUENCE_MAP = generateNumberPadPathsMap();
+export const DIRECTION_PAD_SEQUENCE_MAP = generateDirectionPadPathsMap();
 
 export async function solveDay21Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-21/input.txt`;
@@ -121,6 +122,28 @@ export function generateNumberPadPathsMap(): {
             if (start === end) continue;
 
             const sequences = findShortestPaths(NUMBER_PAD, start, end);
+
+            sequenceMap[start] ||= {};
+            sequenceMap[start][end] = sequences;
+        }
+    }
+
+    return sequenceMap;
+}
+
+export function generateDirectionPadPathsMap(): {
+    [start: string]: {
+        [end: string]: string[];
+    };
+} {
+    const keys = [...DIRECTION_PAD.flat()].filter(Boolean) as string[];
+    const sequenceMap: { [start: string]: { [end: string]: string[] } } = {};
+
+    for (const start of keys) {
+        for (const end of keys) {
+            if (start === end) continue;
+
+            const sequences = findShortestPaths(DIRECTION_PAD, start, end);
 
             sequenceMap[start] ||= {};
             sequenceMap[start][end] = sequences;
