@@ -15,6 +15,12 @@ export const DIRECTION_PAD = [
 
 export const NUMBER_PAD_SEQUENCE_MAP = generateNumberPadPathsMap();
 export const DIRECTION_PAD_SEQUENCE_MAP = generateDirectionPadPathsMap();
+export const DIRECTION_FINAL_SEQUENCE_MAP =
+    generateSecondRobotDirectionsToShortestFinalSequenceMap();
+
+const a = DIRECTION_FINAL_SEQUENCE_MAP["A"]["<"];
+const b = DIRECTION_FINAL_SEQUENCE_MAP["<"]["A"];
+const p = getStringProduct(a, b);
 
 export async function solveDay21Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-21/input.txt`;
@@ -119,9 +125,10 @@ export function generateNumberPadPathsMap(): {
 
     for (const start of keys) {
         for (const end of keys) {
-            if (start === end) continue;
-
-            const sequences = findShortestPaths(NUMBER_PAD, start, end);
+            const sequences =
+                start === end
+                    ? [""]
+                    : findShortestPaths(NUMBER_PAD, start, end);
 
             sequenceMap[start] ||= {};
             sequenceMap[start][end] = sequences;
@@ -141,9 +148,10 @@ export function generateDirectionPadPathsMap(): {
 
     for (const start of keys) {
         for (const end of keys) {
-            if (start === end) continue;
-
-            const sequences = findShortestPaths(DIRECTION_PAD, start, end);
+            const sequences =
+                start === end
+                    ? [""]
+                    : findShortestPaths(DIRECTION_PAD, start, end);
 
             sequenceMap[start] ||= {};
             sequenceMap[start][end] = sequences;
@@ -151,6 +159,55 @@ export function generateDirectionPadPathsMap(): {
     }
 
     return sequenceMap;
+}
+
+export function generateSecondRobotDirectionsToShortestFinalSequenceMap() {
+    const keys = DIRECTION_PAD.flat().filter(Boolean) as string[];
+    const sequenceMap: { [start: string]: { [end: string]: string[] } } = {};
+
+    for (const start of keys) {
+        for (const end of keys) {
+            const thirdRobotSequences = DIRECTION_PAD_SEQUENCE_MAP[start][
+                end
+            ].map((s) => s + "A");
+
+            for (const thirdRobotSequence of thirdRobotSequences) {
+                let fourthRobotSequences = DIRECTION_PAD_SEQUENCE_MAP["A"][
+                    thirdRobotSequence[0]
+                ].map((s) => s + "A");
+
+                for (let i = 0; i < thirdRobotSequence.length - 1; i++) {
+                    const fourthRobotSubsequences =
+                        DIRECTION_PAD_SEQUENCE_MAP[thirdRobotSequence[i]][
+                            thirdRobotSequence[i + 1]
+                        ];
+
+                    fourthRobotSequences = getStringProduct(
+                        fourthRobotSequences,
+                        fourthRobotSubsequences
+                    ).map((s) => s + "A");
+                }
+
+                sequenceMap[start] ||= {};
+                sequenceMap[start][end] ||= [];
+                sequenceMap[start][end].push(...fourthRobotSequences);
+            }
+        }
+    }
+
+    return sequenceMap;
+}
+
+function getStringProduct(a: string[], b: string[]): string[] {
+    const products = [];
+
+    for (const i of a) {
+        for (const j of b) {
+            products.push(i + j);
+        }
+    }
+
+    return products;
 }
 
 export function generateSecondRobotSequences(code: string): string[] {
