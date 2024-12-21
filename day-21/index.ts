@@ -40,7 +40,16 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    let result = 0;
+
+    for (const code of input) {
+        const shortestLength = getShortestSequenceLength(code);
+        const numericCodePart = Number(code.replaceAll("A", ""));
+
+        result += numericCodePart * shortestLength;
+    }
+
+    return result;
 }
 
 export function solvePart2(input: Input): number {

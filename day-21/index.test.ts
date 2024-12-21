@@ -9,6 +9,7 @@ import {
     getShortestSequenceLength,
     NUMBER_PAD,
     readPuzzleInput,
+    solvePart1,
 } from "./index.ts";
 
 describe("Day 21", () => {
@@ -22,9 +23,12 @@ describe("Day 21", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns", async () => {
+        it("returns for the sample input", async () => {
             const path = `${Deno.cwd()}/day-21/sample-input.txt`;
             const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
+
+            expect(result).toBe(126384);
         });
     });
 
