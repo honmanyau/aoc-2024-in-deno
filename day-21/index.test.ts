@@ -1,12 +1,15 @@
 import { describe, it } from "@std/testing/bdd";
 
+import { expect } from "@std/expect/expect";
 import { readPuzzleInput } from "./index.ts";
 
 describe("Day 21", () => {
     describe("readPuzzleInput()", () => {
         it("returns the puzzle input correctly for the first sample input", async () => {
-            const path = `${Deno.cwd()}/day-21/sample-input.txt`;
+            const path = `${Deno.cwd()}/day-21/sample-input-0.txt`;
             const input = await readPuzzleInput(path);
+
+            expect(input).toEqual(["042A", "123A", "999A", "101A", "024A"]);
         });
     });
 
