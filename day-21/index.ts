@@ -18,10 +18,6 @@ export const DIRECTION_PAD_SEQUENCE_MAP = generateDirectionPadPathsMap();
 export const DIRECTION_FINAL_SEQUENCE_MAP =
     generateSecondRobotDirectionsToShortestFinalSequenceMap();
 
-const a = DIRECTION_FINAL_SEQUENCE_MAP["A"]["<"];
-const b = DIRECTION_FINAL_SEQUENCE_MAP["<"]["A"];
-const p = getStringProduct(a, b);
-
 export async function solveDay21Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-21/input.txt`;
     const input = await readPuzzleInput(path);
@@ -211,7 +207,7 @@ function getStringProduct(a: string[], b: string[]): string[] {
 }
 
 export function generateSecondRobotSequences(code: string): string[] {
-    let sequences: string[] = NUMBER_PAD_SEQUENCE_MAP["A"]["0"].map(
+    let sequences: string[] = NUMBER_PAD_SEQUENCE_MAP["A"][code[0]].map(
         (v) => v + "A"
     );
 
@@ -233,4 +229,26 @@ export function generateSecondRobotSequences(code: string): string[] {
     }
 
     return sequences;
+}
+
+export function getShortestSequenceLength(code: string): number {
+    const sequences = generateSecondRobotSequences(code).map((s) => "A" + s);
+
+    const lengths = sequences.map((sequence) => {
+        let length = 0;
+
+        for (let i = 0; i < sequence.length - 1; i++) {
+            const start = sequence[i];
+            const end = sequence[i + 1];
+            const subsequenceLengths = DIRECTION_FINAL_SEQUENCE_MAP[start][
+                end
+            ].map((v) => v.length);
+
+            length += Math.min(...subsequenceLengths);
+        }
+
+        return length;
+    });
+
+    return Math.min(...lengths);
 }
