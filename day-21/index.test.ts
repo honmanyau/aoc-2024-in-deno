@@ -6,6 +6,7 @@ import {
     generateDirectionPadPathsMap,
     generateNumberPadPathsMap,
     generateSecondRobotSequences,
+    getShortestSequenceLength,
     NUMBER_PAD,
     readPuzzleInput,
 } from "./index.ts";
@@ -113,6 +114,22 @@ describe("Day 21", () => {
                 "<A^A^>^AvvvA",
                 "<A^A>^^AvvvA",
             ]);
+        });
+    });
+
+    describe("getShortestSequenceLength()", () => {
+        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
+            const result = getShortestSequenceLength("029A");
+            const result2 = getShortestSequenceLength("980A");
+            const result3 = getShortestSequenceLength("179A");
+            const result4 = getShortestSequenceLength("456A");
+            const result5 = getShortestSequenceLength("379A");
+
+            expect(result).toBe(68);
+            expect(result2).toBe(60);
+            expect(result3).toBe(68);
+            expect(result4).toBe(64);
+            expect(result5).toBe(64);
         });
     });
 });
