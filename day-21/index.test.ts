@@ -5,6 +5,7 @@ import {
     findShortestPaths,
     generateDirectionPadPathsMap,
     generateNumberPadPathsMap,
+    generateSecondRobotSequences,
     NUMBER_PAD,
     readPuzzleInput,
 } from "./index.ts";
@@ -99,7 +100,19 @@ describe("Day 21", () => {
         it(`accessing the object returned with the keys "A" and "v" returns ["<"]`, () => {
             const result = generateDirectionPadPathsMap();
 
-            expect(result["A"]["v"]).toEqual(["<v", "v<"]);
+            expect(result["A"]["v"]).toEqual(["v<", "<v"]);
+        });
+    });
+
+    describe("generateSecondRobotSequences()", () => {
+        it(`returns the correct sequences for the code 029A`, () => {
+            const result = generateSecondRobotSequences("029A");
+
+            expect(result).toEqual([
+                "<A^A^^>AvvvA",
+                "<A^A^>^AvvvA",
+                "<A^A>^^AvvvA",
+            ]);
         });
     });
 });

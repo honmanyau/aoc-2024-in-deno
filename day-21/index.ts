@@ -152,3 +152,28 @@ export function generateDirectionPadPathsMap(): {
 
     return sequenceMap;
 }
+
+export function generateSecondRobotSequences(code: string): string[] {
+    let sequences: string[] = NUMBER_PAD_SEQUENCE_MAP["A"]["0"].map(
+        (v) => v + "A"
+    );
+
+    for (let i = 0; i < code.length - 1; i++) {
+        const start = code[i];
+        const end = code[i + 1];
+        const subsequences =
+            start === end ? [""] : NUMBER_PAD_SEQUENCE_MAP[start][end];
+
+        const newSequences: string[] = [];
+
+        for (const sequence of sequences) {
+            for (const subsequence of subsequences) {
+                newSequences.push(sequence + subsequence + "A");
+            }
+        }
+
+        sequences = newSequences;
+    }
+
+    return sequences;
+}
