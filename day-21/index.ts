@@ -13,6 +13,8 @@ export const DIRECTION_PAD = [
     ["<", "v", ">"],
 ] as const;
 
+export const NUMBER_PAD_SEQUENCE_MAP = generateNumberPadPathsMap();
+
 export async function solveDay21Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-21/input.txt`;
     const input = await readPuzzleInput(path);
@@ -104,4 +106,26 @@ function findPosition(
     }
 
     throw new Error("Button not found!");
+}
+
+export function generateNumberPadPathsMap(): {
+    [start: string]: {
+        [end: string]: string[];
+    };
+} {
+    const keys = [...NUMBER_PAD.flat()].filter(Boolean) as string[];
+    const sequenceMap: { [start: string]: { [end: string]: string[] } } = {};
+
+    for (const start of keys) {
+        for (const end of keys) {
+            if (start === end) continue;
+
+            const sequences = findShortestPaths(NUMBER_PAD, start, end);
+
+            sequenceMap[start] ||= {};
+            sequenceMap[start][end] = sequences;
+        }
+    }
+
+    return sequenceMap;
 }

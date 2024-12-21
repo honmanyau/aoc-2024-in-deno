@@ -1,7 +1,12 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { findShortestPaths, NUMBER_PAD, readPuzzleInput } from "./index.ts";
+import {
+    findShortestPaths,
+    generateNumberPadPathsMap,
+    NUMBER_PAD,
+    readPuzzleInput,
+} from "./index.ts";
 
 describe("Day 21", () => {
     describe("readPuzzleInput()", () => {
@@ -60,6 +65,26 @@ describe("Day 21", () => {
                 [">", "v", ">", "v"].join(""),
                 [">", ">", "v", "v"].join(""),
             ]);
+        });
+    });
+
+    describe("generateNumberPadPathsMap()", () => {
+        it(`accessing the object returned with the keys "A" and "0" returns ["<"]`, async () => {
+            const result = generateNumberPadPathsMap();
+
+            expect(result["A"]["0"]).toEqual(["<"]);
+        });
+
+        it(`accessing the object returned with the keys "A" and "2" returns ["^<", "<^"]`, async () => {
+            const result = generateNumberPadPathsMap();
+
+            expect(result["A"]["2"]).toEqual(["^<", "<^"]);
+        });
+
+        it(`accessing the object returned with the keys "A" and "5" returns ["^^<", "^<^", "<^^"]`, async () => {
+            const result = generateNumberPadPathsMap();
+
+            expect(result["A"]["5"]).toEqual(["^^<", "^<^", "<^^"]);
         });
     });
 });
