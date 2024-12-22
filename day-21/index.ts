@@ -164,12 +164,15 @@ export function findOptimalSequences(code: string): string[] {
     return sequences;
 }
 
-export function findShortestOptimalSequence(code: string): string {
+export function findShortestOptimalSequence(
+    code: string,
+    noInit = false
+): string {
     const memo: { [key: string]: string } = {};
 
-    let sequence = findShortest(
-        findOptimalPaths("A", code[0]).map((s) => s + "A")
-    );
+    let sequence = noInit
+        ? ""
+        : findShortest(findOptimalPaths("A", code[0]).map((s) => s + "A"));
 
     for (let i = 0; i < code.length - 1; i++) {
         const subSequence =
@@ -181,6 +184,33 @@ export function findShortestOptimalSequence(code: string): string {
         memo[`${code[i]}${code[i + 1]}`] ||= subSequence;
 
         sequence += subSequence;
+    }
+
+    return sequence;
+}
+
+export function findShortestOptimalSequence2(code: string): string {
+    const memo: { [key: string]: string } = {};
+
+    let sequence = "";
+
+    for (let i = 0; i < code.length; i++) {
+        let subcode = "";
+
+        while (code[i] && code[i] !== "A") {
+            subcode += code[i];
+            i++;
+        }
+
+        if (code[i]) {
+            subcode += code[i];
+        }
+
+        const subsequence =
+            memo[subcode] || findShortestOptimalSequence(subcode);
+
+        memo[subcode] ||= subsequence;
+        sequence += subsequence;
     }
 
     return sequence;
