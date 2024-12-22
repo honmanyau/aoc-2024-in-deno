@@ -2,6 +2,7 @@ import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
 import {
+    findShortestOptimalSequence,
     findShortestPaths,
     generateDirectionPadPathsMap,
     generateNumberPadPathsMap,
@@ -128,6 +129,32 @@ describe("Day 21", () => {
             const result3 = getShortestSequenceLength("179A");
             const result4 = getShortestSequenceLength("456A");
             const result5 = getShortestSequenceLength("379A");
+
+            expect(result).toBe(68);
+            expect(result2).toBe(60);
+            expect(result3).toBe(68);
+            expect(result4).toBe(64);
+            expect(result5).toBe(64);
+        });
+    });
+
+    describe("findShortestOptimalSequence()", () => {
+        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
+            const generateFinalSeqeunce = (code: string) => {
+                let s = findShortestOptimalSequence(code);
+
+                for (let i = 0; i < 2; i++) {
+                    s = findShortestOptimalSequence(s);
+                }
+
+                return s;
+            };
+
+            const result = generateFinalSeqeunce("029A").length;
+            const result2 = generateFinalSeqeunce("980A").length;
+            const result3 = generateFinalSeqeunce("179A").length;
+            const result4 = generateFinalSeqeunce("456A").length;
+            const result5 = generateFinalSeqeunce("379A").length;
 
             expect(result).toBe(68);
             expect(result2).toBe(60);

@@ -56,6 +56,142 @@ export function solvePart2(input: Input): number {
     return -1;
 }
 
+export function findOptimalPath(start: string, end: string): string {
+    const inputsContainNumbers = !!start.match(/[0-9]/) || !!end.match(/[0-9]/);
+    const pad = inputsContainNumbers ? NUMBER_PAD : DIRECTION_PAD;
+    const startPosition = findPosition(pad, start);
+    const endPosition = findPosition(pad, end);
+    const dy = Math.sign(endPosition[0] - startPosition[0]);
+    const dx = Math.sign(endPosition[1] - startPosition[1]);
+
+    let path = "";
+
+    if (dy === 0) {
+        for (let i = startPosition[1]; i !== endPosition[1]; i += dx) {
+            path += dx > 0 ? ">" : "<";
+        }
+    } else if (
+        (dy < 0 && inputsContainNumbers) ||
+        (dy > 0 && !inputsContainNumbers)
+    ) {
+        for (let i = startPosition[0]; i !== endPosition[0]; i += dy) {
+            path += dy > 0 ? "v" : "^";
+        }
+
+        for (let i = startPosition[1]; i !== endPosition[1]; i += dx) {
+            path += dx > 0 ? ">" : "<";
+        }
+    } else if (
+        (dy > 0 && inputsContainNumbers) ||
+        (dy < 0 && !inputsContainNumbers)
+    ) {
+        for (let i = startPosition[1]; i !== endPosition[1]; i += dx) {
+            path += dx > 0 ? ">" : "<";
+        }
+
+        for (let i = startPosition[0]; i !== endPosition[0]; i += dy) {
+            path += dy > 0 ? "v" : "^";
+        }
+    }
+
+    return path;
+}
+
+export function findOptimalSequence(code: string): string {
+    let sequence = findOptimalPath("A", code[0]) + "A";
+
+    for (let i = 0; i < code.length - 1; i++) {
+        sequence += findOptimalPath(code[i], code[i + 1]) + "A";
+    }
+
+    return sequence;
+}
+
+export function findOptimalPaths(start: string, end: string): string[] {
+    const inputsContainNumbers = !!start.match(/[0-9]/) || !!end.match(/[0-9]/);
+    const pad = inputsContainNumbers ? NUMBER_PAD : DIRECTION_PAD;
+    const startPosition = findPosition(pad, start);
+    const endPosition = findPosition(pad, end);
+    const dy = Math.sign(endPosition[0] - startPosition[0]);
+    const dx = Math.sign(endPosition[1] - startPosition[1]);
+
+    let verticalPath = "";
+    let horizontalPath = "";
+
+    for (let i = startPosition[0]; i !== endPosition[0]; i += dy) {
+        verticalPath += dy > 0 ? "v" : "^";
+    }
+
+    for (let i = startPosition[1]; i !== endPosition[1]; i += dx) {
+        horizontalPath += dx > 0 ? ">" : "<";
+    }
+
+    const paths = [];
+
+    if (pad[startPosition[0]]?.[endPosition[1]] !== undefined) {
+        paths.push(horizontalPath + verticalPath);
+    }
+
+    if (
+        pad[endPosition[0]]?.[startPosition[1]] !== undefined &&
+        verticalPath + horizontalPath !== horizontalPath + verticalPath
+    ) {
+        paths.push(verticalPath + horizontalPath);
+    }
+
+    return paths;
+}
+
+export function findOptimalSequences(code: string): string[] {
+    let sequences = findOptimalPaths("A", code[0]).map((s) => s + "A");
+
+    for (let i = 0; i < code.length - 1; i++) {
+        const subSequences = findOptimalPaths(code[i], code[i + 1]).map(
+            (s) => s + "A"
+        );
+
+        const newSequences = [];
+
+        for (const sequence of sequences) {
+            for (const subSequence of subSequences) {
+                newSequences.push(sequence + subSequence);
+            }
+        }
+
+        sequences = newSequences;
+    }
+
+    return sequences;
+}
+
+export function findShortestOptimalSequence(code: string): string {
+    const memo: { [key: string]: string } = {};
+
+    let sequence = findShortest(
+        findOptimalPaths("A", code[0]).map((s) => s + "A")
+    );
+
+    for (let i = 0; i < code.length - 1; i++) {
+        const subSequence =
+            memo[`${code[i]}${code[i + 1]}`] ||
+            findShortest(
+                findOptimalPaths(code[i], code[i + 1]).map((s) => s + "A")
+            );
+
+        memo[`${code[i]}${code[i + 1]}`] ||= subSequence;
+
+        sequence += subSequence;
+    }
+
+    return sequence;
+}
+
+function findShortest(sequences: string[]): string {
+    const min = Math.min(...sequences.map((s) => s.length));
+
+    return sequences.filter((s) => s.length === min)[0];
+}
+
 export function findShortestPaths(
     pad: typeof NUMBER_PAD | typeof DIRECTION_PAD,
     start: string,
