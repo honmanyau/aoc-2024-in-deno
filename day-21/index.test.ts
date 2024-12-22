@@ -8,6 +8,7 @@ import {
     generateDirectionPadPathsMap,
     generateNumberPadPathsMap,
     generateSecondRobotSequences,
+    getDFSLength,
     getShortestSequenceLength,
     NUMBER_PAD,
     readPuzzleInput,
@@ -182,6 +183,37 @@ describe("Day 21", () => {
             const result3 = generateFinalSeqeunce("179A").length;
             const result4 = generateFinalSeqeunce("456A").length;
             const result5 = generateFinalSeqeunce("379A").length;
+
+            expect(result).toBe(68);
+            expect(result2).toBe(60);
+            expect(result3).toBe(68);
+            expect(result4).toBe(64);
+            expect(result5).toBe(64);
+        });
+    });
+
+    describe("getDFSLength()", () => {
+        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
+            const result = getDFSLength(
+                findShortestOptimalSequence2("029A"),
+                2
+            );
+            const result2 = getDFSLength(
+                findShortestOptimalSequence2("980A"),
+                2
+            );
+            const result3 = getDFSLength(
+                findShortestOptimalSequence2("179A"),
+                2
+            );
+            const result4 = getDFSLength(
+                findShortestOptimalSequence2("456A"),
+                2
+            );
+            const result5 = getDFSLength(
+                findShortestOptimalSequence2("379A"),
+                2
+            );
 
             expect(result).toBe(68);
             expect(result2).toBe(60);

@@ -216,6 +216,38 @@ export function findShortestOptimalSequence2(code: string): string {
     return sequence;
 }
 
+export function getDFSLength(
+    code: string,
+    depth: number,
+    memo: { [subsequence: string]: string } = {}
+): number {
+    if (depth === 0) return code.length;
+
+    let length = 0;
+    let pointer = 0;
+
+    while (pointer < code.length) {
+        let subcode = "";
+
+        while (code[pointer] !== "A") {
+            subcode += code[pointer];
+            pointer++;
+        }
+
+        subcode += "A";
+
+        const subsequence =
+            memo[subcode] || findShortestOptimalSequence(subcode);
+
+        memo[subcode] ||= subsequence;
+        length += getDFSLength(subsequence, depth - 1, memo);
+
+        pointer++;
+    }
+
+    return length;
+}
+
 function findShortest(sequences: string[]): string {
     const min = Math.min(...sequences.map((s) => s.length));
 
