@@ -196,22 +196,27 @@ describe("Day 21", () => {
         it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
             const result = getDFSLength(
                 findShortestOptimalSequence2("029A"),
+                0,
                 2
             );
             const result2 = getDFSLength(
                 findShortestOptimalSequence2("980A"),
+                0,
                 2
             );
             const result3 = getDFSLength(
                 findShortestOptimalSequence2("179A"),
+                0,
                 2
             );
             const result4 = getDFSLength(
                 findShortestOptimalSequence2("456A"),
+                0,
                 2
             );
             const result5 = getDFSLength(
                 findShortestOptimalSequence2("379A"),
+                0,
                 2
             );
 

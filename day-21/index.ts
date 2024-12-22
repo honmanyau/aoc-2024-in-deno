@@ -218,10 +218,12 @@ export function findShortestOptimalSequence2(code: string): string {
 
 export function getDFSLength(
     code: string,
-    depth: number,
-    memo: { [subsequence: string]: string } = {}
+    currentDepth: number = 0,
+    maxDepth: number,
+    sequenceMemo: { [subsequence: string]: string } = {},
+    lengthMemo: { [subsequence: string]: { [depth: number]: number } } = {}
 ): number {
-    if (depth === 0) return code.length;
+    if (currentDepth === maxDepth) return code.length;
 
     let length = 0;
     let pointer = 0;
@@ -237,10 +239,24 @@ export function getDFSLength(
         subcode += "A";
 
         const subsequence =
-            memo[subcode] || findShortestOptimalSequence(subcode);
+            sequenceMemo[subcode] || findShortestOptimalSequence(subcode);
 
-        memo[subcode] ||= subsequence;
-        length += getDFSLength(subsequence, depth - 1, memo);
+        sequenceMemo[subcode] ||= subsequence;
+
+        const subcodeLength =
+            lengthMemo[subcode]?.[currentDepth] ??
+            getDFSLength(
+                subsequence,
+                currentDepth + 1,
+                maxDepth,
+                sequenceMemo,
+                lengthMemo
+            );
+
+        lengthMemo[subcode] ||= {};
+        lengthMemo[subcode][currentDepth] ||= subcodeLength;
+
+        length += subcodeLength;
 
         pointer++;
     }
