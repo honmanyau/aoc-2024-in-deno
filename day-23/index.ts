@@ -47,9 +47,32 @@ export function generateConnectionMap(input: Input): ConnectionMap {
     return connectionMap;
 }
 
-export function findInterconnectedComputers(
-    input: Input,
-    groupSize = 3
-): string[] {
-    return [];
+export function findInterconnectedComputers(input: Input): string[] {
+    const connectionMap = generateConnectionMap(input);
+    const computers = Object.keys(connectionMap);
+    const interconnectedComputers: Set<string> = new Set();
+
+    for (const computer of computers) {
+        const connectedComputers = Object.keys(connectionMap[computer]);
+
+        for (const connectedComputer of connectedComputers) {
+            const furtherConnectedComputers = Object.keys(
+                connectionMap[connectedComputer]
+            );
+
+            for (const furtherConnectedComputer of furtherConnectedComputers) {
+                if (!connectionMap[computer][furtherConnectedComputer]) {
+                    continue;
+                }
+
+                interconnectedComputers.add(
+                    [computer, connectedComputer, furtherConnectedComputer]
+                        .sort()
+                        .join(",")
+                );
+            }
+        }
+    }
+
+    return Array.from(interconnectedComputers).sort();
 }

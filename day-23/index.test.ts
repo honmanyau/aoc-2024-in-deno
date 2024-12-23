@@ -57,7 +57,7 @@ describe("Day 23", () => {
 
     describe("findInterconnectedComputers()", () => {
         it("returns 12 sets of three interconnected computers", async () => {
-            const path = `${Deno.cwd()}/day-23/sample-input-0.txt`;
+            const path = `${Deno.cwd()}/day-23/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = findInterconnectedComputers(input);
 
