@@ -39,7 +39,9 @@ export function generateConnectionMap(input: Input): ConnectionMap {
         const [computer, connectedComputer] = entry.split("-");
 
         connectionMap[computer] ||= {};
+        connectionMap[connectedComputer] ||= {};
         connectionMap[computer][connectedComputer] = true;
+        connectionMap[connectedComputer][computer] = true;
     }
 
     return connectionMap;

@@ -41,9 +41,12 @@ describe("Day 23", () => {
 
             expect(result).toEqual({
                 ab: { bc: true, cd: true },
-                bc: { cd: true },
+                bc: { ab: true, cd: true },
+                cd: { ab: true, bc: true },
                 ce: { ed: true },
                 df: { fo: true },
+                ed: { ce: true },
+                fo: { df: true },
             });
         });
     });
