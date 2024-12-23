@@ -5,6 +5,7 @@ import {
     findInterconnectedComputers,
     generateConnectionMap,
     readPuzzleInput,
+    solvePart1,
 } from "./index.ts";
 
 describe("Day 23", () => {
@@ -27,6 +28,9 @@ describe("Day 23", () => {
         it("returns for the sample input", async () => {
             const path = `${Deno.cwd()}/day-23/sample-input.txt`;
             const input = await readPuzzleInput(path);
+            const result = solvePart1(input);
+
+            expect(result).toEqual(7);
         });
     });
 
