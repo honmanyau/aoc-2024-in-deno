@@ -31,7 +31,28 @@ export function solvePart1(input: Input): number {
 }
 
 export function solvePart2(input: Input): number {
-    return -1;
+    const map: { [sequence: string]: number[] } = {};
+
+    for (let i = 0; i < input.length; i++) {
+        const newMap = generateChangesAndPriceMap(input[i]);
+
+        for (const [changes, price] of Object.entries(newMap)) {
+            map[changes] ||= [];
+            map[changes].push(price);
+        }
+    }
+
+    let highestPrice = 0;
+
+    for (const [changes, price] of Object.entries(map)) {
+        const totalPrice = price.reduce((a, b) => a + b);
+
+        if (totalPrice > highestPrice) {
+            highestPrice = totalPrice;
+        }
+    }
+
+    return highestPrice;
 }
 
 export function mix(secretNumber: number, mixedNumber: number): number {
@@ -56,7 +77,7 @@ export function evolve(secretNumber: number, iterations = 1) {
 
 export function generateChangesAndPriceMap(
     secretNumber: number,
-    iterations = 1
+    iterations = 2000
 ): ChangesAndPriceMap {
     const map: ChangesAndPriceMap = {};
     const changes = [];

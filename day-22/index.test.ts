@@ -8,6 +8,7 @@ import {
     prune,
     readPuzzleInput,
     solvePart1,
+    solvePart2,
 } from "./index.ts";
 
 describe("Day 22", () => {
@@ -31,9 +32,12 @@ describe("Day 22", () => {
     });
 
     describe("solvePart2()", () => {
-        it("returns the state correctly for the sample input for part 2 with 6 picoseconds allowed", async () => {
-            const path = `${Deno.cwd()}/day-22/sample-input.txt`;
+        it("returns 23 for the second sample input", async () => {
+            const path = `${Deno.cwd()}/day-22/sample-input-1.txt`;
             const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toBe(23);
         });
     });
 
