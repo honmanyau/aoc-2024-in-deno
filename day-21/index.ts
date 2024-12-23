@@ -43,11 +43,7 @@ export function solvePart1(input: Input): number {
     let result = 0;
 
     for (const code of input) {
-        const shortestLength = getDFSLength(
-            findShortestOptimalSequence2(code),
-            0,
-            2
-        );
+        const shortestLength = dfs(code, 0, 3);
 
         const numericCodePart = Number(code.replaceAll("A", ""));
 
