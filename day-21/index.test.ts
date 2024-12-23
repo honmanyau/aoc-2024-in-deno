@@ -3,14 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 import { expect } from "@std/expect/expect";
 import {
     dfs,
-    findShortestOptimalSequence,
-    findShortestOptimalSequence2,
     findShortestPaths,
-    generateDirectionPadPathsMap,
-    generateNumberPadPathsMap,
-    generateSecondRobotSequences,
-    getDFSLength,
-    getShortestSequenceLength,
     readPuzzleInput,
     solvePart1,
 } from "./index.ts";
@@ -78,159 +71,9 @@ describe("Day 21", () => {
         });
     });
 
-    describe("generateNumberPadPathsMap()", () => {
-        it(`accessing the object returned with the keys "A" and "0" returns ["<"]`, async () => {
-            const result = generateNumberPadPathsMap();
-
-            expect(result["A"]["0"]).toEqual(["<"]);
-        });
-
-        it(`accessing the object returned with the keys "A" and "2" returns ["^<", "<^"]`, async () => {
-            const result = generateNumberPadPathsMap();
-
-            expect(result["A"]["2"]).toEqual(["^<", "<^"]);
-        });
-
-        it(`accessing the object returned with the keys "A" and "5" returns ["^^<", "^<^", "<^^"]`, async () => {
-            const result = generateNumberPadPathsMap();
-
-            expect(result["A"]["5"]).toEqual(["^^<", "^<^", "<^^"]);
-        });
-    });
-
-    describe("generateDirectionPadPathsMap()", () => {
-        it(`accessing the object returned with the keys "A" and "^" returns ["<"]`, () => {
-            const result = generateDirectionPadPathsMap();
-
-            expect(result["A"]["^"]).toEqual(["<"]);
-        });
-
-        it(`accessing the object returned with the keys "A" and "v" returns ["<"]`, () => {
-            const result = generateDirectionPadPathsMap();
-
-            expect(result["A"]["v"]).toEqual(["v<", "<v"]);
-        });
-    });
-
-    describe("generateSecondRobotSequences()", () => {
-        it(`returns the correct sequences for the code 029A`, () => {
-            const result = generateSecondRobotSequences("029A");
-
-            expect(result).toEqual([
-                "<A^A^^>AvvvA",
-                "<A^A^>^AvvvA",
-                "<A^A>^^AvvvA",
-            ]);
-        });
-    });
-
-    describe("getShortestSequenceLength()", () => {
-        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
-            const result = getShortestSequenceLength("029A");
-            const result2 = getShortestSequenceLength("980A");
-            const result3 = getShortestSequenceLength("179A");
-            const result4 = getShortestSequenceLength("456A");
-            const result5 = getShortestSequenceLength("379A");
-
-            expect(result).toBe(68);
-            expect(result2).toBe(60);
-            expect(result3).toBe(68);
-            expect(result4).toBe(64);
-            expect(result5).toBe(64);
-        });
-    });
-
-    describe("findShortestOptimalSequence()", () => {
-        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
-            const generateFinalSeqeunce = (code: string) => {
-                let s = findShortestOptimalSequence(code);
-
-                for (let i = 0; i < 2; i++) {
-                    s = findShortestOptimalSequence(s);
-                }
-
-                return s;
-            };
-
-            const result = generateFinalSeqeunce("029A").length;
-            const result2 = generateFinalSeqeunce("980A").length;
-            const result3 = generateFinalSeqeunce("179A").length;
-            const result4 = generateFinalSeqeunce("456A").length;
-            const result5 = generateFinalSeqeunce("379A").length;
-
-            expect(result).toBe(68);
-            expect(result2).toBe(60);
-            expect(result3).toBe(68);
-            expect(result4).toBe(64);
-            expect(result5).toBe(64);
-        });
-    });
-
-    describe("findShortestOptimalSequence2()", () => {
-        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
-            const generateFinalSeqeunce = (code: string) => {
-                let s = findShortestOptimalSequence2(code);
-
-                for (let i = 0; i < 2; i++) {
-                    s = findShortestOptimalSequence2(s);
-                }
-
-                return s;
-            };
-
-            const result = generateFinalSeqeunce("029A").length;
-            const result2 = generateFinalSeqeunce("980A").length;
-            const result3 = generateFinalSeqeunce("179A").length;
-            const result4 = generateFinalSeqeunce("456A").length;
-            const result5 = generateFinalSeqeunce("379A").length;
-
-            expect(result).toBe(68);
-            expect(result2).toBe(60);
-            expect(result3).toBe(68);
-            expect(result4).toBe(64);
-            expect(result5).toBe(64);
-        });
-    });
-
-    describe("getDFSLength()", () => {
-        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
-            const result = getDFSLength(
-                findShortestOptimalSequence2("029A"),
-                0,
-                2
-            );
-            const result2 = getDFSLength(
-                findShortestOptimalSequence2("980A"),
-                0,
-                2
-            );
-            const result3 = getDFSLength(
-                findShortestOptimalSequence2("179A"),
-                0,
-                2
-            );
-            const result4 = getDFSLength(
-                findShortestOptimalSequence2("456A"),
-                0,
-                2
-            );
-            const result5 = getDFSLength(
-                findShortestOptimalSequence2("379A"),
-                0,
-                2
-            );
-
-            expect(result).toBe(68);
-            expect(result2).toBe(60);
-            expect(result3).toBe(68);
-            expect(result4).toBe(64);
-            expect(result5).toBe(64);
-        });
-    });
-
     describe("dfs()", () => {
         it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
-            for (const code of [
+            const codes = [
                 "029A",
                 "980A",
                 "179A",
@@ -241,11 +84,12 @@ describe("Day 21", () => {
                 "149A",
                 "413A",
                 "582A",
-            ]) {
-                expect(dfs(code, 0, 3)).toEqual(
-                    getShortestSequenceLength(code)
-                );
-            }
+            ];
+            const expectedResults = [68, 60, 68, 64, 64, 72, 66, 76, 70, 68];
+
+            expect(codes.map((code) => dfs(code, 0, 3))).toEqual(
+                expectedResults
+            );
         });
     });
 });
