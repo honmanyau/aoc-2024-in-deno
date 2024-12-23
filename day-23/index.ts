@@ -25,7 +25,11 @@ export async function readPuzzleInput(path: string): Promise<Input> {
 }
 
 export function solvePart1(input: Input): number {
-    return -1;
+    const interconnectedComputers = findInterconnectedComputers(input);
+
+    return interconnectedComputers.filter(
+        (computer) => computer.startsWith("t") || computer.match(",t")
+    ).length;
 }
 
 export function solvePart2(input: Input): number {
