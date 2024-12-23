@@ -33,6 +33,10 @@ export function mix(secretNumber: number, mixedNumber: number): number {
     return xor53Bit(secretNumber, mixedNumber);
 }
 
+export function prune(secretNumber: number): number {
+    return secretNumber % 16777216;
+}
+
 function xor53Bit(a: number, b: number) {
     if (a > Number.MAX_SAFE_INTEGER || b > Number.MAX_SAFE_INTEGER) {
         throw new Error("Unsupported operation!");

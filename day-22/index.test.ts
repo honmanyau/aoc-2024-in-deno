@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { mix, readPuzzleInput } from "./index.ts";
+import { mix, prune, readPuzzleInput } from "./index.ts";
 
 describe("Day 22", () => {
     describe("readPuzzleInput()", () => {
@@ -30,6 +30,12 @@ describe("Day 22", () => {
     describe("mix()", () => {
         it("returns 37 when mixing 15 into the secret number 42", () => {
             expect(mix(42, 15)).toBe(37);
+        });
+    });
+
+    describe("prune()", () => {
+        it("returns 16113920 for the secret number 100000000", () => {
+            expect(prune(100000000)).toBe(16113920);
         });
     });
 });
