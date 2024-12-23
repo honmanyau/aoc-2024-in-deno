@@ -12,7 +12,7 @@ export async function solveDay22Part2(): Promise<number> {
     const path = `${Deno.cwd()}/day-22/input.txt`;
     const input = await readPuzzleInput(path);
 
-    return -1;
+    return solvePart2(input);
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
@@ -42,17 +42,11 @@ export function solvePart2(input: Input): number {
         }
     }
 
-    let highestPrice = 0;
+    const totalPrices = Object.values(map).map((prices) =>
+        prices.reduce((a, b) => a + b, 0)
+    );
 
-    for (const [changes, price] of Object.entries(map)) {
-        const totalPrice = price.reduce((a, b) => a + b);
-
-        if (totalPrice > highestPrice) {
-            highestPrice = totalPrice;
-        }
-    }
-
-    return highestPrice;
+    return Math.max(...totalPrices);
 }
 
 export function mix(secretNumber: number, mixedNumber: number): number {
@@ -95,15 +89,7 @@ export function generateChangesAndPriceMap(
         currentNumber = nextNumber;
         price = nextNumber % 10;
 
-        if (i >= 3) {
-            const key = changes.join(",");
-
-            map[key] ||= price;
-
-            if (price > map[key]) {
-                map[key] = price;
-            }
-        }
+        if (i >= 3) map[changes.join(",")] ||= price;
     }
 
     return map;
