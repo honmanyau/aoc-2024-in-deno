@@ -9,7 +9,13 @@ describe("Day 23", () => {
             const path = `${Deno.cwd()}/day-23/sample-input-0.txt`;
             const input = await readPuzzleInput(path);
 
-            expect(input).toEqual(["ab-bc", "bc-cd", "ce-ed", "df-fo"]);
+            expect(input).toEqual([
+                "ab-bc",
+                "bc-cd",
+                "ce-ed",
+                "df-fo",
+                "ab-cd",
+            ]);
         });
     });
 

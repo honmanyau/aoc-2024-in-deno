@@ -33,5 +33,14 @@ export function solvePart2(input: Input): number {
 }
 
 export function generateConnectionMap(input: Input): ConnectionMap {
-    return {};
+    const connectionMap: ConnectionMap = {};
+
+    for (const entry of input) {
+        const [computer, connectedComputer] = entry.split("-");
+
+        connectionMap[computer] ||= {};
+        connectionMap[computer][connectedComputer] = true;
+    }
+
+    return connectionMap;
 }
