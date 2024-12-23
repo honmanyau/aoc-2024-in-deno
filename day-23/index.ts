@@ -32,8 +32,31 @@ export function solvePart1(input: Input): number {
     ).length;
 }
 
-export function solvePart2(input: Input): number {
-    return -1;
+export function solvePart2(input: Input): string[] {
+    const connectionMap = generateConnectionMap(input);
+    const computers = Object.keys(connectionMap);
+
+    let groups = computers.map((computer) => [computer]);
+
+    for (let i = 0; groups.length !== 1; i++) {
+        const set = new Set<string>();
+
+        for (const computer of computers) {
+            for (const group of groups) {
+                const interconnected = group.every(
+                    (c) => connectionMap[c][computer]
+                );
+
+                if (interconnected) {
+                    set.add([...group, computer].sort().join(","));
+                }
+            }
+        }
+
+        groups = [...set].map((s) => s.split(","));
+    }
+
+    return groups[0].sort();
 }
 
 export function generateConnectionMap(input: Input): ConnectionMap {
@@ -85,7 +108,8 @@ export function findLargestInterConnectedGroup(
     input: Input,
     computer: string,
     connectionMap = generateConnectionMap(input),
-    seen: { [computer: string]: true } = {}
+    seen: { [computer: string]: true } = {},
+    memo: { [computer: string]: string[] } = {}
 ): string[] {
     if (!connectionMap[computer] || seen[computer]) return [];
 
@@ -105,7 +129,8 @@ export function findLargestInterConnectedGroup(
             input,
             connectedComputer,
             connectionMap,
-            { ...seen }
+            { ...seen },
+            memo
         );
 
         if (connectedGroup.length > largestConnectedGroup.length) {

@@ -7,6 +7,7 @@ import {
     generateConnectionMap,
     readPuzzleInput,
     solvePart1,
+    solvePart2,
 } from "./index.ts";
 
 describe("Day 23", () => {
@@ -26,7 +27,7 @@ describe("Day 23", () => {
     });
 
     describe("solvePart1()", () => {
-        it("returns for the sample input", async () => {
+        it("returns 7 for the sample input", async () => {
             const path = `${Deno.cwd()}/day-23/sample-input.txt`;
             const input = await readPuzzleInput(path);
             const result = solvePart1(input);
@@ -36,9 +37,12 @@ describe("Day 23", () => {
     });
 
     describe("solvePart2()", () => {
-        it("returns the state correctly for the sample input for part 2 with 6 picoseconds allowed", async () => {
-            const path = `${Deno.cwd()}/day-23/sample-input-0.txt`;
+        it("returns the correct password for the sample input", async () => {
+            const path = `${Deno.cwd()}/day-23/sample-input.txt`;
             const input = await readPuzzleInput(path);
+            const result = solvePart2(input);
+
+            expect(result).toEqual(["co", "de", "ka", "ta"]);
         });
     });
 
@@ -83,7 +87,7 @@ describe("Day 23", () => {
         });
     });
 
-    describe("findLargestInterConncetedgroup", () => {
+    describe("findLargestInterConnectedGroup", () => {
         it("returns co, de, ka, ta when starting a search with any of those computers in the example input", async () => {
             const path = `${Deno.cwd()}/day-23/sample-input.txt`;
             const input = await readPuzzleInput(path);
