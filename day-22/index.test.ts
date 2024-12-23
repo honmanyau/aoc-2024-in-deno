@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { readPuzzleInput } from "./index.ts";
+import { mix, readPuzzleInput } from "./index.ts";
 
 describe("Day 22", () => {
     describe("readPuzzleInput()", () => {
@@ -24,6 +24,12 @@ describe("Day 22", () => {
         it("returns the state correctly for the sample input for part 2 with 6 picoseconds allowed", async () => {
             const path = `${Deno.cwd()}/day-22/sample-input.txt`;
             const input = await readPuzzleInput(path);
+        });
+    });
+
+    describe("mix()", () => {
+        it("returns 37 when mixing 15 into the secret number 42", () => {
+            expect(mix(42, 15)).toBe(37);
         });
     });
 });
