@@ -46,3 +46,10 @@ export function generateConnectionMap(input: Input): ConnectionMap {
 
     return connectionMap;
 }
+
+export function findInterconnectedComputers(
+    input: Input,
+    groupSize = 3
+): string[] {
+    return [];
+}

@@ -1,7 +1,11 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { generateConnectionMap, readPuzzleInput } from "./index.ts";
+import {
+    findInterconnectedComputers,
+    generateConnectionMap,
+    readPuzzleInput,
+} from "./index.ts";
 
 describe("Day 23", () => {
     describe("readPuzzleInput()", () => {
@@ -48,6 +52,29 @@ describe("Day 23", () => {
                 ed: { ce: true },
                 fo: { df: true },
             });
+        });
+    });
+
+    describe("findInterconnectedComputers()", () => {
+        it("returns 12 sets of three interconnected computers", async () => {
+            const path = `${Deno.cwd()}/day-23/sample-input-0.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findInterconnectedComputers(input);
+
+            expect(result).toEqual([
+                "aq,cg,yn",
+                "aq,vc,wq",
+                "co,de,ka",
+                "co,de,ta",
+                "co,ka,ta",
+                "de,ka,ta",
+                "kh,qp,ub",
+                "qp,td,wh",
+                "tb,vc,wq",
+                "tc,td,wh",
+                "td,wh,yn",
+                "ub,vc,wq",
+            ]);
         });
     });
 });
