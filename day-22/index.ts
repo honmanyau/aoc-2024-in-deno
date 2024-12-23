@@ -74,7 +74,15 @@ export function generateChangesAndPriceMap(
         currentNumber = nextNumber;
         price = nextNumber % 10;
 
-        if (i >= 3) map[changes.join(",")] = price;
+        if (i >= 3) {
+            const key = changes.join(",");
+
+            map[key] ||= price;
+
+            if (price > map[key]) {
+                map[key] = price;
+            }
+        }
     }
 
     return map;
