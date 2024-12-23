@@ -83,7 +83,35 @@ export function findInterconnectedComputers(input: Input): string[] {
 
 export function findLargestInterConnectedGroup(
     input: Input,
-    start: string
+    computer: string,
+    connectionMap = generateConnectionMap(input),
+    seen: { [computer: string]: true } = {}
 ): string[] {
-    return [];
+    if (!connectionMap[computer] || seen[computer]) return [];
+
+    seen[computer] = true;
+
+    const connectedComputers = Object.keys(connectionMap[computer]).filter(
+        (connectedComputer) =>
+            Object.keys(seen).every(
+                (seenComputer) => connectionMap[seenComputer][connectedComputer]
+            )
+    );
+
+    let largestConnectedGroup: string[] = [];
+
+    for (const connectedComputer of connectedComputers) {
+        const connectedGroup = findLargestInterConnectedGroup(
+            input,
+            connectedComputer,
+            connectionMap,
+            { ...seen }
+        );
+
+        if (connectedGroup.length > largestConnectedGroup.length) {
+            largestConnectedGroup = connectedGroup;
+        }
+    }
+
+    return [computer, ...largestConnectedGroup].sort();
 }
