@@ -1,4 +1,4 @@
-export type Input = string[];
+export type Input = number[];
 
 export async function solveDay22Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-22/input.txt`;
@@ -16,7 +16,7 @@ export async function solveDay22Part2(): Promise<number> {
 
 export async function readPuzzleInput(path: string): Promise<Input> {
     const content = await Deno.readTextFile(path);
-    const lines = content.trim().split("\n");
+    const lines = content.trim().split("\n").map(Number);
 
     return lines;
 }
