@@ -38,7 +38,15 @@ export function prune(secretNumber: number): number {
 }
 
 export function evolve(secretNumber: number, iterations = 1) {
-    return 0;
+    if (iterations === 0) return secretNumber;
+
+    let result = secretNumber;
+
+    result = prune(xor53Bit(result, result * 64));
+    result = prune(mix(result, Math.floor(result / 32)));
+    result = prune(mix(result, result * 2048));
+
+    return evolve(result, iterations - 1);
 }
 
 function xor53Bit(a: number, b: number) {
