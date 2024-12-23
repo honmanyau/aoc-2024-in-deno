@@ -3,6 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 import { expect } from "@std/expect/expect";
 import {
     findInterconnectedComputers,
+    findLargestInterConnectedGroup,
     generateConnectionMap,
     readPuzzleInput,
     solvePart1,
@@ -79,6 +80,22 @@ describe("Day 23", () => {
                 "td,wh,yn",
                 "ub,vc,wq",
             ]);
+        });
+    });
+
+    describe("findLargestInterConncetedgroup", () => {
+        it("returns co, de, ka, ta when starting a search with any of those computers in the example input", async () => {
+            const path = `${Deno.cwd()}/day-23/sample-input.txt`;
+            const input = await readPuzzleInput(path);
+            const result = findLargestInterConnectedGroup(input, "co");
+            const result2 = findLargestInterConnectedGroup(input, "de");
+            const result3 = findLargestInterConnectedGroup(input, "ka");
+            const result4 = findLargestInterConnectedGroup(input, "ta");
+
+            expect(result).toEqual(["co", "de", "ka", "ta"]);
+            expect(result2).toEqual(["co", "de", "ka", "ta"]);
+            expect(result3).toEqual(["co", "de", "ka", "ta"]);
+            expect(result4).toEqual(["co", "de", "ka", "ta"]);
         });
     });
 });

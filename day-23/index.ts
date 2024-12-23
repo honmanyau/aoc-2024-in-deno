@@ -80,3 +80,10 @@ export function findInterconnectedComputers(input: Input): string[] {
 
     return Array.from(interconnectedComputers).sort();
 }
+
+export function findLargestInterConnectedGroup(
+    input: Input,
+    start: string
+): string[] {
+    return [];
+}
