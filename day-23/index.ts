@@ -10,11 +10,12 @@ export async function solveDay23Part1(): Promise<number> {
     return solvePart1(input);
 }
 
-export async function solveDay23Part2(): Promise<number> {
+export async function solveDay23Part2(): Promise<string> {
     const path = `${Deno.cwd()}/day-23/input.txt`;
     const input = await readPuzzleInput(path);
+    const result = solvePart2(input);
 
-    return -1;
+    return result.join(",");
 }
 
 export async function readPuzzleInput(path: string): Promise<Input> {
@@ -35,7 +36,6 @@ export function solvePart1(input: Input): number {
 export function solvePart2(input: Input): string[] {
     const connectionMap = generateConnectionMap(input);
     const computers = Object.keys(connectionMap);
-
     let groups = computers.map((computer) => [computer]);
 
     for (let i = 0; groups.length !== 1; i++) {
