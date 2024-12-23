@@ -2,6 +2,7 @@ import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
 import {
+    dfs,
     findShortestOptimalSequence,
     findShortestOptimalSequence2,
     findShortestPaths,
@@ -10,7 +11,6 @@ import {
     generateSecondRobotSequences,
     getDFSLength,
     getShortestSequenceLength,
-    NUMBER_PAD,
     readPuzzleInput,
     solvePart1,
 } from "./index.ts";
@@ -44,19 +44,19 @@ describe("Day 21", () => {
 
     describe("findShortestPaths()", () => {
         it(`returns [["<"]] the number pad starting at A and ending at 0`, () => {
-            const result = findShortestPaths(NUMBER_PAD, "A", "0");
+            const result = findShortestPaths("A", "0");
 
             expect(result).toEqual([["<"].join("")]);
         });
 
         it(`returns [["<", "^"], ["<", "^"]] the number pad starting at A and ending at 0`, () => {
-            const result = findShortestPaths(NUMBER_PAD, "A", "2");
+            const result = findShortestPaths("A", "2");
 
             expect(result).toEqual([["^", "<"].join(""), ["<", "^"].join("")]);
         });
 
         it(`returns [["^"]] the number pad starting at A and ending at 0`, () => {
-            const result = findShortestPaths(NUMBER_PAD, "A", "5");
+            const result = findShortestPaths("A", "5");
 
             expect(result).toEqual([
                 ["^", "^", "<"].join(""),
@@ -66,7 +66,7 @@ describe("Day 21", () => {
         });
 
         it(`returns [] the number pad starting at 4 and ending at A`, () => {
-            const result = findShortestPaths(NUMBER_PAD, "4", "A");
+            const result = findShortestPaths("4", "A");
 
             expect(result).toEqual([
                 ["v", ">", "v", ">"].join(""),
@@ -225,6 +225,27 @@ describe("Day 21", () => {
             expect(result3).toBe(68);
             expect(result4).toBe(64);
             expect(result5).toBe(64);
+        });
+    });
+
+    describe("dfs()", () => {
+        it(`returns the correct sequences for the code 029A and subsequent sequences using directional keypads`, async () => {
+            for (const code of [
+                "029A",
+                "980A",
+                "179A",
+                "456A",
+                "379A",
+                "805A",
+                "983A",
+                "149A",
+                "413A",
+                "582A",
+            ]) {
+                expect(dfs(code, 0, 3)).toEqual(
+                    getShortestSequenceLength(code)
+                );
+            }
         });
     });
 });
