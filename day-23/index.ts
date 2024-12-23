@@ -1,4 +1,7 @@
 export type Input = string[];
+export type ConnectionMap = {
+    [computer: string]: { [connectedComputer: string]: true };
+};
 
 export async function solveDay23Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-23/input.txt`;
@@ -27,4 +30,8 @@ export function solvePart1(input: Input): number {
 
 export function solvePart2(input: Input): number {
     return -1;
+}
+
+export function generateConnectionMap(input: Input): ConnectionMap {
+    return {};
 }
