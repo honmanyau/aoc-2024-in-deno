@@ -1,4 +1,5 @@
 export type Input = number[];
+export type ChangesAndPriceMap = { [sequence: string]: number };
 
 export async function solveDay22Part1(): Promise<number> {
     const path = `${Deno.cwd()}/day-22/input.txt`;
@@ -51,6 +52,41 @@ export function evolve(secretNumber: number, iterations = 1) {
     result = prune(mix(result, result * 2048));
 
     return evolve(result, iterations - 1);
+}
+
+export function generateChangesAndPriceMap(
+    secretNumber: number,
+    iterations = 1
+): ChangesAndPriceMap {
+    const map: ChangesAndPriceMap = {};
+    const changes = [];
+
+    let currentNumber = secretNumber;
+    let price = Number.MIN_SAFE_INTEGER;
+
+    for (let i = 0; i < 4; i++) {
+        const nextNumber = evolve(currentNumber);
+        const change = (nextNumber % 10) - (currentNumber % 10);
+
+        changes.push(change);
+        currentNumber = nextNumber;
+        price = nextNumber % 10;
+    }
+
+    map[changes.join(",")] = price;
+
+    for (let i = 4; i < iterations; i++) {
+        const nextNumber = evolve(currentNumber);
+        const change = (nextNumber % 10) - (currentNumber % 10);
+
+        changes.shift();
+        changes.push(change);
+        currentNumber = nextNumber;
+        price = nextNumber % 10;
+        map[changes.join(",")] = price;
+    }
+
+    return map;
 }
 
 function xor53Bit(a: number, b: number) {

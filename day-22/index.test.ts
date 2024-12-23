@@ -1,7 +1,14 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { evolve, mix, prune, readPuzzleInput, solvePart1 } from "./index.ts";
+import {
+    evolve,
+    generateChangesAndPriceMap,
+    mix,
+    prune,
+    readPuzzleInput,
+    solvePart1,
+} from "./index.ts";
 
 describe("Day 22", () => {
     describe("readPuzzleInput()", () => {
@@ -54,6 +61,21 @@ describe("Day 22", () => {
             expect(evolve(123, 8)).toBe(12249484);
             expect(evolve(123, 9)).toBe(7753432);
             expect(evolve(123, 10)).toBe(5908254);
+        });
+    });
+
+    describe("generateChangesAndPriceMap()", () => {
+        it("returns the expected changes and price map for the first 10 steps of the secret number 123", async () => {
+            const result = generateChangesAndPriceMap(123, 9);
+
+            expect(result).toEqual({
+                "-3,6,-1,-1": 4,
+                "6,-1,-1,0": 4,
+                "-1,-1,0,2": 6,
+                "-1,0,2,-2": 4,
+                "0,2,-2,0": 4,
+                "2,-2,0,-2": 2,
+            });
         });
     });
 });
