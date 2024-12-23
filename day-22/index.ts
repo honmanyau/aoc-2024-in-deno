@@ -64,26 +64,17 @@ export function generateChangesAndPriceMap(
     let currentNumber = secretNumber;
     let price = Number.MIN_SAFE_INTEGER;
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < iterations; i++) {
         const nextNumber = evolve(currentNumber);
         const change = (nextNumber % 10) - (currentNumber % 10);
+
+        if (i > 3) changes.shift();
 
         changes.push(change);
         currentNumber = nextNumber;
         price = nextNumber % 10;
-    }
 
-    map[changes.join(",")] = price;
-
-    for (let i = 4; i < iterations; i++) {
-        const nextNumber = evolve(currentNumber);
-        const change = (nextNumber % 10) - (currentNumber % 10);
-
-        changes.shift();
-        changes.push(change);
-        currentNumber = nextNumber;
-        price = nextNumber % 10;
-        map[changes.join(",")] = price;
+        if (i >= 3) map[changes.join(",")] = price;
     }
 
     return map;
