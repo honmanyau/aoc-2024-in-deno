@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 
 import { expect } from "@std/expect/expect";
-import { mix, prune, readPuzzleInput } from "./index.ts";
+import { evolve, mix, prune, readPuzzleInput } from "./index.ts";
 
 describe("Day 22", () => {
     describe("readPuzzleInput()", () => {
@@ -36,6 +36,21 @@ describe("Day 22", () => {
     describe("prune()", () => {
         it("returns 16113920 for the secret number 100000000", () => {
             expect(prune(100000000)).toBe(16113920);
+        });
+    });
+
+    describe("evolve()", () => {
+        it("returns the expected sequence when evolving the secret number 10 times", () => {
+            expect(evolve(123)).toBe(15887950);
+            expect(evolve(123, 2)).toBe(16495136);
+            expect(evolve(123, 3)).toBe(527345);
+            expect(evolve(123, 4)).toBe(704524);
+            expect(evolve(123, 5)).toBe(1553684);
+            expect(evolve(123, 6)).toBe(12683156);
+            expect(evolve(123, 7)).toBe(11100544);
+            expect(evolve(123, 8)).toBe(12249484);
+            expect(evolve(123, 9)).toBe(7753432);
+            expect(evolve(123, 10)).toBe(5908254);
         });
     });
 });

@@ -37,6 +37,10 @@ export function prune(secretNumber: number): number {
     return secretNumber % 16777216;
 }
 
+export function evolve(secretNumber: number, iterations = 1) {
+    return 0;
+}
+
 function xor53Bit(a: number, b: number) {
     if (a > Number.MAX_SAFE_INTEGER || b > Number.MAX_SAFE_INTEGER) {
         throw new Error("Unsupported operation!");
