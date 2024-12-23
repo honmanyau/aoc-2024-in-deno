@@ -751,7 +751,7 @@ export function dfs(
         const nextSubsequences = findShortestSequences(subsequence);
         const nextSubsequenceLengths = nextSubsequences.map(
             (nextSubsequence) => {
-                return (
+                const nextSubsequenceLength =
                     lengthMemo[nextSubsequence]?.[depth] ??
                     dfs(
                         nextSubsequence,
@@ -759,8 +759,12 @@ export function dfs(
                         maxDepth,
                         sequenceMemo,
                         lengthMemo
-                    )
-                );
+                    );
+
+                lengthMemo[nextSubsequence] ||= {};
+                lengthMemo[nextSubsequence][depth] = nextSubsequenceLength;
+
+                return nextSubsequenceLength;
             }
         );
 
@@ -770,3 +774,11 @@ export function dfs(
 
     return length;
 }
+
+performance.mark("start");
+console.log("AYA: dfs", dfs("805A", 0, 26));
+performance.mark("end");
+console.log(
+    "AYA: MEASURE",
+    performance.measure("Result", "start", "end").duration / 1000
+);
